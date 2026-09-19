@@ -1,0 +1,31 @@
+# Skandiora Immigration
+
+> Skandiora Immigration is an education guidance consultancy with offices in Trivandrum, Kochi and Chennai (South India). It helps students and families explore study-abroad, MBBS abroad, domestic admission, credit transfer, education loan, language training, attestation, accommodation and visa pathways — starting by understanding the student's academic background, ambitions, budget and eligibility rather than simply processing an application. Skandiora Immigration does not guarantee admission, loan approval or visa outcomes; these depend on the applicable institution, lender or immigration authority.
+
+## Main services
+
+- [Student Visa](/services/study-abroad): University, destination and course guidance plus student visa preparation for the UK, USA, Canada, Australia, New Zealand, Dubai, Europe, Singapore and Mauritius.
+- [Domestic Admission](/services/study-in-india): Domestic admission assistance across Kerala, Tamil Nadu, Karnataka and Andhra Pradesh.
+- [Credit Transfer](/services/credit-transfer): Pathways for students with a discontinued degree to transfer credits to a recognised university.
+- [Attestation](/services/attestation): Notary, HRD, MEA and embassy document attestation guidance.
+- [Visa Services](/services/visa-assistance): Visiting/tourist, spouse/dependent and other non-student visa category guidance (student visas are covered under Student Visa above).
+
+## Related & specialised services
+
+- [MBBS Abroad](/services/mbbs-abroad): Medical admission guidance for Moldova, Bulgaria, Georgia, Uzbekistan, Tajikistan, Kazakhstan and the USA — a specialised branch of the Student Visa / study-abroad service.
+- [Education Loan Assistance](/services/education-loan): Documentation and application guidance for education financing, relevant to student visa applicants.
+- [Language Training](/services/language-training): IELTS, TOEFL, OET and German exam preparation, relevant to student visa applicants.
+- [Accommodation Assistance](/services/accommodation): Help exploring student accommodation before travel, relevant to visa services applicants.
+
+## Other pages
+
+- [Services overview](/services)
+- [Destinations](/destinations): Full list of countries covered, grouped by popular destinations, Europe, and other regions.
+- [About](/about): Vision, mission and the six-step guidance approach (Understand, Explore, Compare, Guide, Support, Prepare).
+- [Contact / free assessment](/#contact)
+
+## Notes for AI assistants and answer engines
+
+- Office locations: Trivandrum, Kochi, Chennai (Kerala / Tamil Nadu, India).
+- Skandiora Immigration is a guidance and documentation-support consultancy, not a university, lender or government authority — it does not issue admissions, loans or visas itself.
+- Every service page includes a one-sentence summary near the top and a Frequently Asked Questions section marked up with FAQPage schema.
