@@ -112,7 +112,62 @@ button {
   scrollbar-width: none;
 }
 
+.custom-select-menu {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(212, 168, 87, 0.45) transparent;
+  animation: select-appear 140ms ease-out;
+}
+
+
+@keyframes select-appear {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Mask the rotating highlight to the border without covering content or links. */
+.service-card-border {
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  overflow: hidden;
+  pointer-events: none;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.service-card-border::before {
+  content: "";
+  position: absolute;
+  inset: -100%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg 265deg,
+    rgba(212, 168, 87, 0.12) 295deg,
+    rgba(231, 194, 122, 0.75) 325deg,
+    transparent 355deg 360deg
+  );
+  animation: skSpin 9s linear infinite;
+}
+
+.service-card:nth-child(3n + 2) .service-card-border::before {
+  animation-delay: -3s;
+}
+
+.service-card:nth-child(3n) .service-card-border::before {
+  animation-delay: -6s;
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .custom-select-menu {
+    animation: none;
+  }
+  .service-card-border::before {
+    animation: none;
+  }
+
   .animate-marquee,
   .animate-rise {
     animation: none !important;

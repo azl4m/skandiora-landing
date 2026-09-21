@@ -65,15 +65,15 @@ export const services: ServicePage[] = [
     icon: "🎓",
     navTitle: "Student Visa",
     cardBody:
-      "University shortlisting, course guidance and student visa support across the UK, USA, Canada, Australia, Europe and more.",
+      "Study abroad, MBBS and student visa guidance for the UK, USA, Canada, Australia, New Zealand, Europe and more.",
     cardPoints: [
       "20+ destinations explored with you",
       "Course and university shortlisting",
       "SOP, documentation and student visa preparation",
     ],
-    metaTitle: "Student Visa & Study Abroad Consultants in Kerala — Skandiora Immigration",
+    metaTitle: "Study Abroad & Student Visa Consultants in Kerala",
     metaDescription:
-      "Student visa and study-abroad consultancy in Trivandrum, Kochi and Chennai helping students choose the right destination and course across the UK, USA, Canada, Australia, Europe and more.",
+      "Explore study abroad and MBBS options with Skandiora in Kerala. Course guidance, admissions, student visa and arrival support. Request a free consultation.",
     summary:
       "Skandiora Immigration is a student visa and study-abroad consultancy that helps students in Kerala and across South India choose the right destination, course and university, then prepare a clear student visa application — not just process admissions.",
     eyebrow: "Student visa",
@@ -323,7 +323,7 @@ export const services: ServicePage[] = [
     slug: "credit-transfer",
     icon: "🔄",
     navTitle: "Credit Transfer",
-    cardBody: "Discontinued your degree? Explore eligible credit-transfer pathways to a recognised university.",
+    cardBody: "Discontinued your degree, B.Tech, diploma or PG? Explore eligible credit-transfer pathways to continue your studies.",
     cardPoints: [
       "Academic profile and credit review",
       "Recognised university options",

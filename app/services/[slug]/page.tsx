@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import ServiceDetail from "@/components/ServiceDetail";
+import StudyAbroadDetail from "@/components/StudyAbroadDetail";
 import { services, getService } from "@/data/services";
 
 export function generateStaticParams() {
@@ -31,5 +32,6 @@ export default async function ServiceSlugPage({
   const { slug } = await params;
   const service = getService(slug);
   if (!service) notFound();
+  if (slug === "study-abroad") return <StudyAbroadDetail service={service} />;
   return <ServiceDetail service={service} />;
 }
