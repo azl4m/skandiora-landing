@@ -26,13 +26,17 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Invalid submission" }, { status: 400 });
   }
 
-  const { name, phone, service, destination, message, company } = parsed.data;
+  const { name, phone, service, destination, course, message, company } = parsed.data;
   if (company) {
     return NextResponse.json({ ok: true });
   }
 
   const resendKey = process.env.RESEND_API_KEY;
-  if (resendKey) {
+  const resendFrom = process.env.RESEND_FROM_EMAIL;
+  if (!resendKey || !resendFrom) {
+    return NextResponse.json({ error: "Enquiry delivery is not configured" }, { status: 503 });
+  }
+  try {
     const res = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
@@ -40,17 +44,18 @@ export async function POST(req: NextRequest) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: "Skandiora website <onboarding@resend.dev>",
-        to: site.email,
+        from: resendFrom,
+        to: process.env.ENQUIRY_TO_EMAIL || site.email,
         subject: `New enquiry — ${name}`,
-        text: `Name: ${name}\nPhone: ${phone}\nService: ${service}\nPreferred destination: ${destination ?? "—"}\nMessage: ${message ?? "—"}`,
+        text: `Name: ${name}\nPhone: ${phone}\nService: ${service}\nCourse: ${course || "Not specified"}\nPreferred destination: ${destination || "Not sure yet"}\nMessage: ${message ?? "—"}`,
       }),
+      signal: AbortSignal.timeout(15_000),
     });
     if (!res.ok) {
       return NextResponse.json({ error: "Could not send enquiry" }, { status: 502 });
     }
-  } else {
-    console.log("[enquiry]", { name, phone, service, destination, message });
+  } catch {
+    return NextResponse.json({ error: "Could not send enquiry" }, { status: 502 });
   }
 
   return NextResponse.json({ ok: true });

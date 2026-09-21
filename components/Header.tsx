@@ -2,11 +2,14 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import Logo from "./Logo";
 import { navLinks } from "@/data/site";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
+  const enquiryHref = pathname === "/services/study-abroad" ? "#contact" : "/#contact";
 
   return (
     <header className="sticky top-0 z-50 bg-[#070D18]/86 backdrop-blur-md border-b border-gold/16">
@@ -29,7 +32,7 @@ export default function Header() {
               ))}
             </div>
             <Link
-              href="/#contact"
+              href={enquiryHref}
               className="bg-gold text-[#0A1220] px-5.5 py-3 rounded-full text-[13px] tracking-[0.08em] uppercase hover:text-white transition-colors"
             >
               Free consultation
@@ -61,7 +64,7 @@ export default function Header() {
             </Link>
           ))}
           <Link
-            href="/#contact"
+            href={enquiryHref}
             onClick={() => setMenuOpen(false)}
             className="mt-3 text-center bg-gold text-[#0A1220] py-3.5 px-5.5 rounded-full text-[13px] tracking-[0.08em] uppercase"
           >
