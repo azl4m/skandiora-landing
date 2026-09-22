@@ -20,7 +20,7 @@ const studentVisaLabel = services.find((s) => s.slug === "study-abroad")?.navTit
 const fieldClass =
   "w-full min-w-0 min-h-12 border border-gold/26 rounded-[10px] py-3 min-[640px]:py-3.5 px-3.5 text-[16px] text-[#EAF0FA] bg-[#0C1524] tracking-normal normal-case focus:outline-none focus:ring-2 focus:ring-gold/40 focus:border-gold";
 
-export default function ContactForm({ studyAbroad = false }: { studyAbroad?: boolean }) {
+export default function ContactForm({ studyAbroad = false, creditTransfer = false }: { studyAbroad?: boolean; creditTransfer?: boolean }) {
   const [status, setStatus] = useState<"idle" | "opening" | "error">("idle");
   const [detailsOpen, setDetailsOpen] = useState(false);
   const detailsId = useId();
@@ -34,15 +34,15 @@ export default function ContactForm({ studyAbroad = false }: { studyAbroad?: boo
     formState: { errors },
   } = useForm<EnquiryInput>({
     resolver: zodResolver(enquirySchema),
-    defaultValues: { service: serviceOptions[0], destination: "", course: "", company: "" },
+    defaultValues: { service: creditTransfer ? "Credit Transfer" : studyAbroad ? studentVisaLabel : serviceOptions[0], destination: "", course: "", company: "" },
   });
 
   useEffect(() => {
     const destination = new URLSearchParams(window.location.search).get("destination");
-    if (!destination) return;
+    if (!destination || creditTransfer) return;
     setValue("destination", destination);
     setValue("service", studentVisaLabel);
-  }, [setValue]);
+  }, [setValue, creditTransfer]);
 
   useEffect(() => {
     if (!studyAbroad) return;
@@ -71,13 +71,13 @@ export default function ContactForm({ studyAbroad = false }: { studyAbroad?: boo
   return (
     <form
       onSubmit={handleSubmit(onSubmit, (invalid) => {
-        const hiddenError = (["qualification", "intake", "language", "message"] as const).find((name) => invalid[name]);
+        const hiddenError = (["qualification", "intake", "message"] as const).find((name) => invalid[name]);
         if (hiddenError) {
           setDetailsOpen(true);
           requestAnimationFrame(() => setFocus(hiddenError));
         }
       })}
-      aria-label={studyAbroad ? "Study abroad consultation enquiry" : "Enquiry form"}
+      aria-label={creditTransfer ? "Credit transfer consultation enquiry" : studyAbroad ? "Study abroad consultation enquiry" : "Enquiry form"}
       className="min-w-0 bg-[#101A2B] border border-gold/16 rounded-[18px] min-[640px]:rounded-[22px] p-4 min-[400px]:p-5 min-[640px]:p-8 flex flex-col gap-3.5 min-[640px]:gap-4 shadow-[0_24px_50px_rgba(0,0,0,0.5)]"
     >
       {studyAbroad && (
@@ -101,7 +101,14 @@ export default function ContactForm({ studyAbroad = false }: { studyAbroad?: boo
       </div>
 
       <div className="grid grid-cols-1 min-[420px]:grid-cols-[repeat(auto-fit,minmax(160px,1fr))] gap-4">
-        {studyAbroad ? <>
+        {creditTransfer ? <>
+          <input type="hidden" {...register("service")} />
+          <label className="flex flex-col gap-1.5 text-xs tracking-[0.14em] uppercase text-muted">
+            Previous course (optional)
+            <input type="text" placeholder="e.g. B.Tech, B.Com or Diploma" aria-invalid={!!errors.course} className={fieldClass} {...register("course")} />
+            {errors.course && <span className="normal-case tracking-normal text-[#e3897f] text-xs">{errors.course.message}</span>}
+          </label>
+        </> : studyAbroad ? <>
           <input type="hidden" {...register("service")} />
           <Controller name="course" control={control} render={({ field, fieldState }) => (
             <SelectField label="Course interest" name={field.name} value={field.value ?? ""} onChange={field.onChange} onBlur={field.onBlur} triggerRef={field.ref} error={fieldState.error?.message}
@@ -111,14 +118,15 @@ export default function ContactForm({ studyAbroad = false }: { studyAbroad?: boo
           <SelectField label="Service needed" name={field.name} value={field.value} onChange={field.onChange} onBlur={field.onBlur} triggerRef={field.ref} error={fieldState.error?.message}
             options={serviceOptions.map((service) => ({ value: service, label: service }))} />
         )} />}
-        <Controller name="destination" control={control} render={({ field, fieldState }) => (
+        {!creditTransfer && <Controller name="destination" control={control} render={({ field, fieldState }) => (
           <SelectField label="Preferred destination" name={field.name} value={field.value ?? ""} onChange={field.onChange} onBlur={field.onBlur} triggerRef={field.ref} error={fieldState.error?.message}
             options={[{ value: "", label: "Not sure yet" }, ...enquiryDestinations.map((destination) => ({ value: destination, label: destination }))]} />
-        )} />
+        )} />}
       </div>
 
+      {!creditTransfer && <>
       <button type="button" aria-expanded={detailsOpen} aria-controls={detailsId} onClick={() => setDetailsOpen((open) => !open)} className="min-[640px]:hidden flex min-h-12 items-center justify-between gap-3 rounded-xl border border-gold/20 px-3.5 py-3 text-left focus-visible:outline-2 focus-visible:outline-gold">
-        <span><span className="block text-sm text-cream">{studyAbroad ? "Add academic details" : "Add your qualification & goal"}</span><span className="block text-xs text-muted mt-0.5">{studyAbroad ? "Qualification, intake, language or a note · Optional" : "Optional — share a little more"}</span></span>
+        <span><span className="block text-sm text-cream">{studyAbroad ? "Add academic details" : "Add your qualification & goal"}</span><span className="block text-xs text-muted mt-0.5">{studyAbroad ? "Qualification and intake · Optional" : "Optional — share a little more"}</span></span>
         <ChevronDown size={18} aria-hidden="true" className={`shrink-0 text-gold transition-transform motion-reduce:transition-none ${detailsOpen ? "rotate-180" : ""}`} />
       </button>
       <div id={detailsId} className={`${detailsOpen ? "flex" : "hidden"} min-[640px]:flex flex-col gap-4`}>
@@ -127,9 +135,8 @@ export default function ContactForm({ studyAbroad = false }: { studyAbroad?: boo
           {([
             { name: "qualification", label: "Education qualification", placeholder: "e.g. Plus Two, B.Tech, diploma" },
             { name: "intake", label: "Preferred intake", placeholder: "e.g. September 2027 / not sure" },
-            { name: "language", label: "Language / test details", placeholder: "e.g. IELTS 6.5, German B1, not taken" },
           ] as const).map((field) => (
-            <label key={field.name} className={`min-w-0 flex flex-col gap-1.5 text-xs tracking-[0.14em] uppercase text-muted ${field.name === "language" ? "col-span-full" : ""}`}>
+            <label key={field.name} className="min-w-0 flex flex-col gap-1.5 text-xs tracking-[0.14em] uppercase text-muted">
               {field.label} <span className="text-[10px] normal-case tracking-normal">Optional</span>
               <input type="text" placeholder={field.placeholder} aria-invalid={!!errors[field.name]} className={fieldClass} {...register(field.name)} />
               {errors[field.name] && <span className="normal-case tracking-normal text-[#e3897f] text-xs">{errors[field.name]?.message}</span>}
@@ -138,19 +145,20 @@ export default function ContactForm({ studyAbroad = false }: { studyAbroad?: boo
         </div>
       )}
 
-      <label className="flex flex-col gap-1.5 text-xs tracking-[0.14em] uppercase text-muted">
-        {studyAbroad ? "Anything we should know? (optional)" : "Your qualification & goal"}
+      {!studyAbroad && <label className="flex flex-col gap-1.5 text-xs tracking-[0.14em] uppercase text-muted">
+        Your qualification & goal
         <textarea
-          rows={studyAbroad ? 2 : 4}
-          placeholder={studyAbroad ? "Your marks, budget or a question…" : "e.g. B.Tech 3rd year, 4 backlogs, want to transfer credits"}
+          rows={4}
+          placeholder="e.g. B.Tech 3rd year, 4 backlogs, want to transfer credits"
           className={`${fieldClass} resize-y`}
           {...register("message")}
         />
         {errors.message && <span className="normal-case tracking-normal text-[#e3897f] text-xs">{errors.message.message}</span>}
-      </label>
+      </label>}
 
       </div>
 
+      </>}
       <input
         type="text"
         tabIndex={-1}

@@ -329,36 +329,44 @@ export const services: ServicePage[] = [
       "Recognised university options",
       "Application support end to end",
     ],
-    metaTitle: "Credit Transfer for Discontinued Degrees — Skandiora Immigration",
+    metaTitle: "Credit Transfer Assistance in Kerala — Skandiora Immigration",
     metaDescription:
-      "Stopped your degree? Skandiora Immigration helps students in Kerala and South India explore eligible credit-transfer pathways to a recognised university, with full application support.",
+      "Explore credit transfer for interrupted Degree, Diploma, B.Tech or Master's studies with Skandiora Immigration in Kerala. Academic review and admission support.",
     summary:
-      "Skandiora Immigration helps students with a discontinued degree explore eligible credit-transfer pathways to continue their education at a recognised university using their existing academic credits.",
-    eyebrow: "Stopped your degree?",
+      "Skandiora Immigration provides credit transfer assistance for students in Kerala and across South India whose Degree, Diploma, B.Tech or Master's studies have been interrupted by academic backlogs, pending subjects or a break in education.",
+    eyebrow: "Credit transfer assistance",
     featured: true,
-    headlineLines: ["Your education journey may not have to end there."],
+    headlineLines: ["Your education journey can continue."],
     intro: [
-      "Life can interrupt education. A discontinued degree does not necessarily mean you have to give up on your academic goals.",
-      "If you have previously completed part of a programme or accumulated academic credits, we can help you explore eligible credit-transfer pathways.",
+      "Your past academic progress still matters. We help you explore opportunities to transfer eligible academic credits to a university that matches your academic background and requirements, subject to its assessment and acceptance.",
+      "Explore university options in South India and North India, with guidance from academic record review and credit assessment preparation to university selection, documentation and admission support.",
     ],
     checklist: {
-      heading: "Our support",
+      heading: "How we help with credit transfer",
       items: [
-        "Academic profile review",
-        "Previous-credit documentation guidance",
-        "University option exploration",
-        "Credit-transfer process guidance",
-        "Application support",
+        "Academic record evaluation and profile review",
+        "Guidance on preparing records for university credit assessment",
+        "University selection across South India and North India",
+        "Documentation and credit-transfer process guidance",
+        "Application and admission support",
       ],
     },
-    closingHeadline: "Have previous credits?",
-    closingBody: "Let's explore what options may be available to you.",
+    closingHeadline: "Your journey may have taken a different path. Your goal can still move forward.",
+    closingBody: "Speak with our admissions team to understand your credit transfer options and take the next step towards completing your qualification.",
     disclaimer:
       "Credit transfer is subject to evaluation and acceptance by the respective university. Final decisions depend on the institution's academic policies, eligibility requirements and assessment of previous studies.",
     faqs: [
       {
         q: "What is credit transfer and who is it for?",
-        a: "Credit transfer is for students who have discontinued a degree but previously completed part of a programme or accumulated academic credits. We help you explore eligible pathways to continue your education at a recognised university using those credits.",
+        a: "Credit transfer allows a university to assess credits earned during previous studies for use towards another programme. Skandiora Immigration helps students with interrupted Degree, Diploma, B.Tech or Master's studies explore suitable options, subject to the receiving university's requirements.",
+      },
+      {
+        q: "Can I explore credit transfer if I have backlogs or pending subjects?",
+        a: "You can request an academic profile review if backlogs or pending subjects have interrupted your studies. The receiving university decides which completed credits it can accept and what subjects or other requirements remain. Admission and credit acceptance are not guaranteed.",
+      },
+      {
+        q: "Do you help with university options in South India and North India?",
+        a: "Yes. We help you explore university options in South India and North India based on your academic background, previous studies and requirements. Suitable options depend on programme availability and the university's credit-transfer policies.",
       },
       {
         q: "Will all my previous credits be accepted?",
@@ -366,7 +374,7 @@ export const services: ServicePage[] = [
       },
       {
         q: "What does Skandiora Immigration help with in a credit-transfer case?",
-        a: "Academic profile review, previous-credit documentation guidance, university option exploration, credit-transfer process guidance and application support.",
+        a: "We provide academic record review, guidance on preparing for credit assessment, university selection, documentation and admission support. The receiving university makes the final decision on eligibility and the credits it accepts.",
       },
     ],
   },
