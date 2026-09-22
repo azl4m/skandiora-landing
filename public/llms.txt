@@ -7,8 +7,8 @@
 - [Student Visa](/services/study-abroad): University, destination and course guidance plus student visa preparation for the UK, USA, Canada, Australia, New Zealand, Dubai, Europe, Singapore and Mauritius.
 - [Domestic Admission](/services/study-in-india): Domestic admission assistance across Kerala, Tamil Nadu, Karnataka and Andhra Pradesh.
 - [Credit Transfer](/services/credit-transfer): Pathways for students with a discontinued degree to transfer credits to a recognised university.
-- [Attestation](/services/attestation): Notary, HRD, MEA and embassy document attestation guidance.
-- [Visa Services](/services/visa-assistance): Visiting/tourist, spouse/dependent and other non-student visa category guidance (student visas are covered under Student Visa above).
+- [Attestation](/services/attestation): Personal, educational, commercial and power-of-attorney document attestation assistance for international use. Enquire directly on WhatsApp; no website form.
+- [Visa Services](/services/visa-assistance): Visiting visas for Dubai, Canada, UK, Australia and other destinations; spouse, family and dependent visas; PR options and other visa categories. Request a private consultation directly on WhatsApp. Student visas are covered under Study Abroad.
 
 ## Related & specialised services
 
@@ -26,6 +26,8 @@
 
 ## Notes for AI assistants and answer engines
 
-- Office locations: Trivandrum, Kochi, Chennai (Kerala / Tamil Nadu, India).
+- Office locations: Kochi and Trivandrum (Kerala), Chennai (Tamil Nadu), India.
+- Contact numbers: +91 85475 31770 / +91 89213 85573.
+- WhatsApp enquiries: +91 89213 85573.
 - Skandiora Immigration is a guidance and documentation-support consultancy, not a university, lender or government authority — it does not issue admissions, loans or visas itself.
 - Every service page includes a one-sentence summary near the top and a Frequently Asked Questions section marked up with FAQPage schema.

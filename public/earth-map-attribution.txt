@@ -1,0 +1,4 @@
+Earth land outlines: Natural Earth, 1:110m land dataset (public domain).
+Source: https://github.com/nvkelso/natural-earth-vector/blob/master/geojson/ne_110m_land.geojson
+Dataset information: https://www.naturalearthdata.com/about/terms-of-use/
+earth-map.svg is a locally generated equirectangular rendering of these outlines.

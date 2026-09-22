@@ -1,178 +1,141 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { useEffect, useId, useState } from "react";
+import { Controller, useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { enquirySchema, type EnquiryInput } from "@/lib/enquiry-schema";
+import { cleanPhoneInput, enquiryLimits, enquirySchema, type EnquiryInput } from "@/lib/enquiry-schema";
 import { services, destinationOptions } from "@/data/services";
 import { studyCourses } from "@/data/study-abroad";
+import { domesticCourses, domesticStates } from "@/data/domestic-admissions";
+import { mbbsDestinations } from "@/data/mbbs-destinations";
 import { site } from "@/data/site";
 import { whatsappEnquiryUrl } from "@/lib/whatsapp-enquiry";
-import SelectField from "./SelectField";
-import { featuredMbbsDestinations } from "@/data/mbbs-destinations";
-import { ChevronDown } from "lucide-react";
-import { useId } from "react";
+import SelectField, { type SelectOption } from "./SelectField";
 
-const serviceOptions = services.map((s) => s.navTitle);
-const enquiryDestinations = [...new Set([...destinationOptions, ...featuredMbbsDestinations.map((destination) => destination.name)])];
-const studentVisaLabel = services.find((s) => s.slug === "study-abroad")?.navTitle ?? serviceOptions[0];
+type FormVariant = "general" | "study-abroad" | "mbbs" | "credit-transfer" | "domestic";
+type FieldName = "name" | "phone" | "qualification" | "destination" | "course" | "intake" | "service" | "message";
+type FormField = { name: FieldName; label: string; placeholder?: string; optional?: boolean; wide?: boolean; options?: SelectOption[] };
 
-const fieldClass =
-  "w-full min-w-0 min-h-12 border border-gold/26 rounded-[10px] py-3 min-[640px]:py-3.5 px-3.5 text-[16px] text-[#EAF0FA] bg-[#0C1524] tracking-normal normal-case focus:outline-none focus:ring-2 focus:ring-gold/40 focus:border-gold";
+const serviceOptions = services.map((service) => service.navTitle);
+const enquiryDestinations = [...new Set([...destinationOptions, ...mbbsDestinations.map((destination) => destination.name)])];
+const toOptions = (values: readonly string[]) => values.map((value) => ({ value, label: value }));
+const unsureOption = { value: "", label: "Not sure yet" };
+const fixedServices = {
+  "study-abroad": services.find((service) => service.slug === "study-abroad")?.navTitle ?? serviceOptions[0],
+  mbbs: "MBBS Abroad", "credit-transfer": "Credit Transfer", domestic: "Domestic Admission",
+};
+const fieldClass = "w-full min-w-0 min-h-[54px] border border-gold/26 rounded-[10px] py-3.5 px-3.5 text-base text-[#EAF0FA] bg-[#0C1524] tracking-normal normal-case focus:outline-none focus:ring-2 focus:ring-gold/40 focus:border-gold aria-invalid:border-[#e3897f]";
 
-export default function ContactForm({ studyAbroad = false, creditTransfer = false }: { studyAbroad?: boolean; creditTransfer?: boolean }) {
+function fieldsFor(variant: FormVariant): FormField[] {
+  const fields: FormField[] = [
+    { name: "name", label: "Full name", placeholder: "Your name" },
+    { name: "phone", label: "Phone / WhatsApp", placeholder: "Your phone number" },
+  ];
+  const qualification: FormField = { name: "qualification", label: "Qualification", placeholder: "e.g. Plus Two, B.Tech or Diploma" };
+  const course: FormField = { name: "course", label: "Course you’re looking for", options: [unsureOption, ...toOptions((variant === "domestic" ? domesticCourses : studyCourses).map((item) => item.name))] };
+  const destination: FormField = {
+    name: "destination", label: variant === "domestic" ? "Preferred state" : "Preferred destination",
+    options: [unsureOption, ...toOptions(variant === "domestic" ? domesticStates : variant === "mbbs" ? mbbsDestinations.map((item) => item.name) : enquiryDestinations)],
+  };
+  if (variant === "domestic") return [...fields, qualification, destination, { ...course, wide: true }];
+  if (variant === "credit-transfer") return [...fields, { name: "course", label: "Previous course", placeholder: "e.g. B.Tech, B.Com or Diploma", optional: true, wide: true }];
+  if (variant === "general") return [...fields,
+    { name: "service", label: "Service needed", options: toOptions(serviceOptions) }, destination,
+    { ...qualification, optional: true, wide: true },
+    { name: "message", label: "Your question or goal", placeholder: "Tell us what you would like help with", optional: true, wide: true },
+  ];
+  return [...fields, { ...course, label: "Course interest" }, destination,
+    { ...qualification, label: "Education qualification", optional: true },
+    { name: "intake", label: "Preferred intake", placeholder: "e.g. September 2027 / not sure", optional: true },
+  ];
+}
+
+export default function ContactForm({ variant = "general" }: { variant?: FormVariant }) {
   const [status, setStatus] = useState<"idle" | "opening" | "error">("idle");
-  const [detailsOpen, setDetailsOpen] = useState(false);
-  const detailsId = useId();
-
-  const {
-    register,
-    control,
-    handleSubmit,
-    setValue,
-    setFocus,
-    formState: { errors },
-  } = useForm<EnquiryInput>({
-    resolver: zodResolver(enquirySchema),
-    defaultValues: { service: creditTransfer ? "Credit Transfer" : studyAbroad ? studentVisaLabel : serviceOptions[0], destination: "", course: "", company: "" },
+  const formId = useId();
+  const fields = fieldsFor(variant);
+  const { register, control, handleSubmit, setValue, setFocus, formState: { errors } } = useForm<EnquiryInput>({
+    resolver: zodResolver(enquirySchema), mode: "onTouched", reValidateMode: "onChange", shouldFocusError: false,
+    defaultValues: { name: "", phone: "", qualification: "", service: variant === "general" ? serviceOptions[0] : fixedServices[variant], destination: "", course: variant === "mbbs" ? "MBBS & Medicine" : "", intake: "", message: "", company: "" },
   });
+  const selectedService = useWatch({ control, name: "service" });
 
   useEffect(() => {
     const destination = new URLSearchParams(window.location.search).get("destination");
-    if (!destination || creditTransfer) return;
+    const options = fieldsFor(variant).find((field) => field.name === "destination")?.options;
+    if (!destination || !options?.some((option) => option.value === destination)) return;
     setValue("destination", destination);
-    setValue("service", studentVisaLabel);
-  }, [setValue, creditTransfer]);
+    if (variant === "general") setValue("service", fixedServices["study-abroad"]);
+  }, [setValue, variant]);
 
   useEffect(() => {
-    if (!studyAbroad) return;
+    if (variant === "general" || variant === "credit-transfer") return;
     const selectInterest = (event: Event) => {
-      const { course, destination } = (event as CustomEvent<{ course?: string; destination?: string }>).detail;
-      if (course) setValue("course", course, { shouldDirty: true });
-      if (destination) setValue("destination", destination, { shouldDirty: true });
+      const detail = (event as CustomEvent<{ course?: string; destination?: string }>).detail;
+      if (!detail) return;
+      for (const name of ["course", "destination"] as const) {
+        const value = detail[name];
+        const options = fieldsFor(variant).find((field) => field.name === name)?.options;
+        if (value && options?.some((option) => option.value === value)) setValue(name, value, { shouldDirty: true, shouldValidate: true });
+      }
       setStatus("idle");
     };
     window.addEventListener("study-enquiry", selectInterest);
     return () => window.removeEventListener("study-enquiry", selectInterest);
-  }, [setValue, studyAbroad]);
+  }, [setValue, variant]);
 
   const onSubmit = (data: EnquiryInput) => {
     try {
       setStatus("opening");
       window.location.assign(whatsappEnquiryUrl(site.phoneHref, data));
-    } catch {
-      setStatus("error");
-    }
+    } catch { setStatus("error"); }
   };
 
-  const submitLabel =
-    status === "opening" ? "Open WhatsApp again" : "Continue to WhatsApp";
-
   return (
-    <form
+    <form noValidate
       onSubmit={handleSubmit(onSubmit, (invalid) => {
-        const hiddenError = (["qualification", "intake", "message"] as const).find((name) => invalid[name]);
-        if (hiddenError) {
-          setDetailsOpen(true);
-          requestAnimationFrame(() => setFocus(hiddenError));
-        }
+        setStatus("idle");
+        const first = fields.find((field) => invalid[field.name]);
+        if (first) setFocus(first.name);
       })}
-      aria-label={creditTransfer ? "Credit transfer consultation enquiry" : studyAbroad ? "Study abroad consultation enquiry" : "Enquiry form"}
-      className="min-w-0 bg-[#101A2B] border border-gold/16 rounded-[18px] min-[640px]:rounded-[22px] p-4 min-[400px]:p-5 min-[640px]:p-8 flex flex-col gap-3.5 min-[640px]:gap-4 shadow-[0_24px_50px_rgba(0,0,0,0.5)]"
+      aria-label={`${variant === "general" ? "General" : fixedServices[variant]} consultation enquiry`}
+      className="@container min-w-0 bg-[#101A2B] border border-gold/16 rounded-[18px] min-[640px]:rounded-[22px] p-4 min-[400px]:p-5 min-[640px]:p-8 flex flex-col gap-4 shadow-[0_24px_50px_rgba(0,0,0,0.5)]"
     >
-      {studyAbroad && (
-        <div className="mb-1">
-          <p className="text-[10px] tracking-[0.16em] uppercase text-gold mb-1.5">Free initial consultation</p>
-          <h2 className="font-heading text-[26px] min-[640px]:text-[30px] leading-tight text-cream">Let’s explore your options.</h2>
-          <p className="text-[13px] leading-relaxed text-body-text mt-1.5">Tell us a little. We’ll take it from here.</p>
-        </div>
-      )}
-      <div className="grid grid-cols-1 min-[420px]:grid-cols-[repeat(auto-fit,minmax(160px,1fr))] gap-4">
-        <label className="flex flex-col gap-1.5 text-xs tracking-[0.14em] uppercase text-muted">
-          Full name
-          <input type="text" autoComplete="name" placeholder="Your name" aria-invalid={!!errors.name} className={fieldClass} {...register("name")} />
-          {errors.name && <span className="normal-case tracking-normal text-[#e3897f] text-xs">{errors.name.message}</span>}
-        </label>
-        <label className="flex flex-col gap-1.5 text-xs tracking-[0.14em] uppercase text-muted">
-          Phone / WhatsApp
-          <input type="tel" autoComplete="tel" placeholder="Your phone number" aria-invalid={!!errors.phone} className={fieldClass} {...register("phone")} />
-          {errors.phone && <span className="normal-case tracking-normal text-[#e3897f] text-xs">{errors.phone.message}</span>}
-        </label>
+      {variant !== "general" && variant !== "credit-transfer" && <div className="mb-1">
+        <p className="text-[10px] tracking-[0.16em] uppercase text-gold mb-1.5">Free initial consultation</p>
+        <h2 className="font-heading text-[26px] min-[640px]:text-[30px] leading-tight text-cream">{variant === "domestic" ? "Let’s find the right path." : "Let’s explore your options."}</h2>
+        <p className="text-[13px] leading-relaxed text-body-text mt-1.5">Tell us a little. We’ll take it from here.</p>
+      </div>}
+      {variant !== "general" && <input type="hidden" {...register("service")} />}
+      <div className="grid grid-cols-1 @min-[440px]:grid-cols-2 gap-x-4 gap-y-1.5">
+        {fields.map((field) => {
+          const error = errors[field.name];
+          const id = `${formId}-${field.name}`;
+          const optional = field.name === "qualification" && selectedService === "Domestic Admission" ? false : field.optional;
+          if (field.options) return <div key={field.name} className={`min-w-0 row-span-3 grid grid-rows-subgrid ${field.wide ? "col-span-full" : ""}`}>
+            <Controller name={field.name} control={control} render={({ field: input }) => <SelectField label={field.label} name={input.name} value={input.value ?? ""} onChange={input.onChange} onBlur={input.onBlur} triggerRef={input.ref} error={error?.message} options={field.options!} />} />
+          </div>;
+          const inputProps = {
+            id, placeholder: field.placeholder, maxLength: enquiryLimits[field.name],
+            "aria-invalid": !!error, "aria-describedby": error ? `${id}-error` : undefined,
+            "aria-required": !optional, className: fieldClass,
+          };
+          return <div key={field.name} className={`min-w-0 row-span-3 grid grid-rows-subgrid gap-1.5 ${field.wide ? "col-span-full" : ""}`}>
+            <label htmlFor={id} className="text-xs leading-5 tracking-[0.1em] uppercase text-muted">{field.label}{optional && <span className="ml-1 normal-case tracking-normal text-[10px]">(optional)</span>}</label>
+            {field.name === "message" ? <textarea {...inputProps} rows={3} {...register(field.name)} /> : <input
+              {...inputProps} type={field.name === "phone" ? "tel" : "text"} inputMode={field.name === "phone" ? "tel" : "text"}
+              autoComplete={field.name === "name" ? "name" : field.name === "phone" ? "tel" : "off"}
+              {...register(field.name)}
+              onInput={field.name === "phone" ? (event) => { event.currentTarget.value = cleanPhoneInput(event.currentTarget.value); } : undefined}
+            />}
+            {error && <span id={`${id}-error`} role="alert" className="text-[#e3897f] text-xs leading-relaxed">{error.message}</span>}
+          </div>;
+        })}
       </div>
-
-      <div className="grid grid-cols-1 min-[420px]:grid-cols-[repeat(auto-fit,minmax(160px,1fr))] gap-4">
-        {creditTransfer ? <>
-          <input type="hidden" {...register("service")} />
-          <label className="flex flex-col gap-1.5 text-xs tracking-[0.14em] uppercase text-muted">
-            Previous course (optional)
-            <input type="text" placeholder="e.g. B.Tech, B.Com or Diploma" aria-invalid={!!errors.course} className={fieldClass} {...register("course")} />
-            {errors.course && <span className="normal-case tracking-normal text-[#e3897f] text-xs">{errors.course.message}</span>}
-          </label>
-        </> : studyAbroad ? <>
-          <input type="hidden" {...register("service")} />
-          <Controller name="course" control={control} render={({ field, fieldState }) => (
-            <SelectField label="Course interest" name={field.name} value={field.value ?? ""} onChange={field.onChange} onBlur={field.onBlur} triggerRef={field.ref} error={fieldState.error?.message}
-              options={[{ value: "", label: "Not sure yet" }, ...studyCourses.map((course) => ({ value: course.name, label: course.name }))]} />
-          )} />
-        </> : <Controller name="service" control={control} render={({ field, fieldState }) => (
-          <SelectField label="Service needed" name={field.name} value={field.value} onChange={field.onChange} onBlur={field.onBlur} triggerRef={field.ref} error={fieldState.error?.message}
-            options={serviceOptions.map((service) => ({ value: service, label: service }))} />
-        )} />}
-        {!creditTransfer && <Controller name="destination" control={control} render={({ field, fieldState }) => (
-          <SelectField label="Preferred destination" name={field.name} value={field.value ?? ""} onChange={field.onChange} onBlur={field.onBlur} triggerRef={field.ref} error={fieldState.error?.message}
-            options={[{ value: "", label: "Not sure yet" }, ...enquiryDestinations.map((destination) => ({ value: destination, label: destination }))]} />
-        )} />}
-      </div>
-
-      {!creditTransfer && <>
-      <button type="button" aria-expanded={detailsOpen} aria-controls={detailsId} onClick={() => setDetailsOpen((open) => !open)} className="min-[640px]:hidden flex min-h-12 items-center justify-between gap-3 rounded-xl border border-gold/20 px-3.5 py-3 text-left focus-visible:outline-2 focus-visible:outline-gold">
-        <span><span className="block text-sm text-cream">{studyAbroad ? "Add academic details" : "Add your qualification & goal"}</span><span className="block text-xs text-muted mt-0.5">{studyAbroad ? "Qualification and intake · Optional" : "Optional — share a little more"}</span></span>
-        <ChevronDown size={18} aria-hidden="true" className={`shrink-0 text-gold transition-transform motion-reduce:transition-none ${detailsOpen ? "rotate-180" : ""}`} />
-      </button>
-      <div id={detailsId} className={`${detailsOpen ? "flex" : "hidden"} min-[640px]:flex flex-col gap-4`}>
-      {studyAbroad && (
-        <div className="grid grid-cols-1 min-[420px]:grid-cols-[repeat(auto-fit,minmax(160px,1fr))] gap-4">
-          {([
-            { name: "qualification", label: "Education qualification", placeholder: "e.g. Plus Two, B.Tech, diploma" },
-            { name: "intake", label: "Preferred intake", placeholder: "e.g. September 2027 / not sure" },
-          ] as const).map((field) => (
-            <label key={field.name} className="min-w-0 flex flex-col gap-1.5 text-xs tracking-[0.14em] uppercase text-muted">
-              {field.label} <span className="text-[10px] normal-case tracking-normal">Optional</span>
-              <input type="text" placeholder={field.placeholder} aria-invalid={!!errors[field.name]} className={fieldClass} {...register(field.name)} />
-              {errors[field.name] && <span className="normal-case tracking-normal text-[#e3897f] text-xs">{errors[field.name]?.message}</span>}
-            </label>
-          ))}
-        </div>
-      )}
-
-      {!studyAbroad && <label className="flex flex-col gap-1.5 text-xs tracking-[0.14em] uppercase text-muted">
-        Your qualification & goal
-        <textarea
-          rows={4}
-          placeholder="e.g. B.Tech 3rd year, 4 backlogs, want to transfer credits"
-          className={`${fieldClass} resize-y`}
-          {...register("message")}
-        />
-        {errors.message && <span className="normal-case tracking-normal text-[#e3897f] text-xs">{errors.message.message}</span>}
-      </label>}
-
-      </div>
-
-      </>}
-      <input
-        type="text"
-        tabIndex={-1}
-        autoComplete="off"
-        className="hidden"
-        aria-hidden="true"
-        {...register("company")}
-      />
-
-      <button
-        type="submit"
-        className="bg-gold text-[#0A1220] border-none rounded-full min-h-12 py-3.5 px-4 text-sm font-medium cursor-pointer hover:bg-gold-soft transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold disabled:opacity-70 disabled:cursor-not-allowed"
-      >
-        {submitLabel}
+      <input type="text" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" {...register("company")} />
+      {Object.keys(errors).length > 0 && <p role="alert" className="text-xs leading-relaxed text-[#e3897f]">Please check the highlighted fields before continuing.</p>}
+      <button type="submit" className="bg-gold text-[#0A1220] rounded-full min-h-12 py-3.5 px-4 text-sm font-medium cursor-pointer hover:bg-gold-soft transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold">
+        {status === "opening" ? "Open WhatsApp again" : "Continue to WhatsApp"}
       </button>
       <div aria-live="polite" role="status" className="text-xs text-muted text-center leading-relaxed">
         {status === "error" ? <span className="text-[#e3897f]">Could not open WhatsApp. Please try again or <a className="underline" href={`tel:${site.phoneHref}`}>call us directly</a>.</span>

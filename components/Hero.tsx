@@ -58,24 +58,23 @@ export default function Hero() {
 
         <div className="min-w-0 relative flex justify-center">
           <div
-            className="relative w-[min(460px,86vw)] aspect-square rounded-[28px] grid place-items-center overflow-hidden shadow-[0_0_0_1px_rgba(212,168,87,0.28),0_40px_90px_rgba(212,168,87,0.16)]"
+            className="relative w-full max-w-[500px] aspect-square grid place-items-center"
             style={{
-              background: "radial-gradient(circle at 30% 18%, #17304F 0%, #070D18 72%)",
+              background: "radial-gradient(ellipse at 48% 45%, rgba(51,99,157,0.18), transparent 67%)",
             }}
           >
             <div
-              className="absolute -top-[20%] -right-[20%] w-[70%] aspect-square rounded-full"
+              className="absolute inset-[15%] rounded-full blur-2xl"
               style={{
-                background: "radial-gradient(circle, rgba(212,168,87,0.35), transparent 65%)",
+                background: "radial-gradient(circle at 28% 20%, rgba(212,168,87,0.12), transparent 55%)",
               }}
             />
-            <div className="absolute inset-6 border border-gold/28 rounded-[20px]" />
 
             <div className="absolute inset-0">
               <GlobeLoader />
             </div>
 
-            <div className="absolute left-0 right-0 bottom-7 text-center text-[11px] tracking-[0.28em] uppercase text-gold/80">
+            <div className="absolute left-0 right-0 bottom-2 text-center text-[10px] tracking-[0.28em] uppercase text-gold/80">
               Study · work · settle
             </div>
           </div>

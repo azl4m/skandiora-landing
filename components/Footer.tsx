@@ -46,13 +46,11 @@ export default function Footer() {
         <div className="min-w-0">
           <div className="text-xs tracking-[0.2em] uppercase text-gold mb-3.5">Contact</div>
           <div className="flex flex-col gap-2.5 text-sm">
-            <a href={`tel:${site.phoneHref}`} className="hover:text-white transition-colors">
-              {site.phone}
-            </a>
+            {site.phones.map((phone) => <a key={phone.href} href={`tel:${phone.href}`} className="hover:text-white transition-colors">{phone.label}</a>)}
             <a href={`mailto:${site.email}`} className="hover:text-white transition-colors">
               {site.email}
             </a>
-            <span>Trivandrum · Kochi · Chennai</span>
+            <span>{site.offices.map((office) => office.city).join(" · ")}</span>
           </div>
         </div>
       </div>

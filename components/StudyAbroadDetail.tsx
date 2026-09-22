@@ -83,7 +83,7 @@ export default function StudyAbroadDetail({ service }: { service: ServicePage })
               </ul>
             </div>
             <div id="contact" className="min-w-0 scroll-mt-28">
-              <ContactForm studyAbroad />
+              <ContactForm variant="study-abroad" />
             </div>
           </div>
         </div>

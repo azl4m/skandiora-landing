@@ -31,7 +31,7 @@ const destinationFaqs = [
 export const metadata: Metadata = {
   title: "Study Destinations Worldwide",
   description:
-    "Explore study-abroad destinations across the UK, USA, Canada, Australia, Europe and more with Skandiora Immigration's counsellors in Kerala — matched to your profile, not simply the popular choice.",
+    "Explore study-abroad destinations with Skandiora Immigration's counsellors in Kochi, Trivandrum and Chennai — options matched to your profile, interests and budget.",
   alternates: { canonical: "/destinations" },
 };
 

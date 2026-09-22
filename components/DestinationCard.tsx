@@ -10,9 +10,10 @@ type DestinationCardProps = {
   image: string;
   description: string;
   course: string;
+  sizes?: string;
 };
 
-export default function DestinationCard({ name, image, description, course }: DestinationCardProps) {
+export default function DestinationCard({ name, image, description, course, sizes = "(max-width: 639px) 82vw, (max-width: 999px) 46vw, 280px" }: DestinationCardProps) {
   const textRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -23,11 +24,7 @@ export default function DestinationCard({ name, image, description, course }: De
     let revealed = false;
 
     const observer = new IntersectionObserver(([entry]) => {
-      if (!entry.isIntersecting) {
-        revealed = false;
-        return;
-      }
-      if (entry.intersectionRatio < 0.45 || revealed || reducedMotion.matches) return;
+      if (!entry.isIntersecting || entry.intersectionRatio < 0.45 || revealed || reducedMotion.matches) return;
       revealed = true;
       animations.forEach((animation) => animation.cancel());
       animations = Array.from(element.children).map((child, index) => child.animate(
@@ -53,7 +50,7 @@ export default function DestinationCard({ name, image, description, course }: De
 
   return (
     <StudyEnquiryLink course={course} destination={name} className="destination-card group relative flex flex-col justify-end aspect-[4/5] overflow-hidden rounded-[20px] border border-gold/25 bg-[#101A2B] pt-20 transition-colors duration-300 hover:border-gold/65 active:border-gold focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold motion-reduce:transition-none">
-      <Image src={image} alt="" fill sizes="(max-width: 639px) 82vw, (max-width: 999px) 46vw, 280px" className="object-cover" />
+      <Image src={image} alt="" fill sizes={sizes} className="object-cover" />
       <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-b from-black/25 via-transparent to-black/20" />
       <h3 className="absolute left-4 top-4 rounded-full border border-white/25 bg-[#07101D]/85 px-4 py-2 text-sm font-medium text-cream backdrop-blur-sm">{name}</h3>
       <div className="destination-card-description relative bg-gradient-to-t from-[#04080F] via-[#04080F]/90 to-transparent px-5 pb-5 pt-14">

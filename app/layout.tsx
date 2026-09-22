@@ -20,9 +20,9 @@ const jost = Jost({
 });
 
 const siteName = "Skandiora Immigration";
-const title = "Skandiora Immigration — Study Abroad, MBBS & Visa Consultants in Kerala";
+const title = "Skandiora Immigration — Study Abroad, MBBS & Visa Consultants in Kochi, Trivandrum & Chennai";
 const description =
-  "Skandiora Immigration helps students and families in Trivandrum, Kochi and Chennai explore study-abroad, MBBS, domestic admission, credit transfer, loan, language and visa pathways with personalised, transparent guidance.";
+  "Skandiora Immigration helps students and families in Kochi, Trivandrum and Chennai explore study-abroad, MBBS, domestic admission, credit transfer, loan, language and visa pathways with personalised, transparent guidance.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.skandiora.com"),
@@ -47,7 +47,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${cormorant.variable} ${jost.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-ink text-[#EAF0FA]">
-        <div className="max-w-full overflow-x-hidden flex flex-col min-h-full">
+        <div className="max-w-full overflow-x-clip flex flex-col min-h-full">
           <Header />
           <main className="flex-1">{children}</main>
           <Footer />

@@ -11,7 +11,7 @@ const breadcrumbItems = [{ href: "/", label: "Home" }, { label: "Services" }];
 export const metadata: Metadata = {
   title: "Education Guidance Services",
   description:
-    "Explore Skandiora Immigration's education guidance services in Kerala and South India — student visa, domestic admission, credit transfer, attestation, visa services, plus MBBS abroad, education loans, language training and accommodation.",
+    "Explore Skandiora Immigration's services in Kochi, Trivandrum and Chennai: study abroad, MBBS, domestic admissions, credit transfer, attestation and visa guidance.",
   alternates: { canonical: "/services" },
 };
 
