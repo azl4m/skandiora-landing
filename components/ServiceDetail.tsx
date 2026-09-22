@@ -10,6 +10,9 @@ import FlagTicker from "./FlagTicker";
 import JsonLd from "./JsonLd";
 import RelatedServices from "./RelatedServices";
 import ContactForm from "./ContactForm";
+import DestinationCard from "./DestinationCard";
+import CardCarousel from "./CardCarousel";
+import { mbbsDestinations } from "@/data/mbbs-destinations";
 
 function Checklist({ heading, items }: { heading: string; items: string[] }) {
   return (
@@ -57,7 +60,8 @@ function TagBlock({ heading, items, linkToContact }: ServiceListBlock) {
 
 export default function ServiceDetail({ service }: { service: ServicePage }) {
   const isCreditTransfer = service.slug === "credit-transfer";
-  const enquiryHref = isCreditTransfer ? "#contact" : "/#contact";
+  const isMbbs = service.slug === "mbbs-abroad";
+  const enquiryHref = isCreditTransfer || isMbbs ? "#contact" : "/#contact";
   const breadcrumbItems = [
     { href: "/", label: "Home" },
     { href: "/services", label: "Services" },
@@ -139,12 +143,26 @@ export default function ServiceDetail({ service }: { service: ServicePage }) {
               <p className="mt-4 text-base leading-[1.7] text-body-text max-w-[46ch]">Start with your name and phone number. You can also share your previous course — our admissions team will guide you through the next steps.</p>
               <p className="mt-3 text-sm leading-relaxed text-muted">No marksheets or detailed academic history needed for this first enquiry.</p>
             </div>
-            <ContactForm creditTransfer />
+            <ContactForm variant="credit-transfer" />
           </div>
         </section>
       )}
 
-      {service.tagSections && (
+      {isMbbs && (
+        <section aria-labelledby="mbbs-destinations-heading" className="px-4.5 pb-[clamp(40px,6vw,64px)]">
+          <div className="max-w-[1240px] mx-auto">
+            <p className="text-xs uppercase tracking-[0.2em] text-gold mb-3">Explore medical study destinations</p>
+            <h2 id="mbbs-destinations-heading" className="font-heading text-[clamp(30px,4vw,46px)] leading-[1.12] text-cream">Your medical dream. A world of possibilities.</h2>
+            <p className="mt-4 mb-8 max-w-[65ch] text-base leading-relaxed text-body-text">Explore each destination and select a country to discuss your medical study options with our team.</p>
+            <CardCarousel singleRow label="Medical study destinations" itemLabel="destinations">
+              {mbbsDestinations.map((destination) => <DestinationCard key={destination.name} {...destination} course="MBBS & Medicine" sizes="(max-width: 639px) 82vw, 300px" />)}
+            </CardCarousel>
+            <p className="mt-5 text-sm leading-relaxed text-muted">Programme names, entry requirements, language of instruction and licensing pathways vary by country and university. We help you understand what to check before applying.</p>
+          </div>
+        </section>
+      )}
+
+      {!isMbbs && service.tagSections && (
         <section className="px-4.5 pb-[clamp(40px,6vw,64px)]">
           <div className="max-w-[1240px] mx-auto flex flex-col gap-8">
             {service.tagSections.map((block) => (
@@ -238,6 +256,19 @@ export default function ServiceDetail({ service }: { service: ServicePage }) {
       <RelatedServices items={related} />
 
       <FaqSection items={service.faqs} />
+
+      {isMbbs && (
+        <section id="contact" aria-labelledby="mbbs-enquiry-heading" className="scroll-mt-28 px-4.5 pb-[clamp(52px,8vw,96px)]">
+          <div className="max-w-[1240px] mx-auto grid min-[900px]:grid-cols-2 gap-8 min-[900px]:gap-14 items-start">
+            <div>
+              <p className="text-xs uppercase tracking-[0.2em] text-gold mb-3">Your next step</p>
+              <h2 id="mbbs-enquiry-heading" className="font-heading text-[clamp(30px,4vw,46px)] leading-[1.12] text-cream">Let’s explore your medical study options.</h2>
+              <p className="mt-4 text-base leading-relaxed text-body-text">Choose a destination above or tell us where you would like to study. Our team will help you discuss your academic profile, budget and next steps.</p>
+            </div>
+            <ContactForm variant="mbbs" />
+          </div>
+        </section>
+      )}
 
       <CtaBanner href={enquiryHref} />
     </>

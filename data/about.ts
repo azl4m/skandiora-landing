@@ -31,4 +31,4 @@ export const bringWithYou = [
   "Destination preference",
 ];
 
-export const officeLocations = ["Trivandrum", "Kochi", "Chennai"];
+export const officeLocations = ["Kochi", "Trivandrum", "Chennai"];

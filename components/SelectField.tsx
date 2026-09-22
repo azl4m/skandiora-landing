@@ -137,8 +137,8 @@ export default function SelectField({
   }
 
   return (
-    <div className="min-w-0 flex flex-col gap-1.5">
-      <label id={`${id}-label`} htmlFor={id} className="text-xs tracking-[0.14em] uppercase text-muted">{label}</label>
+    <div className="min-w-0 row-span-3 grid grid-rows-subgrid gap-1.5">
+      <label id={`${id}-label`} htmlFor={id} className="text-xs leading-5 tracking-[0.1em] uppercase text-muted">{label}</label>
       <input type="hidden" name={name} value={value} disabled={disabled} />
       <button
         ref={(node) => {
@@ -164,7 +164,7 @@ export default function SelectField({
         <span className="truncate">{options[selected]?.label ?? placeholder}</span>
         <ChevronDown size={17} aria-hidden="true" className={`shrink-0 text-gold transition-transform duration-150 motion-reduce:transition-none ${open ? "rotate-180" : ""}`} />
       </button>
-      {error && <span id={`${id}-error`} className="text-xs text-[#e3897f]">{error}</span>}
+      {error && <span id={`${id}-error`} role="alert" className="text-xs text-[#e3897f]">{error}</span>}
       {open && createPortal(
         <div
           ref={menu}

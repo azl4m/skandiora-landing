@@ -8,7 +8,6 @@ export function absoluteUrl(path: string) {
 }
 
 export function organizationSchema() {
-  const officeCities = ["Trivandrum", "Kochi", "Chennai"];
   return {
     "@context": "https://schema.org",
     "@type": "EducationalOrganization",
@@ -16,15 +15,16 @@ export function organizationSchema() {
     url: SITE_URL,
     description:
       "Skandiora Immigration helps students and families explore study-abroad, MBBS, domestic admission, credit transfer, loan, language and visa pathways with personalised, transparent guidance.",
-    telephone: site.phoneHref,
+    telephone: site.phones.map((phone) => phone.href),
+    contactPoint: site.phones.map((phone) => ({ "@type": "ContactPoint", telephone: phone.href, contactType: "Admissions enquiries" })),
     email: site.email,
     areaServed: "IN",
-    location: officeCities.map((city) => ({
+    location: site.offices.map((office) => ({
       "@type": "Place",
       address: {
         "@type": "PostalAddress",
-        addressLocality: city,
-        addressRegion: "Kerala",
+        addressLocality: office.city,
+        addressRegion: office.region,
         addressCountry: "IN",
       },
     })),

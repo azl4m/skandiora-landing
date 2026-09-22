@@ -1,6 +1,6 @@
-import type { WhatsAppEnquiryInput } from "./enquiry-schema";
+import type { EnquiryInput } from "./enquiry-schema";
 
-export function whatsappEnquiryUrl(phone: string, data: WhatsAppEnquiryInput) {
+export function whatsappEnquiryUrl(phone: string, data: EnquiryInput) {
   const message = [
     "Hello Skandiora Immigration, I would like a free consultation.",
     "",
@@ -8,7 +8,7 @@ export function whatsappEnquiryUrl(phone: string, data: WhatsAppEnquiryInput) {
     ...(data.phone ? [`Phone / WhatsApp: ${data.phone}`] : []),
     `Service: ${data.service}`,
     ...(data.course ? [`Course: ${data.course}`] : []),
-    ...(data.service === "Credit Transfer" && !data.destination ? [] : [`Preferred destination: ${data.destination || "Not sure yet"}`]),
+    ...(data.service === "Credit Transfer" && !data.destination ? [] : [`${data.service === "Domestic Admission" ? "Preferred state" : "Preferred destination"}: ${data.destination || "Not sure yet"}`]),
     ...(data.qualification ? [`Education qualification: ${data.qualification}`] : []),
     ...(data.intake ? [`Preferred intake: ${data.intake}`] : []),
     ...(data.language ? [`Language / test details: ${data.language}`] : []),

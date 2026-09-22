@@ -23,10 +23,10 @@ export async function POST(req: NextRequest) {
   const body = await req.json().catch(() => null);
   const parsed = enquirySchema.safeParse(body);
   if (!parsed.success) {
-    return NextResponse.json({ error: "Invalid submission" }, { status: 400 });
+    return NextResponse.json({ error: "Please check your enquiry details", fields: parsed.error.flatten().fieldErrors }, { status: 400 });
   }
 
-  const { name, phone, service, destination, course, message, company } = parsed.data;
+  const { name, phone, service, destination, course, qualification, intake, language, message, company } = parsed.data;
   if (company) {
     return NextResponse.json({ ok: true });
   }
@@ -47,7 +47,7 @@ export async function POST(req: NextRequest) {
         from: resendFrom,
         to: process.env.ENQUIRY_TO_EMAIL || site.email,
         subject: `New enquiry — ${name}`,
-        text: `Name: ${name}\nPhone: ${phone}\nService: ${service}\nCourse: ${course || "Not specified"}\nPreferred destination: ${destination || "Not sure yet"}\nMessage: ${message ?? "—"}`,
+        text: `Name: ${name}\nPhone: ${phone}\nService: ${service}\nCourse: ${course || "Not specified"}\n${service === "Domestic Admission" ? "Preferred state" : "Preferred destination"}: ${destination || "Not sure yet"}\nQualification: ${qualification || "Not specified"}\nIntake: ${intake || "Not specified"}\nLanguage details: ${language || "Not specified"}\nMessage: ${message || "—"}`,
       }),
       signal: AbortSignal.timeout(15_000),
     });

@@ -1,3 +1,5 @@
+import { mbbsDestinations } from "./mbbs-destinations";
+
 export type ServiceCategory = {
   icon?: string;
   title: string;
@@ -71,11 +73,11 @@ export const services: ServicePage[] = [
       "Course and university shortlisting",
       "SOP, documentation and student visa preparation",
     ],
-    metaTitle: "Study Abroad & Student Visa Consultants in Kerala",
+    metaTitle: "Study Abroad Consultants in Kochi, Trivandrum & Chennai",
     metaDescription:
-      "Explore study abroad and MBBS options with Skandiora in Kerala. Course guidance, admissions, student visa and arrival support. Request a free consultation.",
+      "Explore study abroad and MBBS options with Skandiora in Kochi, Trivandrum and Chennai. Course guidance, admissions, student visa and arrival support.",
     summary:
-      "Skandiora Immigration is a student visa and study-abroad consultancy that helps students in Kerala and across South India choose the right destination, course and university, then prepare a clear student visa application — not just process admissions.",
+      "Skandiora Immigration provides student visa and study-abroad guidance from Kochi, Trivandrum and Chennai, helping students across South India choose a destination, course and university and prepare their applications.",
     eyebrow: "Student visa",
     featured: true,
     relatedSlugs: ["mbbs-abroad", "education-loan", "language-training"],
@@ -189,7 +191,7 @@ export const services: ServicePage[] = [
     icon: "🩺",
     navTitle: "MBBS Abroad",
     cardBody:
-      "Careful, informed guidance for aspiring doctors evaluating medical universities in Europe, Central Asia and the USA.",
+      "Careful, informed guidance for aspiring doctors exploring medical study destinations and university options abroad.",
     cardPoints: [
       "Recognised and accredited universities only",
       "Eligibility and regulatory guidance",
@@ -197,7 +199,7 @@ export const services: ServicePage[] = [
     ],
     metaTitle: "MBBS Abroad Consultants — Skandiora Immigration",
     metaDescription:
-      "MBBS abroad guidance from Skandiora Immigration's Kerala and Chennai offices — university recognition, eligibility, clinical training and regulatory requirements explained before you enrol.",
+      "MBBS abroad guidance from Skandiora Immigration in Kochi, Trivandrum and Chennai. Explore universities, eligibility, clinical training and application requirements.",
     summary:
       "Skandiora Immigration guides aspiring doctors through MBBS admissions abroad, helping families evaluate university recognition, eligibility and regulatory requirements before enrolling.",
     eyebrow: "MBBS abroad",
@@ -206,12 +208,6 @@ export const services: ServicePage[] = [
     intro: [
       "For aspiring doctors, choosing a medical university abroad is a major decision — for the student and the entire family.",
       "That's why we encourage students and parents to look beyond advertisements and carefully evaluate the university, course and applicable regulatory requirements.",
-    ],
-    tagSections: [
-      {
-        heading: "Explore medical education opportunities in",
-        items: ["Moldova", "Bulgaria", "Georgia", "Uzbekistan", "Tajikistan", "Kazakhstan", "USA"],
-      },
     ],
     checklist: {
       heading: "Our support",
@@ -243,7 +239,7 @@ export const services: ServicePage[] = [
     faqs: [
       {
         q: "Which countries can I study MBBS in through Skandiora Immigration?",
-        a: "We help aspiring doctors explore recognised medical universities in Moldova, Bulgaria, Georgia, Uzbekistan, Tajikistan, Kazakhstan and the USA.",
+        a: `We help aspiring doctors explore medical study options in ${mbbsDestinations.map((destination) => destination.name).join(", ")}. Available programmes, eligibility and licensing pathways depend on the university and destination.`,
       },
       {
         q: "How do you help verify a medical university is genuine?",
@@ -269,27 +265,27 @@ export const services: ServicePage[] = [
       "Fee structure clarity before you commit",
       "Course and eligibility guidance",
     ],
-    metaTitle: "Domestic Admission Consultants in South India — Skandiora Immigration",
+    metaTitle: "Domestic Admissions & College Guidance in South India",
     metaDescription:
-      "Domestic admission assistance across Kerala, Tamil Nadu, Karnataka and Andhra Pradesh — engineering, degree, diploma, paramedical and management programmes, from Skandiora Immigration.",
+      "Personalised course and college admission guidance in Kerala, Tamil Nadu, Karnataka and Andhra Pradesh. Compare eligibility, fees and options with Skandiora.",
     summary:
-      "Skandiora Immigration provides domestic admission assistance for engineering, degree, diploma and management courses across Kerala, Tamil Nadu, Karnataka and Andhra Pradesh.",
-    eyebrow: "Domestic admission",
+      "More than a college seat. A carefully considered choice for your child’s future.",
+    eyebrow: "College admission guidance in South India",
     featured: true,
-    headlineLines: ["Your future doesn't always have to take you abroad."],
+    headlineLines: ["Domestic admissions, elevated."],
     intro: [
-      "International education can be an excellent option — but it isn't the only option.",
-      "For students who prefer to continue their education closer to home, we provide domestic admission assistance for suitable courses and institutions.",
+      "Choosing the right institution can mean comparing courses, eligibility, fees, location, academic environment and future opportunities. We help parents navigate these choices in one place — saving time, reducing uncertainty and avoiding unsuitable admission decisions.",
+      "At Skandiora Immigrations, we provide personalised course and college admission guidance for students and parents exploring Kerala, Tamil Nadu, Karnataka and Andhra Pradesh.",
     ],
     tagSections: [
       {
-        heading: "Explore options across",
+        heading: "Our admission network",
         items: ["Kerala", "Tamil Nadu", "Karnataka", "Andhra Pradesh"],
       },
     ],
     checklist: {
-      heading: "We help candidates explore options based on",
-      items: ["Academic background", "Course preference", "Eligibility", "Career goals"],
+      heading: "Make a better-informed college choice",
+      items: ["Academic profile and course eligibility", "Tuition fees and your family’s budget", "Location and the academic environment", "Course interests and future opportunities"],
     },
     checklist2: {
       heading: "Study formats we help you explore",
@@ -299,15 +295,16 @@ export const services: ServicePage[] = [
         "Distance and online education options",
       ],
     },
-    closingHeadline: "The best choice is the one that fits you.",
+    closingHeadline: "Let’s find the right path.",
+    closingBody: "Speak with Skandiora Immigrations today. Enquire now for personalised course & college guidance.",
     faqs: [
       {
         q: "Which states does Skandiora Immigration provide domestic admission assistance in?",
         a: "We assist with admissions across Kerala, Tamil Nadu, Karnataka and Andhra Pradesh.",
       },
       {
-        q: "What kind of seats can you help me find in India?",
-        a: "We help candidates explore direct and management-quota seats in engineering, degree, diploma, paramedical and management programmes, based on academic background, course preference, eligibility and career goals.",
+        q: "Which courses can I explore through your domestic admission service?",
+        a: "You can enquire about MBBS and medicine, engineering, management, healthcare, hospitality, aviation and professional courses. We help you compare options against your academic profile, budget and preferred state. Admission routes and eligibility depend on the course and institution.",
       },
       {
         q: "Is studying in India a lesser option compared to studying abroad?",
@@ -316,6 +313,18 @@ export const services: ServicePage[] = [
       {
         q: "Do you help with distance or online degree options?",
         a: "Yes — alongside full-time domestic admissions, we help you explore distance and online education options where that better suits your goals or circumstances.",
+      },
+      {
+        q: "How do you help parents choose a college?",
+        a: "We help parents and students compare courses, eligibility, fees, location, the academic environment and future opportunities. The aim is to build a suitable shortlist and understand the options before making an admission decision.",
+      },
+      {
+        q: "Can I enquire before choosing a course or state?",
+        a: "Yes. Select Not sure yet for the course and state, then share your name, phone number and latest qualification. The form opens a prepared WhatsApp message; tap Send to contact our team for personalised guidance.",
+      },
+      {
+        q: "Is admission guaranteed after a consultation?",
+        a: "No. Admission depends on the institution’s eligibility requirements, available places and the admission process for your chosen course. Our team helps you understand your options and prepare your application.",
       },
     ],
   },
@@ -329,17 +338,17 @@ export const services: ServicePage[] = [
       "Recognised university options",
       "Application support end to end",
     ],
-    metaTitle: "Credit Transfer Assistance in Kerala — Skandiora Immigration",
+    metaTitle: "Credit Transfer Guidance in Kochi, Trivandrum & Chennai",
     metaDescription:
-      "Explore credit transfer for interrupted Degree, Diploma, B.Tech or Master's studies with Skandiora Immigration in Kerala. Academic review and admission support.",
+      "Paused your Degree, Diploma, B.Tech or Master's? Explore eligible credit transfer with Skandiora in Kochi, Trivandrum and Chennai. Get personalised guidance.",
     summary:
-      "Skandiora Immigration provides credit transfer assistance for students in Kerala and across South India whose Degree, Diploma, B.Tech or Master's studies have been interrupted by academic backlogs, pending subjects or a break in education.",
+      "Have you had to pause your Degree, Diploma, B.Tech, or Master’s due to academic backlogs, pending subjects, or an interrupted course?",
     eyebrow: "Credit transfer assistance",
     featured: true,
     headlineLines: ["Your education journey can continue."],
     intro: [
-      "Your past academic progress still matters. We help you explore opportunities to transfer eligible academic credits to a university that matches your academic background and requirements, subject to its assessment and acceptance.",
-      "Explore university options in South India and North India, with guidance from academic record review and credit assessment preparation to university selection, documentation and admission support.",
+      "Your past academic progress still matters. Through our Credit Transfer Assistance, we help you explore suitable opportunities to continue your education by transferring eligible academic credits to a university that matches your academic background and requirements.",
+      "With South Indian and North Indian university options, we provide guidance throughout the process — from academic record evaluation and credit assessment to university selection, documentation, and admission support.",
     ],
     checklist: {
       heading: "How we help with credit transfer",
@@ -352,7 +361,7 @@ export const services: ServicePage[] = [
       ],
     },
     closingHeadline: "Your journey may have taken a different path. Your goal can still move forward.",
-    closingBody: "Speak with our admissions team to understand your credit transfer options and take the next step towards completing your qualification.",
+    closingBody: "Speak with our admissions team today to understand your credit transfer options and take the next step towards completing your qualification.",
     disclaimer:
       "Credit transfer is subject to evaluation and acceptance by the respective university. Final decisions depend on the institution's academic policies, eligibility requirements and assessment of previous studies.",
     faqs: [
@@ -376,6 +385,14 @@ export const services: ServicePage[] = [
         q: "What does Skandiora Immigration help with in a credit-transfer case?",
         a: "We provide academic record review, guidance on preparing for credit assessment, university selection, documentation and admission support. The receiving university makes the final decision on eligibility and the credits it accepts.",
       },
+      {
+        q: "What should I prepare for a credit transfer assessment?",
+        a: "Keep any available semester marksheets, transcripts and details of your previous course ready for discussion. Your counsellor can explain which records the university needs for assessment. You do not need to upload documents to make your first enquiry.",
+      },
+      {
+        q: "Can I speak to a counsellor in Kochi, Trivandrum or Chennai?",
+        a: "Yes. Skandiora Immigration has offices in Kochi, Trivandrum and Chennai. Use the credit transfer form on this page to prepare a WhatsApp enquiry, then tap Send to contact our admissions team.",
+      },
     ],
   },
   {
@@ -384,9 +401,9 @@ export const services: ServicePage[] = [
     navTitle: "Education Loan Assistance",
     cardBody: "Understand your financing options and prepare a loan-ready application.",
     cardPoints: ["Documentation guidance", "Application process support", "Lender coordination"],
-    metaTitle: "Education Loan Assistance in Kerala — Skandiora Immigration",
+    metaTitle: "Education Loan Guidance in Kochi, Trivandrum & Chennai",
     metaDescription:
-      "Plan your study-abroad or domestic education financing with documentation guidance, application support and lender coordination from Skandiora Immigration's counsellors in Kerala, Tamil Nadu and Chennai.",
+      "Plan education financing with documentation guidance, application support and lender coordination from Skandiora Immigration in Kochi, Trivandrum and Chennai.",
     summary:
       "Skandiora Immigration helps students and families understand and prepare their education loan financing, from documentation guidance to lender coordination.",
     eyebrow: "Education loan assistance",
@@ -472,38 +489,80 @@ export const services: ServicePage[] = [
     ],
   },
   {
-    slug: "attestation",
-    icon: "📑",
-    navTitle: "Attestation",
-    cardBody:
-      "Clear guidance through HRD, MEA, embassy and notary attestation for education and overseas documents.",
-    cardPoints: ["Documentation guidance", "Attestation process support", "Less confusion, more clarity"],
-    metaTitle: "Document Attestation Assistance — Skandiora Immigration",
-    metaDescription:
-      "Guidance and process support for educational, personal and commercial document attestation — notary, HRD, MEA and embassy channels — from Skandiora Immigration in Kerala and Tamil Nadu.",
-    summary:
-      "Skandiora Immigration provides guidance and process support for educational, personal and commercial document attestation through notary, HRD, MEA and embassy channels.",
-    eyebrow: "Attestation assistance",
-    featured: true,
-    headlineLines: ["When your documents matter,", "every step matters."],
-    intro: ["Preparing documents for education and overseas purposes can sometimes feel complicated."],
-    checklist: {
-      heading: "We provide assistance and process guidance for",
-      items: ["Documentation", "Attestation requirements", "Process guidance"],
-    },
-    closingHeadline: "Less confusion. More clarity.",
-    closingBody: "We help you understand the documentation process and prepare for the required steps.",
-    faqs: [
-      {
-        q: "What is document attestation and why is it needed?",
-        a: "Attestation is the process of verifying educational, personal and commercial documents through notary, HRD, MEA and embassy channels so they are accepted for education and overseas purposes.",
-      },
-      {
-        q: "What kind of support does Skandiora provide for attestation?",
-        a: "Guidance and process support for documentation, attestation requirements and the overall process, so you understand each required step before you submit your documents.",
-      },
+    "slug": "attestation",
+    "icon": "📑",
+    "navTitle": "Attestation",
+    "cardBody": "Personal, educational and commercial document attestation assistance for international use.",
+    "cardPoints": [
+      "Documentation guidance",
+      "Attestation process support",
+      "Less confusion, more clarity"
     ],
+    "metaTitle": "Document Attestation in Kochi, Trivandrum & Chennai",
+    "metaDescription": "Personal, educational and commercial document attestation assistance from Skandiora in Kochi, Trivandrum and Chennai. Enquire directly on WhatsApp.",
+    "summary": "When your documents are required for education, employment, migration, business, or international purposes, every step of the attestation process matters.",
+    "eyebrow": "Attestation assistance",
+    "featured": true,
+    "headlineLines": [
+      "Your Documents.",
+      "Our Responsibility."
+    ],
+    "intro": [
+      "At Skandiora Immigrations, we provide professional, transparent, and end-to-end document attestation assistance to help you complete your documentation requirements with confidence."
+    ],
+    "checklist": {
+      "heading": "Why Choose Skandiora Immigrations?",
+      "items": [
+        "Professional & Transparent Process: Clear guidance at every stage, with no unnecessary complications.",
+        "Genuine Documentation Support: We focus on proper documentation and process coordination to help you proceed with confidence.",
+        "Timely Assistance: Efficient coordination to keep your documentation process organised.",
+        "Personalised Support: Every applicant and every document is different. Our team guides you according to your specific requirements."
+      ]
+    },
+    "closingHeadline": "Ready to Get Your Documents Attested?",
+    "closingBody": "Leave the documentation process to a team that values accuracy, transparency, and your peace of mind. Contact Skandiora Immigrations today for professional attestation assistance.",
+    "faqs": [
+      {
+        "q": "Which documents can I enquire about?",
+        "a": "We assist with personal documents such as birth and marriage certificates, educational records such as degrees and mark sheets, commercial documents, and powers of attorney. Tell our team the document type, intended purpose and destination so we can guide your enquiry."
+      },
+      {
+        "q": "How do I start an attestation enquiry?",
+        "a": "Select the WhatsApp button on this page and send the prepared message. Our team will discuss your document type and intended use before explaining the requirements and next steps. No website form is needed."
+      },
+      {
+        "q": "Can I get guidance in Kochi, Trivandrum or Chennai?",
+        "a": "Yes. Skandiora has offices in Kochi, Trivandrum and Chennai. Contact us on WhatsApp to discuss document attestation assistance and arrange the next step."
+      }
+    ],
+    "categories": [
+      {
+        "title": "Personal Documents",
+        "body": "Birth Certificates, Marriage Certificates & other personal documents."
+      },
+      {
+        "title": "Educational Documents",
+        "body": "Degree Certificates, Mark Sheets & academic documents."
+      },
+      {
+        "title": "Commercial Documents",
+        "body": "Business and commercial documentation."
+      },
+      {
+        "title": "Power of Attorney",
+        "body": "Power of Attorney and related legal documents."
+      },
+      {
+        "title": "Document Attestation for International Use",
+        "body": "Guidance according to your documents and intended use overseas."
+      },
+      {
+        "title": "End-to-End Documentation Support",
+        "body": "Support with documentation requirements and process coordination."
+      }
+    ]
   },
+
   {
     slug: "accommodation",
     icon: "🏠",
@@ -512,7 +571,7 @@ export const services: ServicePage[] = [
     cardPoints: ["Destination-specific options", "Guidance before you arrive", "Smoother transition abroad"],
     metaTitle: "Student Accommodation Assistance — Skandiora Immigration",
     metaDescription:
-      "Explore suitable student accommodation options for your study destination before you travel, with guidance from Skandiora Immigration's counsellors in Kerala and Tamil Nadu.",
+      "Explore student accommodation options before you travel, with guidance from Skandiora Immigration's counsellors in Kochi, Trivandrum and Chennai.",
     summary:
       "Skandiora Immigration helps students explore suitable accommodation options in their study destination before they travel, easing the transition to a new city or country.",
     eyebrow: "Accommodation assistance",
@@ -549,67 +608,81 @@ export const services: ServicePage[] = [
     ],
   },
   {
-    slug: "visa-assistance",
-    icon: "✈️",
-    navTitle: "Visa Services",
-    cardBody:
-      "Preparation and documentation guidance for visiting, spouse/dependent and other visa categories beyond student visas.",
-    cardPoints: [
+    "slug": "visa-assistance",
+    "icon": "✈️",
+    "navTitle": "Visa Services",
+    "cardBody": "Personalised visiting, spouse, family and dependent visa assistance, with guidance on PR options and other visa categories.",
+    "cardPoints": [
       "Application and documentation guidance",
       "Process guidance for every category",
-      "Clearer, better-organised applications",
+      "Clearer, better-organised applications"
     ],
-    metaTitle: "Visiting, Spouse & Dependent Visa Services — Skandiora Immigration",
-    metaDescription:
-      "Application and documentation guidance for visiting, spouse/dependent and other visa categories from Skandiora Immigration's Trivandrum, Kochi and Chennai offices — clearer process, better preparation.",
-    summary:
-      "Skandiora Immigration provides application and documentation guidance for visiting, spouse/dependent and other non-student visa categories across multiple destinations.",
-    eyebrow: "Visa services",
-    featured: true,
-    relatedSlugs: ["accommodation"],
-    headlineLines: ["From application to visa,", "we help you prepare."],
-    intro: [
-      "Beyond study, family and travel plans often need their own visa preparation.",
-      "Preparing the right visa application and supporting documentation makes the difference between a smooth process and a stressful one.",
-      "We provide assistance for eligible applicants seeking visiting, spouse/dependent and other visa categories.",
+    "metaTitle": "Visa Assistance in Kochi, Trivandrum & Chennai",
+    "metaDescription": "Visiting, spouse, family and dependent visa assistance and PR options with Skandiora in Kochi, Trivandrum and Chennai. Request a WhatsApp consultation.",
+    "summary": "Every international journey begins with the right visa strategy. At Skandiora, we provide personalised visa assistance for individuals and families seeking to visit, reunite, settle, or explore opportunities overseas.",
+    "eyebrow": "Visa services",
+    "featured": true,
+    "relatedSlugs": [
+      "accommodation"
     ],
-    seeAlso: { slug: "study-abroad", note: "Applying for a student visa instead?" },
-    categories: [
-      {
-        icon: "🌍",
-        title: "Visiting visa",
-        body: "Guidance for eligible applicants seeking visiting or tourist visas, including documentation and application-process assistance.",
-      },
-      {
-        icon: "💍",
-        title: "Spouse / dependent visa",
-        body: "Guidance and documentation assistance for eligible spouse/dependent visa applications, subject to the destination country's rules.",
-      },
-      {
-        icon: "📋",
-        title: "Other visa categories",
-        body: "Depending on your destination and circumstances, we can help you understand applicable visa categories and the associated process.",
-      },
+    "headlineLines": [
+      "Your International Journey,",
+      "Professionally Guided."
     ],
-    closingHeadline: "Our promise",
-    closingBody: "Clearer process. Organised documentation. Better preparation.",
-    disclaimer:
-      "Visa approval is always subject to applicable immigration laws, eligibility requirements and the decision of the relevant authorities. Skandiora Immigration does not guarantee visa approval.",
-    faqs: [
-      {
-        q: "What types of visas does Skandiora Immigration assist with here?",
-        a: "Visiting/tourist visas, spouse/dependent visas, and other non-student visa categories depending on your destination and circumstances. Student visa guidance is covered on our separate Student Visa page.",
-      },
-      {
-        q: "Does Skandiora Immigration guarantee visa approval?",
-        a: "No. Visa approval is always subject to applicable immigration laws, eligibility requirements and the decision of the relevant authorities. We do not guarantee visa approval — our role is to help you prepare a clearer, better-organised application.",
-      },
-      {
-        q: "What does spouse or dependent visa assistance include?",
-        a: "Guidance and documentation assistance for eligible spouse/dependent visa applications, subject to the destination country's rules.",
-      },
+    "intro": [
+      "Our services include Visiting Visas for Dubai, Canada, UK, Australia and other destinations, along with Spouse & Family Visas, Dependent Visas, Permanent Residency (PR) options, and other visa categories.",
+      "From understanding your requirements and reviewing documentation to application guidance and submission support, our team provides discreet, professional and personalised assistance at every stage."
     ],
+    "seeAlso": {
+      "slug": "study-abroad",
+      "note": "Applying for a student visa instead?"
+    },
+    "categories": [
+      {
+        "title": "Visiting Visas",
+        "body": "Explore visiting visa assistance for Dubai, Canada, the UK, Australia and other destinations."
+      },
+      {
+        "title": "Spouse & Family Visas",
+        "body": "Personalised guidance for individuals and families planning to reunite overseas."
+      },
+      {
+        "title": "Dependent Visas",
+        "body": "Understand documentation and application steps for your circumstances."
+      },
+      {
+        "title": "Permanent Residency & Other Options",
+        "body": "Discuss PR options and other visa categories based on your destination and circumstances."
+      }
+    ],
+    "closingHeadline": "Your Journey Deserves a Private Conversation",
+    "closingBody": "Take the first step with a personalised consultation with our visa specialists. Discuss your plans, understand your options, and receive clear guidance tailored to your circumstances.",
+    "disclaimer": "Visa approval is always subject to applicable immigration laws, eligibility requirements and the decision of the relevant authorities. Skandiora Immigration does not guarantee visa approval.",
+    "faqs": [
+      {
+        "q": "Which visa services does Skandiora assist with?",
+        "a": "We provide personalised assistance for visiting visas, spouse and family visas, dependent visas, PR options and other visa categories. Our team helps you discuss your destination, circumstances, documentation and application steps."
+      },
+      {
+        "q": "Which destinations can I discuss for a visiting visa?",
+        "a": "You can enquire about Dubai, Canada, the UK, Australia and other destinations. Contact our team to discuss your travel plans and the assistance available for your chosen destination."
+      },
+      {
+        "q": "How do I request a private visa consultation?",
+        "a": "Use a WhatsApp consultation button on this page, then tap Send in WhatsApp. Our team will help you discuss your plans and next steps. We have offices in Kochi, Trivandrum and Chennai, and no website form is required."
+      },
+      {
+        "q": "Is visa approval guaranteed?",
+        "a": "No. Decisions are made by the relevant authorities and depend on applicable rules and eligibility. Our role is to provide personalised documentation, application guidance and submission support."
+      }
+    ],
+    "ribbon": [
+      "Personalised Attention",
+      "Confidential Guidance",
+      "Dedicated Support"
+    ]
   },
+
 ];
 
 export function getService(slug: string): ServicePage | undefined {

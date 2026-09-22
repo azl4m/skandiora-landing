@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { ArrowUpRight, ChevronRight } from "lucide-react";
 import Logo from "./Logo";
 import { navLinks } from "@/data/site";
+import { pageEnquiryHref } from "@/lib/service-contact";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -13,7 +14,7 @@ export default function Header() {
   const menuRef = useRef<HTMLDivElement>(null);
   const menuId = useId();
   const pathname = usePathname();
-  const enquiryHref = ["/services/study-abroad", "/services/credit-transfer"].includes(pathname) ? "#contact" : "/#contact";
+  const enquiryHref = pageEnquiryHref(pathname);
 
   function closeMenu() {
     setMenuOpen(false);
@@ -24,7 +25,7 @@ export default function Header() {
     if (!menuOpen) return;
     const originalOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    const desktop = window.matchMedia("(min-width: 860px)");
+    const desktop = window.matchMedia("(min-width: 1024px)");
     const closeOnDesktop = () => {
       if (desktop.matches) setMenuOpen(false);
     };
@@ -63,14 +64,15 @@ export default function Header() {
           <Logo />
         </Link>
 
-        <nav className="ml-auto flex items-center gap-7">
-          <div className="hidden min-[860px]:flex items-center gap-7">
-            <div className="flex gap-7 text-sm tracking-[0.02em]">
+        <nav aria-label="Main navigation" className="ml-auto flex items-center gap-5">
+          <div className="hidden min-[1024px]:flex items-center gap-5 min-[1200px]:gap-7">
+            <div className="flex items-center gap-5 min-[1200px]:gap-7 text-sm tracking-[0.02em]">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-[#B9C6D8] hover:text-gold transition-colors"
+                  aria-current={pathname === link.href ? "page" : undefined}
+                  className={`whitespace-nowrap py-3 border-b transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold ${pathname === link.href ? "text-gold border-gold/70" : "text-[#B9C6D8] border-transparent hover:text-gold"}`}
                 >
                   {link.label}
                 </Link>
@@ -78,7 +80,7 @@ export default function Header() {
             </div>
             <Link
               href={enquiryHref}
-              className="bg-gold text-[#0A1220] px-5.5 py-3 rounded-full text-[13px] tracking-[0.08em] uppercase hover:text-white transition-colors"
+              className="shrink-0 whitespace-nowrap bg-gold text-[#0A1220] px-5.5 py-3 rounded-full text-[13px] tracking-[0.08em] uppercase hover:bg-gold-soft transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold"
             >
               Free consultation
             </Link>
@@ -91,7 +93,7 @@ export default function Header() {
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
             aria-controls={menuId}
-            className="min-[860px]:hidden relative w-[46px] h-[46px] rounded-xl border border-gold/30 bg-transparent flex items-center justify-center cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold"
+            className="min-[1024px]:hidden relative w-[46px] h-[46px] rounded-xl border border-gold/30 bg-transparent flex items-center justify-center cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold"
           >
             <span aria-hidden="true" className={`absolute w-[18px] h-[1.5px] bg-gold transition-transform duration-300 motion-reduce:transition-none ${menuOpen ? "rotate-45" : "-translate-y-[6px]"}`} />
             <span aria-hidden="true" className={`absolute w-[18px] h-[1.5px] bg-gold transition-opacity duration-200 motion-reduce:transition-none ${menuOpen ? "opacity-0" : "opacity-100"}`} />
@@ -105,7 +107,7 @@ export default function Header() {
         ref={menuRef}
         aria-hidden={!menuOpen}
         inert={!menuOpen}
-        className={`absolute inset-x-0 top-full min-[860px]:hidden transition-[visibility] duration-300 motion-reduce:transition-none ${menuOpen ? "visible" : "invisible"}`}
+        className={`absolute inset-x-0 top-full min-[1024px]:hidden transition-[visibility] duration-300 motion-reduce:transition-none ${menuOpen ? "visible" : "invisible"}`}
       >
         <div aria-hidden="true" onClick={closeMenu} className={`absolute inset-x-0 top-0 h-dvh bg-black/40 backdrop-blur-[3px] transition-opacity duration-300 motion-reduce:transition-none ${menuOpen ? "opacity-100" : "opacity-0"}`} />
         <nav aria-label="Mobile navigation" className={`relative ml-auto mr-4 mt-3 w-[calc(100%-2rem)] max-w-[380px] origin-top-right max-h-[calc(100dvh-7rem)] overflow-y-auto overscroll-contain rounded-[24px] border border-gold/25 bg-[linear-gradient(145deg,#131E30,#0B1422_70%)] p-3 shadow-[0_24px_70px_rgba(0,0,0,0.55)] transition-[opacity,transform] duration-300 ease-out motion-reduce:transition-none ${menuOpen ? "translate-y-0 scale-100 opacity-100" : "-translate-y-2 scale-95 opacity-0"}`}>

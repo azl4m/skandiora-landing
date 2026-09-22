@@ -19,9 +19,9 @@ export default function Contact() {
               <span className="text-xs tracking-[0.16em] uppercase text-muted min-w-[74px]">
                 Phone
               </span>
-              <a href={`tel:${site.phoneHref}`} className="text-[17px] text-cream hover:text-gold transition-colors">
-                {site.phone}
-              </a>
+              <div className="flex flex-col gap-2">
+                {site.phones.map((phone) => <a key={phone.href} href={`tel:${phone.href}`} className="text-[17px] text-cream hover:text-gold transition-colors">{phone.label}</a>)}
+              </div>
             </div>
             <div className="flex gap-3 items-baseline">
               <span className="text-xs tracking-[0.16em] uppercase text-muted min-w-[74px]">
@@ -33,7 +33,7 @@ export default function Contact() {
             </div>
             <div className="flex gap-3 items-baseline">
               <span className="text-xs tracking-[0.16em] uppercase text-muted min-w-[74px]">
-                Office
+                Offices
               </span>
               <span className="text-[17px] text-[#B9C6D8]">{site.office}</span>
             </div>
