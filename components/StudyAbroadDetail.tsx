@@ -11,6 +11,7 @@ import { featuredMbbsDestinations } from "@/data/mbbs-destinations";
 import FaqSection from "./Faq";
 import JsonLd from "./JsonLd";
 import StudyEnquiryLink from "./StudyEnquiryLink";
+import CtaBanner from "./CtaBanner";
 
 const icons = { Stethoscope, Settings2, BriefcaseBusiness, Monitor, HeartPulse, Hotel, Plane, GraduationCap };
 const primaryCta = "inline-flex min-h-12 items-center justify-center gap-3 rounded-full bg-gold px-6 py-3.5 text-sm font-medium text-[#0A1220] transition-colors hover:bg-gold-soft focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold";
@@ -38,13 +39,26 @@ export default function StudyAbroadDetail({ service }: { service: ServicePage })
           <Breadcrumbs items={breadcrumbs} />
           <div className="grid min-[1000px]:grid-cols-[1.1fr_1fr] gap-10 min-[1000px]:gap-16 mt-9 items-start">
             <div className="min-w-0 min-[1000px]:pt-5">
-              <p className={labelClass}>Student visa & study abroad guidance</p>
-              <h1 className="font-heading text-[clamp(42px,5.2vw,66px)] leading-[1.04] text-cream tracking-[-0.02em] max-w-[15ch] text-pretty">Choose your future <span className="text-gold-soft">with clarity.</span></h1>
-              <p className="font-heading text-[25px] text-cream mt-5">It deserves the right direction.</p>
-              <p className="text-base leading-[1.8] text-body-text mt-4 max-w-[53ch]">At Skandiora Immigration, we help students and families in Kerala and across South India make confident decisions about studying abroad — from choosing a country, course and university to preparing the right pathway forward.</p>
+              <p className={labelClass}>Study abroad & student visa guidance</p>
+              <h1 className="font-heading text-[clamp(42px,5.2vw,66px)] leading-[1.04] text-cream tracking-[-0.02em] max-w-[15ch] text-pretty">Your ambition. Your destination. <span className="text-gold-soft">Your future.</span></h1>
+              <p className="text-base leading-[1.8] text-body-text mt-5 max-w-[53ch]">At Skandiora Immigrations, we provide personalised guidance for students planning to study abroad. Based on your academic profile, interests, budget, and future goals, we help you choose the right course, university, and destination.</p>
+              <div className="mt-5 max-w-[53ch]">
+                <p className="text-sm font-medium text-cream">Explore opportunities across:</p>
+                <p className="text-base leading-[1.8] text-body-text mt-2">USA, Canada, UK, Australia, New Zealand, Ireland, Europe, Singapore, Dubai, Malaysia, and more.</p>
+              </div>
+              <p className="text-base leading-[1.8] text-body-text mt-5 max-w-[53ch]">From course and university selection to applications, documentation, visa guidance, scholarships, and pre-departure support, we are with you at every step.</p>
+              <div className="mt-7 border-l-2 border-gold/40 pl-5 max-w-[53ch]">
+                <h2 className="text-sm font-medium uppercase tracking-[0.12em] text-gold-soft">Your next opportunity starts now.</h2>
+                <p className="text-sm leading-[1.8] text-body-text mt-3">Start early to explore more courses, universities, and intake options.</p>
+                <p className="text-sm leading-[1.8] text-body-text mt-2">Get your profile assessed. Explore your options. Start your application.</p>
+              </div>
               <div className="flex flex-wrap gap-3 mt-7">
-                <a href="#contact" className={primaryCta}>Explore my study options <ArrowRight size={17} aria-hidden="true" /></a>
+                <a href="#contact" className={primaryCta}>Book Your Consultation Now <ArrowRight size={17} aria-hidden="true" /></a>
                 <a href="#courses" className="inline-flex items-center gap-2 min-h-12 px-3 text-sm text-cream hover:text-gold focus-visible:outline-2 focus-visible:outline-gold">Find your course <ArrowDown size={15} aria-hidden="true" /></a>
+              </div>
+              <div className="mt-6 max-w-[53ch]">
+                <p className="text-xs font-medium uppercase tracking-[0.16em] text-cream">Skandiora Immigrations</p>
+                <p className="text-sm leading-relaxed text-muted mt-2">International Education. Thoughtfully Guided. Globally Connected.</p>
               </div>
               <ul className="mt-7 grid grid-cols-1 min-[440px]:grid-cols-2 gap-3">
                 <li className="min-[440px]:col-span-2">
@@ -142,11 +156,15 @@ export default function StudyAbroadDetail({ service }: { service: ServicePage })
 
       <FaqSection items={studyFaqs} title="Your study-abroad questions, answered" />
 
-      <section className={`${sectionClass} pb-16 min-[900px]:pb-24`}>
-        <div className="text-center rounded-[24px] border border-gold/20 bg-[#101A2B] px-6 py-10 min-[640px]:py-14">
-          <p className={labelClass}>Your future deserves a conversation</p><h2 className={`${headingClass} max-w-[24ch] mx-auto`}>Not just an admission decision.<br />A decision about your future.</h2><p className="text-base text-body-text leading-relaxed max-w-[55ch] mx-auto mt-5 mb-7">You don’t have to choose everything today. Tell us where you are now, and let’s explore what could come next.</p><a href="#contact" className={primaryCta}>Request my free consultation <ArrowRight size={16} aria-hidden="true" /></a><p className="text-sm text-muted mt-6">Get to know the people behind your guidance. <Link href="/about" className="text-gold underline underline-offset-4">About Skandiora</Link></p>
-        </div>
-      </section>
+      <CtaBanner
+        eyebrow="Your future deserves a conversation"
+        title="Not just an admission decision. A decision about your future."
+        body="You don’t have to choose everything today. Tell us where you are now, and let’s explore what could come next."
+        href="#contact"
+        buttonLabel="Book your consultation"
+      >
+        Get to know the people behind your guidance. <Link href="/about" className="text-gold underline underline-offset-4">About Skandiora</Link>
+      </CtaBanner>
     </>
   );
 }

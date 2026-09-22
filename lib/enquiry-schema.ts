@@ -14,3 +14,9 @@ export const enquirySchema = z.object({
 });
 
 export type EnquiryInput = z.infer<typeof enquirySchema>;
+
+export const whatsappEnquirySchema = enquirySchema.extend({
+  phone: enquirySchema.shape.phone.optional(),
+});
+
+export type WhatsAppEnquiryInput = z.infer<typeof whatsappEnquirySchema>;

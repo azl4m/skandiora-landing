@@ -9,6 +9,7 @@ import FaqSection from "./Faq";
 import FlagTicker from "./FlagTicker";
 import JsonLd from "./JsonLd";
 import RelatedServices from "./RelatedServices";
+import ContactForm from "./ContactForm";
 
 function Checklist({ heading, items }: { heading: string; items: string[] }) {
   return (
@@ -55,6 +56,8 @@ function TagBlock({ heading, items, linkToContact }: ServiceListBlock) {
 }
 
 export default function ServiceDetail({ service }: { service: ServicePage }) {
+  const isCreditTransfer = service.slug === "credit-transfer";
+  const enquiryHref = isCreditTransfer ? "#contact" : "/#contact";
   const breadcrumbItems = [
     { href: "/", label: "Home" },
     { href: "/services", label: "Services" },
@@ -112,7 +115,7 @@ export default function ServiceDetail({ service }: { service: ServicePage }) {
           )}
           <div className="flex flex-wrap gap-3.5 mt-8">
             <Link
-              href="/#contact"
+              href={enquiryHref}
               className="bg-gold text-white py-3.5 px-7 rounded-full text-sm tracking-[0.06em] shadow-[0_14px_30px_rgba(212,168,87,0.28)] hover:bg-[#0F2A4E] transition-colors"
             >
               Book a free assessment
@@ -126,6 +129,20 @@ export default function ServiceDetail({ service }: { service: ServicePage }) {
           </div>
         </div>
       </section>
+
+      {isCreditTransfer && (
+        <section id="contact" aria-labelledby="credit-transfer-enquiry-title" className="scroll-mt-28 px-4.5 pb-[clamp(40px,6vw,64px)]">
+          <div className="max-w-[1240px] mx-auto grid grid-cols-1 min-[900px]:grid-cols-2 items-center gap-8 min-[900px]:gap-14">
+            <div>
+              <p className="text-xs tracking-[0.2em] uppercase text-gold mb-3">Free credit transfer consultation</p>
+              <h2 id="credit-transfer-enquiry-title" className="font-heading text-[clamp(28px,3.4vw,40px)] leading-[1.15] text-cream">Let’s explore how you can continue.</h2>
+              <p className="mt-4 text-base leading-[1.7] text-body-text max-w-[46ch]">Start with your name and phone number. You can also share your previous course — our admissions team will guide you through the next steps.</p>
+              <p className="mt-3 text-sm leading-relaxed text-muted">No marksheets or detailed academic history needed for this first enquiry.</p>
+            </div>
+            <ContactForm creditTransfer />
+          </div>
+        </section>
+      )}
 
       {service.tagSections && (
         <section className="px-4.5 pb-[clamp(40px,6vw,64px)]">
@@ -222,7 +239,7 @@ export default function ServiceDetail({ service }: { service: ServicePage }) {
 
       <FaqSection items={service.faqs} />
 
-      <CtaBanner />
+      <CtaBanner href={enquiryHref} />
     </>
   );
 }
