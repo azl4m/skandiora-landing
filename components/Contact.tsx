@@ -3,7 +3,7 @@ import ContactForm from "./ContactForm";
 
 export default function Contact() {
   return (
-    <section id="contact" className="px-4.5 py-[clamp(52px,8vw,110px)]">
+    <section id="contact" className="section-space section-band px-4.5">
       <div className="max-w-[1240px] mx-auto grid grid-cols-1 min-[620px]:grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-[clamp(32px,5vw,56px)]">
         <div className="min-w-0">
           <div className="text-xs tracking-[0.24em] uppercase text-gold">Get in touch</div>

@@ -42,7 +42,7 @@ export default function SupportServiceDetail({ service }: { service: ServicePage
         </div>
       </div>
     </section>
-    <section className="max-w-[1240px] mx-auto px-5 min-[640px]:px-8 pb-14 min-[900px]:pb-20" aria-labelledby="support-services-heading">
+    <section className="section-space section-band max-w-[1240px] mx-auto px-5 min-[640px]:px-8" aria-labelledby="support-services-heading">
       <p className="text-[11px] uppercase tracking-[0.2em] text-gold mb-3">How we can help</p>
       <h2 id="support-services-heading" className="font-heading text-[clamp(30px,4vw,42px)] leading-tight text-cream">{visa ? "Visa guidance for your next chapter." : "Our attestation services include"}</h2>
       <div className={`grid min-[620px]:grid-cols-2 ${visa ? "" : "min-[1050px]:grid-cols-3"} gap-4 mt-7`}>
@@ -55,7 +55,7 @@ export default function SupportServiceDetail({ service }: { service: ServicePage
       {service.seeAlso && <p className="text-sm text-body-text mt-6">{service.seeAlso.note} <Link href={`/services/${service.seeAlso.slug}`} className="text-gold underline underline-offset-4">Explore study abroad & student visa guidance</Link></p>}
       {service.disclaimer && <p className="mt-6 text-sm leading-relaxed text-muted max-w-[90ch]">{service.disclaimer}</p>}
     </section>
-    {service.checklist && <section className="max-w-[1240px] mx-auto px-5 min-[640px]:px-8 pb-14 min-[900px]:pb-20">
+    {service.checklist && <section className="section-space max-w-[1240px] mx-auto px-5 min-[640px]:px-8">
       <h2 className="font-heading text-[clamp(30px,4vw,42px)] leading-tight text-cream">{service.checklist.heading}</h2>
       <ul className="grid min-[700px]:grid-cols-2 gap-x-12 gap-y-7 mt-7">{service.checklist.items.map((item) => {
         const [title, ...description] = item.split(": ");

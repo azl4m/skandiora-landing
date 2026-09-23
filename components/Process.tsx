@@ -2,7 +2,7 @@ import { steps } from "@/data/process";
 
 export default function Process() {
   return (
-    <section id="process" className="px-4.5 py-[clamp(52px,8vw,110px)]">
+    <section id="process" className="section-space section-band px-4.5">
       <div className="max-w-[1240px] mx-auto">
         <div className="mb-[clamp(32px,4vw,48px)]">
           <div className="text-xs tracking-[0.24em] uppercase text-gold">Why Skandiora Immigration?</div>

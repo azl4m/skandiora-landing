@@ -30,7 +30,7 @@ export default function ServicesPage() {
           "Every case is handled by a named counsellor who owns your file from first call to final approval — no handoffs, no surprise fees.",
         ]}
       />
-      <section className="px-4.5 pb-[clamp(40px,6vw,64px)]">
+      <section className="section-space px-4.5">
         <div className="max-w-[1240px] mx-auto grid grid-cols-1 min-[620px]:grid-cols-2 min-[980px]:grid-cols-3 gap-5">
           {primary.map((s) => (
             <ServiceCard key={s.slug} service={s} />
@@ -38,7 +38,7 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <section className="px-4.5 pb-[clamp(52px,8vw,96px)]">
+      <section className="section-space section-band px-4.5">
         <div className="max-w-[1240px] mx-auto">
           <div className="text-xs tracking-[0.2em] uppercase text-gold mb-2">
             Related & specialised services

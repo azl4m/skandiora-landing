@@ -50,7 +50,7 @@ export default function CreditTransferDetail({ service }: { service: ServicePage
         </div>
       </section>
 
-      <section className={`${sectionClass} pb-14 min-[900px]:pb-20`} aria-labelledby="credit-study-heading">
+      <section className={`section-space ${sectionClass}`} aria-labelledby="credit-study-heading">
         <div className="border-y border-gold/16 py-8">
           <p className={labelClass}>Build on your previous studies</p>
           <h2 id="credit-study-heading" className="font-heading text-[28px] text-cream leading-tight mb-6">Explore options for your interrupted qualification.</h2>
@@ -64,7 +64,7 @@ export default function CreditTransferDetail({ service }: { service: ServicePage
         </div>
       </section>
 
-      <section className={`${sectionClass} pb-14 min-[900px]:pb-20`} aria-labelledby="credit-process-heading">
+      <section className={`section-space section-band ${sectionClass}`} aria-labelledby="credit-process-heading">
         <p className={labelClass}>A clearer way forward</p>
         <h2 id="credit-process-heading" className={headingClass}>How credit transfer assistance works</h2>
         <ol className="grid min-[800px]:grid-cols-3 gap-5 mt-8">
@@ -76,7 +76,7 @@ export default function CreditTransferDetail({ service }: { service: ServicePage
         </ol>
       </section>
 
-      <section className={`${sectionClass} pb-14 min-[900px]:pb-20`} aria-labelledby="credit-universities-heading">
+      <section className={`section-space ${sectionClass}`} aria-labelledby="credit-universities-heading">
         <div className="grid min-[900px]:grid-cols-2 gap-9 min-[900px]:gap-16 items-start">
           <div>
             <p className={labelClass}>University options across India</p>

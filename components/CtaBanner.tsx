@@ -22,7 +22,7 @@ export default function CtaBanner({
   children,
 }: CtaBannerProps) {
   return (
-    <section className={embedded ? "mt-6" : "px-4.5 pb-[clamp(52px,8vw,96px)]"}>
+    <section className={embedded ? "mt-6" : "cta-section px-4.5 pb-[clamp(52px,8vw,96px)]"}>
       <div className="relative isolate overflow-hidden max-w-[1240px] mx-auto [background:linear-gradient(160deg,#0E1A2C,#070D18)] rounded-[26px] border border-gold/15 p-[clamp(24px,4vw,52px)] text-[#E8EDF5]">
         <svg aria-hidden="true" focusable="false" viewBox="0 0 1240 400" preserveAspectRatio="xMidYMid slice" fill="none" className="pointer-events-none absolute inset-0 -z-10 h-full w-full text-white [mask-image:linear-gradient(to_right,rgba(0,0,0,0.3),black)]">
           <g stroke="currentColor" strokeLinecap="round">

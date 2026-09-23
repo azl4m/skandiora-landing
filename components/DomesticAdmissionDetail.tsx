@@ -37,7 +37,7 @@ export default function DomesticAdmissionDetail({ service }: { service: ServiceP
         </div>
       </section>
 
-      <section className={`${sectionClass} pb-14 min-[900px]:pb-20`} aria-labelledby="domestic-network-heading">
+      <section className={`section-space ${sectionClass}`} aria-labelledby="domestic-network-heading">
         <p className={labelClass}>Closer to home. Open to possibilities.</p>
         <h2 id="domestic-network-heading" className={headingClass}>Our admission network</h2>
         <p className="mt-4 mb-7 text-base leading-relaxed text-body-text">Explore college options across four South Indian states. Select a state to add it to your enquiry.</p>
@@ -52,7 +52,7 @@ export default function DomesticAdmissionDetail({ service }: { service: ServiceP
         </div>
       </section>
 
-      <section className={`${sectionClass} pb-14 min-[900px]:pb-20`} aria-labelledby="domestic-courses-heading">
+      <section className={`section-space section-band ${sectionClass}`} aria-labelledby="domestic-courses-heading">
         <p className={labelClass}>Find a course that fits</p>
         <h2 id="domestic-courses-heading" className={headingClass}>Explore your options</h2>
         <p className="mt-4 mb-7 text-base leading-relaxed text-body-text">Start with your interests. Select a course area to discuss suitable colleges and admission requirements.</p>
@@ -68,7 +68,7 @@ export default function DomesticAdmissionDetail({ service }: { service: ServiceP
         </div>
       </section>
 
-      <section className={`${sectionClass} pb-14 min-[900px]:pb-20`}>
+      <section className={`section-space ${sectionClass}`}>
         <div className="grid min-[760px]:grid-cols-2 gap-5">
           {[service.checklist, service.checklist2].map((block) => block && <div key={block.heading} className="rounded-[20px] border border-gold/16 bg-[#101A2B] p-6 min-[640px]:p-8">
             <h2 className="font-heading text-[28px] leading-tight text-cream">{block.heading}</h2>

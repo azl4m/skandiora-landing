@@ -135,7 +135,7 @@ export default function ServiceDetail({ service }: { service: ServicePage }) {
       </section>
 
       {isCreditTransfer && (
-        <section id="contact" aria-labelledby="credit-transfer-enquiry-title" className="scroll-mt-28 px-4.5 pb-[clamp(40px,6vw,64px)]">
+        <section id="contact" aria-labelledby="credit-transfer-enquiry-title" className="section-space scroll-mt-28 px-4.5">
           <div className="max-w-[1240px] mx-auto grid grid-cols-1 min-[900px]:grid-cols-2 items-center gap-8 min-[900px]:gap-14">
             <div>
               <p className="text-xs tracking-[0.2em] uppercase text-gold mb-3">Free credit transfer consultation</p>
@@ -149,7 +149,7 @@ export default function ServiceDetail({ service }: { service: ServicePage }) {
       )}
 
       {isMbbs && (
-        <section aria-labelledby="mbbs-destinations-heading" className="px-4.5 pb-[clamp(40px,6vw,64px)]">
+        <section aria-labelledby="mbbs-destinations-heading" className="section-space px-4.5">
           <div className="max-w-[1240px] mx-auto">
             <p className="text-xs uppercase tracking-[0.2em] text-gold mb-3">Explore medical study destinations</p>
             <h2 id="mbbs-destinations-heading" className="font-heading text-[clamp(30px,4vw,46px)] leading-[1.12] text-cream">Your medical dream. A world of possibilities.</h2>
@@ -163,7 +163,7 @@ export default function ServiceDetail({ service }: { service: ServicePage }) {
       )}
 
       {!isMbbs && service.tagSections && (
-        <section className="px-4.5 pb-[clamp(40px,6vw,64px)]">
+        <section className="section-space px-4.5">
           <div className="max-w-[1240px] mx-auto flex flex-col gap-8">
             {service.tagSections.map((block) => (
               <TagBlock key={block.heading} {...block} />
@@ -182,7 +182,7 @@ export default function ServiceDetail({ service }: { service: ServicePage }) {
       )}
 
       {(service.checklist || service.checklist2) && (
-        <section className="px-4.5 pb-[clamp(40px,6vw,64px)]">
+        <section className="section-space section-band px-4.5">
           <div className="max-w-[1240px] mx-auto grid grid-cols-1 min-[760px]:grid-cols-2 gap-5">
             {service.checklist && <Checklist heading={service.checklist.heading} items={service.checklist.items} />}
             {service.checklist2 && (
@@ -193,7 +193,7 @@ export default function ServiceDetail({ service }: { service: ServicePage }) {
       )}
 
       {service.categories && (
-        <section className="px-4.5 pb-[clamp(40px,6vw,64px)]">
+        <section className="section-space px-4.5">
           <div className="max-w-[1240px] mx-auto grid grid-cols-1 min-[620px]:grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-5">
             {service.categories.map((cat) => (
               <div
@@ -234,7 +234,7 @@ export default function ServiceDetail({ service }: { service: ServicePage }) {
       )}
 
       {(service.closingHeadline || service.closingBody || service.disclaimer) && (
-        <section className="px-4.5 pb-[clamp(40px,6vw,72px)]">
+        <section className="section-space px-4.5">
           <div className="max-w-[840px] mx-auto text-center">
             {service.closingHeadline && (
               <h2 className="font-heading font-semibold text-[clamp(24px,3vw,34px)] text-cream leading-[1.2] mb-3">
@@ -258,7 +258,7 @@ export default function ServiceDetail({ service }: { service: ServicePage }) {
       <FaqSection items={service.faqs} />
 
       {isMbbs && (
-        <section id="contact" aria-labelledby="mbbs-enquiry-heading" className="scroll-mt-28 px-4.5 pb-[clamp(52px,8vw,96px)]">
+        <section id="contact" aria-labelledby="mbbs-enquiry-heading" className="section-space section-band scroll-mt-28 px-4.5">
           <div className="max-w-[1240px] mx-auto grid min-[900px]:grid-cols-2 gap-8 min-[900px]:gap-14 items-start">
             <div>
               <p className="text-xs uppercase tracking-[0.2em] text-gold mb-3">Your next step</p>

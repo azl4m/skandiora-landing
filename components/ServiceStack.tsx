@@ -7,7 +7,7 @@ export default function ServiceStack() {
   const primary = featuredServices(services);
 
   return (
-    <section id="services" className="px-4.5 py-[clamp(52px,8vw,110px)]">
+    <section id="services" className="section-space px-4.5">
       <div className="max-w-[1240px] mx-auto">
         <div className="grid grid-cols-1 min-[620px]:grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-6 items-end mb-[clamp(32px,4vw,52px)]">
           <div className="min-w-0">

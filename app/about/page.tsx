@@ -32,7 +32,7 @@ export default function AboutPage() {
         title="Because your child is not an application."
       />
 
-      <section className="px-4.5 pb-[clamp(40px,6vw,64px)]">
+      <section className="section-space px-4.5">
         <div className="max-w-[1240px] mx-auto grid grid-cols-1 min-[760px]:grid-cols-2 gap-8">
           <div>
             <div className="text-xs tracking-[0.2em] uppercase text-gold mb-3">Vision</div>
@@ -62,7 +62,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="px-4.5 pb-[clamp(40px,6vw,64px)]">
+      <section className="section-space px-4.5">
         <div className="max-w-[1240px] mx-auto">
           <div className="text-xs tracking-[0.24em] uppercase text-gold mb-4">
             Why Skandiora Immigration?
@@ -85,8 +85,7 @@ export default function AboutPage() {
       </section>
 
       <section
-        className="px-4.5 py-[clamp(52px,8vw,96px)] text-[#E8EDF5]"
-        style={{ background: "linear-gradient(160deg,#0E1A2C,#070D18)" }}
+        className="section-space section-band px-4.5 text-[#E8EDF5]"
       >
         <div className="max-w-[900px] mx-auto text-center">
           <h2 className="font-heading font-semibold text-[clamp(26px,3.4vw,40px)] text-white leading-[1.2] mb-5">
@@ -116,7 +115,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="px-4.5 py-[clamp(40px,6vw,64px)]">
+      <section className="section-space px-4.5">
         <div className="max-w-[1240px] mx-auto flex flex-wrap items-center justify-between gap-6">
           <div>
             <div className="text-xs tracking-[0.2em] uppercase text-gold mb-3">Office locations</div>

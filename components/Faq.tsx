@@ -16,7 +16,7 @@ export default function FaqSection({ items, title = "Frequently asked questions"
   if (items.length === 0) return null;
 
   return (
-    <section aria-labelledby={`${sectionId}-heading`} className="px-4.5 pb-[clamp(52px,8vw,96px)]">
+    <section aria-labelledby={`${sectionId}-heading`} className="section-space px-4.5">
       <div className="max-w-[920px] mx-auto">
         <p className="mb-3 flex items-center justify-center gap-3 text-[11px] uppercase tracking-[0.2em] text-gold"><span aria-hidden="true" className="h-px w-8 bg-gold/40" />A little clarity<span aria-hidden="true" className="h-px w-8 bg-gold/40" /></p>
         <h2 id={`${sectionId}-heading`} className="font-heading font-semibold text-[clamp(28px,3.4vw,42px)] text-cream leading-[1.15] mb-8 min-[640px]:mb-10 text-center text-pretty">
