@@ -4,6 +4,8 @@
   --ink: #04080f;
   --surface: #0b1422;
   --surface-raised: #131e30;
+  --section-secondary: #091321;
+  --section-spacing: clamp(48px, 6vw, 80px);
   --gold: #d4a857;
   --gold-soft: #e7c27a;
   --cream: #f5f1e8;
@@ -110,6 +112,38 @@ button {
 
 .no-scrollbar {
   scrollbar-width: none;
+}
+
+/* Opt-in section rhythm. Small strips, CTA cards and the footer stay independent. */
+.section-space {
+  padding-block: var(--section-spacing);
+}
+
+/* Related content on the primary background needs one gap, not two. */
+.section-space:not(.section-band) + .section-space:not(.section-band) {
+  padding-top: 0;
+}
+
+.section-band {
+  position: relative;
+  isolation: isolate;
+}
+
+/* Extend the background without changing constrained content widths or gutters. */
+.section-band::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  inset-block: 0;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  background: var(--section-secondary);
+}
+
+.section-band + .cta-section {
+  padding-top: var(--section-spacing);
 }
 
 .custom-select-menu {

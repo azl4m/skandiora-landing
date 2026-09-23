@@ -71,7 +71,7 @@ export default function DestinationsPage() {
         ]}
       />
 
-      <section className="px-4.5 pb-[clamp(40px,6vw,64px)]">
+      <section className="section-space section-band px-4.5">
         <div className="max-w-[1240px] mx-auto">
           <DestinationGroup heading="Popular destinations" items={popularDestinations} />
           <DestinationGroup heading="Europe" items={europeDestinations} />
@@ -79,7 +79,7 @@ export default function DestinationsPage() {
         </div>
       </section>
 
-      <section className="px-4.5 pb-[clamp(40px,6vw,72px)]">
+      <section className="section-space px-4.5">
         <div className="max-w-[840px] mx-auto text-center">
           <h2 className="font-heading font-semibold text-[clamp(24px,3vw,34px)] text-cream leading-[1.2] mb-3">
             The right destination isn&apos;t the same for every student.

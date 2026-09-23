@@ -2,7 +2,7 @@ import { courseCategories } from "@/data/courses";
 
 export default function Courses() {
   return (
-    <section className="px-4.5 py-[clamp(52px,8vw,96px)]">
+    <section className="section-space px-4.5">
       <div className="max-w-[1240px] mx-auto">
         <div className="text-xs tracking-[0.24em] uppercase text-gold">
           Find the course that fits your future

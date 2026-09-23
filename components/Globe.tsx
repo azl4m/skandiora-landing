@@ -27,31 +27,31 @@ export default function Globe() {
     globe.rotation.set(0.08, -1.3, -0.13);
     scene.add(globe);
     const radius = 2;
-    const material = new THREE.MeshPhongMaterial({ color: 0xffffff, shininess: 22, specular: 0x365d87 });
+    const material = new THREE.MeshPhongMaterial({ color: 0xffffff, shininess: 16, specular: 0x74716a });
     globe.add(new THREE.Mesh(new THREE.SphereGeometry(radius, 80, 48), material));
 
     // A sparse triangular shell adds the connected-world detail from the reference.
     const networkGeometry = new THREE.IcosahedronGeometry(radius * 1.008, 3);
     const wireGeometry = new THREE.WireframeGeometry(networkGeometry);
-    globe.add(new THREE.LineSegments(wireGeometry, new THREE.LineBasicMaterial({ color: 0xd4a857, transparent: true, opacity: 0.13 })));
+    globe.add(new THREE.LineSegments(wireGeometry, new THREE.LineBasicMaterial({ color: 0x8d969e, transparent: true, opacity: 0.13 })));
     const nodes = new THREE.IcosahedronGeometry(radius * 1.012, 2);
-    globe.add(new THREE.Points(nodes, new THREE.PointsMaterial({ color: 0xe8c477, size: 0.025, transparent: true, opacity: 0.8 })));
+    globe.add(new THREE.Points(nodes, new THREE.PointsMaterial({ color: 0xd4a857, size: 0.025, transparent: true, opacity: 0.8 })));
     networkGeometry.dispose();
 
     const atmosphere = new THREE.Mesh(new THREE.SphereGeometry(radius * 1.025, 64, 40), new THREE.ShaderMaterial({
       transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
-      uniforms: { glowColor: { value: new THREE.Color(0x487bb5) } },
+      uniforms: { glowColor: { value: new THREE.Color(0xb8b3a8) } },
       vertexShader: `varying vec3 vNormal; varying vec3 vView;
         void main() { vec4 p = modelViewMatrix * vec4(position, 1.0); vNormal = normalize(normalMatrix * normal); vView = normalize(-p.xyz); gl_Position = projectionMatrix * p; }`,
       fragmentShader: `uniform vec3 glowColor; varying vec3 vNormal; varying vec3 vView;
         void main() { float rim = pow(1.0 - max(dot(normalize(vNormal), normalize(vView)), 0.0), 4.0); gl_FragColor = vec4(glowColor, rim * 0.3); }`,
     }));
     scene.add(atmosphere);
-    scene.add(new THREE.AmbientLight(0xc4d6ee, 1.4));
-    const light = new THREE.DirectionalLight(0xffe8bb, 2.3);
+    scene.add(new THREE.AmbientLight(0xffffff, 1.1));
+    const light = new THREE.DirectionalLight(0xfff5e5, 1.8);
     light.position.set(-3, 4, 5);
     scene.add(light);
-    const fill = new THREE.DirectionalLight(0x528bda, 1.5);
+    const fill = new THREE.DirectionalLight(0xc7ced4, 0.9);
     fill.position.set(4, 1, -2);
     scene.add(fill);
 
@@ -132,6 +132,6 @@ export default function Globe() {
   }, []);
 
   return <div ref={containerRef} aria-hidden="true" className="group absolute inset-0">
-    <div className="absolute inset-[13%] rounded-full bg-[#0a1d38] bg-[url('/earth-map.svg')] bg-cover bg-center shadow-[inset_-35px_-15px_55px_#030811,inset_8px_8px_28px_#d4a85722,0_0_30px_#487bb522] group-data-[ready=true]:opacity-0 transition-opacity duration-700" />
+    <div className="absolute inset-[13%] rounded-full bg-[#111820] bg-[url('/earth-map.svg')] bg-cover bg-center shadow-[inset_-35px_-15px_55px_#080c10,inset_8px_8px_28px_#d8d2c422,0_0_30px_#b8b3a818] group-data-[ready=true]:opacity-0 transition-opacity duration-700" />
   </div>;
 }

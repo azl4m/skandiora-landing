@@ -1,5 +1,6 @@
 import type { Faq, ServicePage } from "@/data/services";
 import { site } from "@/data/site";
+import { socialLinks } from "@/data/socials";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.skandiora.com";
 
@@ -13,6 +14,7 @@ export function organizationSchema() {
     "@type": "EducationalOrganization",
     name: "Skandiora Immigration",
     url: SITE_URL,
+    sameAs: socialLinks.map((social) => social.href),
     description:
       "Skandiora Immigration helps students and families explore study-abroad, MBBS, domestic admission, credit transfer, loan, language and visa pathways with personalised, transparent guidance.",
     telephone: site.phones.map((phone) => phone.href),

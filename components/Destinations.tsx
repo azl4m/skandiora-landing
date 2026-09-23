@@ -6,7 +6,7 @@ export default function Destinations() {
   return (
     <section
       id="destinations"
-      className="py-[clamp(56px,7vw,96px)] bg-surface border-t border-b border-gold/16"
+      className="section-space section-band "
     >
       <div className="max-w-[1240px] mx-auto px-5 flex flex-wrap items-end justify-between gap-6">
         <div className="min-w-0">

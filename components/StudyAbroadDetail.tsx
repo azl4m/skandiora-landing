@@ -95,7 +95,7 @@ export default function StudyAbroadDetail({ service }: { service: ServicePage })
         </div>
       </nav>
 
-      <section id="mbbs-support" className={`${sectionClass} py-14 min-[900px]:py-20 scroll-mt-24`}>
+      <section id="mbbs-support" className={`section-space ${sectionClass} scroll-mt-24`}>
         <div className="rounded-[24px] border border-gold/25 bg-[linear-gradient(125deg,#17273B,#0B1422)] p-6 min-[640px]:p-10 grid min-[900px]:grid-cols-2 gap-9 min-[900px]:gap-14">
           <div><p className={labelClass}>For future medical professionals</p><h2 className={headingClass}>MBBS abroad, with support beyond admission.</h2><p className="text-base leading-relaxed text-body-text mt-5">A move abroad is a big step for students and their families. Alongside medical course and application guidance, we help you prepare for the journey and settling in.</p><div className="flex flex-wrap gap-4 items-center mt-6"><StudyEnquiryLink course="MBBS & Medicine" className={primaryCta}>Discuss MBBS options <ArrowRight size={16} aria-hidden="true" /></StudyEnquiryLink><Link href="/services/mbbs-abroad" className="text-sm text-gold py-2 underline underline-offset-4">More about MBBS abroad</Link></div></div>
           <div className="space-y-5">
@@ -104,7 +104,7 @@ export default function StudyAbroadDetail({ service }: { service: ServicePage })
         </div>
       </section>
 
-      <section id="mbbs-destinations" className={`${sectionClass} pb-14 min-[900px]:pb-20 scroll-mt-24`}>
+      <section id="mbbs-destinations" className={`section-space ${sectionClass} scroll-mt-24`}>
         <div className="flex flex-wrap items-end justify-between gap-5 mb-7">
           <div><p className={labelClass}>Featured medical study destinations</p><h2 className={`${headingClass} max-w-[24ch]`}>Your medical dream.<br />A world of possibilities.</h2></div>
           <Link href="/services/mbbs-abroad" className="inline-flex items-center gap-2 py-2 text-sm text-gold hover:text-gold-soft">Explore MBBS guidance <ArrowRight size={16} aria-hidden="true" /></Link>
@@ -115,7 +115,7 @@ export default function StudyAbroadDetail({ service }: { service: ServicePage })
         <p className="mt-5 text-sm leading-relaxed text-muted">The right university, pathway and guidance matter. Programme names, language requirements and eligibility vary by country. Select a destination to discuss your options.</p>
       </section>
 
-      <section id="courses" className={`${sectionClass} pb-14 min-[900px]:pb-20 scroll-mt-24`}>
+      <section id="courses" className={`section-space section-band ${sectionClass} scroll-mt-24`}>
         <div className="flex flex-wrap items-end justify-between gap-5 mb-8">
           <div><p className={labelClass}>Your ambition, your direction</p><h2 className={headingClass}>What would you like to study?</h2></div>
           <p className="text-sm leading-relaxed text-body-text max-w-[40ch]">From medicine to management and beyond. Select an area to add it to your enquiry.</p>
@@ -132,7 +132,7 @@ export default function StudyAbroadDetail({ service }: { service: ServicePage })
         <p className="text-sm text-muted mt-5">Course availability and admission depend on your qualifications and the institution’s requirements.</p>
       </section>
 
-      <section id="support" className={`${sectionClass} pb-14 min-[900px]:pb-20 scroll-mt-24`}>
+      <section id="support" className={`section-space ${sectionClass} scroll-mt-24`}>
         <p className={labelClass}>More than an application</p><h2 className={`${headingClass} max-w-[22ch]`}>Support for each step of your journey.</h2>
         <div className="grid min-[640px]:grid-cols-2 min-[1100px]:grid-cols-4 gap-7 mt-10">
           {support.map(([number, title, body]) => <div key={number} className="border-t border-gold/25 pt-5"><span className="font-heading text-3xl text-gold/65">{number}</span><h3 className="text-lg text-cream mt-3 mb-2">{title}</h3><p className="text-sm leading-[1.8] text-body-text">{body}</p></div>)}
@@ -140,14 +140,14 @@ export default function StudyAbroadDetail({ service }: { service: ServicePage })
         <div className="mt-9 rounded-2xl border border-gold/15 bg-[#0B1422] p-5 min-[640px]:p-7 flex flex-wrap items-center justify-between gap-4"><div><h3 className="text-base text-cream">Thinking beyond the classroom?</h3><p className="text-sm text-body-text leading-relaxed mt-2 max-w-[75ch]">Ask about internship assistance, scholarship opportunities and education-loan guidance. Options depend on your course, destination and eligibility; placements are not guaranteed.</p></div><a href="#contact" className="text-sm text-gold inline-flex items-center gap-2 py-2">Discuss my goals <ArrowRight size={16} aria-hidden="true" /></a></div>
       </section>
 
-      <section id="academic-options" className={`${sectionClass} pb-14 min-[900px]:pb-20 scroll-mt-24`}>
+      <section id="academic-options" className={`section-space ${sectionClass} scroll-mt-24`}>
         <div className="grid min-[900px]:grid-cols-2 gap-9 min-[900px]:gap-16 items-start">
           <div><p className={labelClass}>Start from where you are</p><h2 className={headingClass}>Low marks or an incomplete Plus Two?</h2><p className="text-base leading-[1.8] text-body-text mt-5">You can still ask for guidance. Tell us about your marks, pending subjects and goals so we can discuss realistic next steps — including whether you need to complete subjects or explore an alternative education pathway.</p><a href="#contact" className={`${primaryCta} mt-6`}>Discuss my academic profile <ArrowRight size={16} aria-hidden="true" /></a></div>
           <div className="border-l-2 border-gold/40 pl-6 py-2"><h3 className="font-heading text-2xl text-cream">An honest review comes first.</h3><ul className="space-y-4 mt-5 text-sm leading-relaxed text-body-text">{["Your completed qualifications and pending subjects", "The entry requirements for your preferred course", "Your budget, timeline and possible next steps"].map((text) => <li key={text} className="flex gap-3"><Check size={16} className="text-gold shrink-0 mt-1" aria-hidden="true" />{text}</li>)}</ul><p className="text-sm text-muted leading-relaxed mt-6">A profile review does not guarantee admission or visa eligibility. Requirements vary by institution and destination.</p></div>
         </div>
       </section>
 
-      <section className="bg-[#0B1422] border-y border-gold/12 py-12 mb-14 min-[900px]:mb-20">
+      <section className="section-space section-band ">
         <div className={`${sectionClass} grid min-[900px]:grid-cols-[0.85fr_1.15fr] gap-8`}>
           <div><p className={labelClass}>A simple first step</p><h2 className={headingClass}>What happens after you enquire?</h2></div>
           <ol className="space-y-5">{[["We get to know your profile", "Our team contacts you to discuss your studies, interests and budget."], ["We explore possible directions", "Discuss suitable courses and countries, and the requirements to consider."], ["You decide your next step", "Understand the process, documents and costs before making a commitment."]].map(([title, body], index) => <li key={title} className="flex gap-4"><span className="flex-none w-8 h-8 rounded-full border border-gold/30 grid place-items-center text-xs text-gold">{index + 1}</span><div><h3 className="text-base text-cream">{title}</h3><p className="text-sm text-body-text leading-relaxed mt-1">{body}</p></div></li>)}</ol>

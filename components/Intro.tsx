@@ -4,7 +4,7 @@ const understand = ["Your academic background.", "Your ambitions.", "Your prefer
 
 export default function Intro() {
   return (
-    <section className="px-4.5 py-[clamp(52px,8vw,96px)]">
+    <section className="section-space px-4.5">
       <div className="max-w-[860px] mx-auto text-center">
         <div className="text-xs tracking-[0.24em] uppercase text-gold">Why Skandiora</div>
         <h2 className="font-heading font-semibold text-[clamp(28px,3.6vw,44px)] text-cream leading-[1.15] mt-3.5">

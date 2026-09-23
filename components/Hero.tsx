@@ -18,11 +18,15 @@ export default function Hero() {
       }}
     >
       <div className="max-w-[1240px] mx-auto grid grid-cols-1 min-[620px]:grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-[clamp(32px,5vw,64px)] items-center">
-        <div className="min-w-0 animate-rise">
-          <div className="inline-flex items-center gap-2.5 border border-gold/45 rounded-full py-1.5 px-4 text-xs tracking-[0.16em] uppercase text-gold-soft">
-            <span className="w-1.5 h-1.5 rounded-full bg-gold" />
-            Education guidance · Admission support · Journey support
-          </div>
+        <div className="@container min-w-0 animate-rise">
+          <ul className="flex w-full items-center justify-between gap-[clamp(4px,1cqw,8px)] border border-gold/45 rounded-full py-2 px-[clamp(9px,2.5cqw,16px)] text-[clamp(8px,2.45cqw,12px)] leading-none tracking-[0.04em] uppercase text-gold-soft whitespace-nowrap">
+            {["Education guidance", "Admission support", "Journey support"].map((label) => (
+              <li key={label} className="flex items-center gap-[clamp(4px,1cqw,7px)]">
+                <span aria-hidden="true" className="size-[3px] shrink-0 rounded-full bg-gold" />
+                <span>{label}</span>
+              </li>
+            ))}
+          </ul>
           <h1 className="font-heading font-semibold text-[clamp(40px,6.4vw,72px)] leading-[1.04] tracking-[-0.01em] text-cream mt-5.5 text-pretty">
             Your future deserves the right decision.
           </h1>
@@ -60,7 +64,7 @@ export default function Hero() {
           <div
             className="relative w-full max-w-[500px] aspect-square grid place-items-center"
             style={{
-              background: "radial-gradient(ellipse at 48% 45%, rgba(51,99,157,0.18), transparent 67%)",
+              background: "radial-gradient(ellipse at 48% 45%, rgba(216,210,196,0.09), transparent 67%)",
             }}
           >
             <div

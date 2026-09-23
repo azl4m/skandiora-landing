@@ -6,7 +6,7 @@ export default function About() {
   return (
     <section
       id="about"
-      className="px-4.5 py-[clamp(52px,8vw,104px)] text-[#E8EDF5] [background:linear-gradient(160deg,#0E1A2C,#070D18)]"
+      className="section-space section-band px-4.5 text-[#E8EDF5] "
     >
       <div className="max-w-[1240px] mx-auto grid grid-cols-1 min-[620px]:grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-[clamp(32px,5vw,64px)] items-center">
         <div className="min-w-0">

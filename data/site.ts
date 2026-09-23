@@ -12,7 +12,7 @@ export const site = {
     { label: "+91 89213 85573", href: "+918921385573" },
   ],
   offices,
-  email: "info@skandiora.com",
+  email: "immigrationskandiora@gmail.com",
   office: `${offices.map((office) => office.city).join(" · ")} · Mon–Sat, 9:30–6:30`,
   tagline: "Education guidance. Admission support. Journey support.",
 };
