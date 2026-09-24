@@ -61,7 +61,7 @@ export default function Header() {
     <header className="sticky top-0 z-50 bg-[#070D18]/86 backdrop-blur-md border-b border-gold/16">
       <div className="max-w-[1240px] mx-auto px-4 py-3 flex items-center gap-3.5">
         <Link href="/" onClick={() => setMenuOpen(false)} className="flex items-center flex-none">
-          <Logo />
+          <Logo preload />
         </Link>
 
         <nav aria-label="Main navigation" className="ml-auto flex items-center gap-5">

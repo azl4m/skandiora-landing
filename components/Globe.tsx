@@ -24,76 +24,34 @@ export default function Globe() {
     const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 30);
     camera.position.z = 7.8;
     const globe = new THREE.Group();
-    globe.rotation.set(0.08, -1.3, -0.13);
+    globe.rotation.set(0.08, -2.75, -0.13); // opens facing India, with the Kochi pin in front
     scene.add(globe);
     const radius = 2;
-    const material = new THREE.MeshPhongMaterial({ color: 0xffffff, shininess: 22, specular: 0x365d87 });
+    const material = new THREE.MeshPhongMaterial({ color: 0xffffff, shininess: 16, specular: 0x2e2616 });
     globe.add(new THREE.Mesh(new THREE.SphereGeometry(radius, 80, 48), material));
 
     // A sparse triangular shell adds the connected-world detail from the reference.
     const networkGeometry = new THREE.IcosahedronGeometry(radius * 1.008, 3);
     const wireGeometry = new THREE.WireframeGeometry(networkGeometry);
-    globe.add(new THREE.LineSegments(wireGeometry, new THREE.LineBasicMaterial({ color: 0x7397b8, transparent: true, opacity: 0.13 })));
+    globe.add(new THREE.LineSegments(wireGeometry, new THREE.LineBasicMaterial({ color: 0xd4a857, transparent: true, opacity: 0.09 })));
     const nodes = new THREE.IcosahedronGeometry(radius * 1.012, 2);
     globe.add(new THREE.Points(nodes, new THREE.PointsMaterial({ color: 0xd4a857, size: 0.025, transparent: true, opacity: 0.8 })));
     networkGeometry.dispose();
 
-    // The wordmark follows a real 3D orbit, passing behind the opaque globe.
-    const orbit = new THREE.Group();
-    orbit.rotation.set(0.18, 0, -0.18);
-    scene.add(orbit);
-    const orbitRadius = 2.48;
-    const orbitLine = new THREE.Mesh(
-      new THREE.TorusGeometry(orbitRadius, 0.007, 8, 160),
-      new THREE.MeshBasicMaterial({ color: 0xd4a857, transparent: true, opacity: 0.24 }),
-    );
-    orbitLine.rotation.x = Math.PI / 2;
-    orbitLine.position.y = -0.3;
-    orbit.add(orbitLine);
-
-    const wordmarkCanvas = document.createElement("canvas");
-    wordmarkCanvas.width = 2048;
-    wordmarkCanvas.height = 256;
-    const context = wordmarkCanvas.getContext("2d");
-    let wordmarkTexture: THREE.CanvasTexture | undefined;
-    const wordmark = new THREE.Group();
-    orbit.add(wordmark);
-    if (context) {
-      context.font = "500 144px Arial, sans-serif";
-      context.textBaseline = "middle";
-      context.fillStyle = "#c49a50";
-      const letters = Array.from("SKANDIORA");
-      const spacing = 30;
-      const widths = letters.map((letter) => context.measureText(letter).width);
-      const totalWidth = widths.reduce((sum, width) => sum + width, 0) + spacing * (letters.length - 1);
-      let x = (wordmarkCanvas.width - totalWidth) / 2;
-      letters.forEach((letter, index) => {
-        context.fillText(letter, x, wordmarkCanvas.height / 2);
-        x += widths[index] + spacing;
-      });
-      wordmarkTexture = new THREE.CanvasTexture(wordmarkCanvas);
-      wordmarkTexture.colorSpace = THREE.SRGBColorSpace;
-      wordmarkTexture.anisotropy = Math.min(renderer.capabilities.getMaxAnisotropy(), 4);
-      wordmark.add(new THREE.Mesh(
-        new THREE.CylinderGeometry(orbitRadius, orbitRadius, 0.3, 64, 1, true, -0.75, 1.5),
-        new THREE.MeshBasicMaterial({ map: wordmarkTexture, transparent: true, alphaTest: 0.03, depthWrite: false, toneMapped: false }),
-      ));
-    }
-
     const atmosphere = new THREE.Mesh(new THREE.SphereGeometry(radius * 1.025, 64, 40), new THREE.ShaderMaterial({
       transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
-      uniforms: { glowColor: { value: new THREE.Color(0x487bb5) } },
+      uniforms: { glowColor: { value: new THREE.Color(0xd4a857) } },
       vertexShader: `varying vec3 vNormal; varying vec3 vView;
         void main() { vec4 p = modelViewMatrix * vec4(position, 1.0); vNormal = normalize(normalMatrix * normal); vView = normalize(-p.xyz); gl_Position = projectionMatrix * p; }`,
       fragmentShader: `uniform vec3 glowColor; varying vec3 vNormal; varying vec3 vView;
-        void main() { float rim = pow(1.0 - max(dot(normalize(vNormal), normalize(vView)), 0.0), 4.0); gl_FragColor = vec4(glowColor, rim * 0.18); }`,
+        void main() { float rim = pow(1.0 - max(dot(normalize(vNormal), normalize(vView)), 0.0), 4.0); gl_FragColor = vec4(glowColor, rim * 0.16); }`,
     }));
     scene.add(atmosphere);
-    scene.add(new THREE.AmbientLight(0xc4d6ee, 1.4));
-    const light = new THREE.DirectionalLight(0xffe8bb, 2.3);
+    scene.add(new THREE.AmbientLight(0xefe6d6, 1.5));
+    const light = new THREE.DirectionalLight(0xfff3dc, 1.55);
     light.position.set(-3, 4, 5);
     scene.add(light);
-    const fill = new THREE.DirectionalLight(0x528bda, 1.5);
+    const fill = new THREE.DirectionalLight(0x4a7cc4, 1.2);
     fill.position.set(4, 1, -2);
     scene.add(fill);
 
@@ -104,18 +62,129 @@ export default function Globe() {
     let previousTime = 0;
     let texture: THREE.Texture | undefined;
     const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const render = () => renderer.render(scene, camera);
+    // Location pins carrying the Skandiora emblem sit on real study destinations and turn with
+    // the globe. Each pin is a camera-facing sprite anchored at its tip on the surface.
+    const pinSpots = [
+      { lat: 9.93, lon: 76.27, size: 0.74 }, // Kochi — home base
+      { lat: 51.51, lon: -0.13, size: 0.46 }, // London
+      { lat: 43.65, lon: -79.38, size: 0.46 }, // Toronto
+      { lat: 37.77, lon: -122.42, size: 0.44 }, // San Francisco
+      { lat: -33.87, lon: 151.21, size: 0.46 }, // Sydney
+      { lat: -36.85, lon: 174.76, size: 0.4 }, // Auckland
+      { lat: 25.2, lon: 55.27, size: 0.44 }, // Dubai
+      { lat: 1.35, lon: 103.82, size: 0.44 }, // Singapore
+      { lat: 41.72, lon: 44.79, size: 0.42 }, // Tbilisi
+    ];
+    // Same equirectangular mapping as SphereGeometry's UVs, so pins land on the map texture.
+    const toSurface = (lat: number, lon: number, r: number) => {
+      const phi = ((lon + 180) * Math.PI) / 180;
+      const theta = ((90 - lat) * Math.PI) / 180;
+      return new THREE.Vector3(-r * Math.cos(phi) * Math.sin(theta), r * Math.cos(theta), r * Math.sin(phi) * Math.sin(theta));
+    };
+
+    const pinCanvas = document.createElement("canvas");
+    pinCanvas.width = 256;
+    pinCanvas.height = 320;
+    const pinTexture = new THREE.CanvasTexture(pinCanvas);
+    pinTexture.colorSpace = THREE.SRGBColorSpace;
+    pinTexture.anisotropy = Math.min(renderer.capabilities.getMaxAnisotropy(), 4);
+    const drawPin = (logo?: HTMLImageElement) => {
+      const g = pinCanvas.getContext("2d");
+      if (!g) return;
+      const cx = 128, cy = 116, r = 104, tipY = 312;
+      const beta = Math.acos(r / (tipY - cy));
+      g.clearRect(0, 0, pinCanvas.width, pinCanvas.height);
+      g.beginPath();
+      g.moveTo(cx, tipY);
+      g.arc(cx, cy, r, Math.PI / 2 - beta, Math.PI / 2 + beta, true);
+      g.closePath();
+      const body = g.createLinearGradient(0, cy - r, 0, tipY);
+      body.addColorStop(0, "#2d5f9e");
+      body.addColorStop(0.55, "#163766");
+      body.addColorStop(1, "#0c1f3d");
+      g.fillStyle = body;
+      g.fill();
+      const rim = g.createLinearGradient(0, cy - r, 0, tipY);
+      rim.addColorStop(0, "#f6dc97");
+      rim.addColorStop(0.5, "#d4a857");
+      rim.addColorStop(1, "#9c7129");
+      g.lineWidth = 7;
+      g.lineJoin = "round";
+      g.strokeStyle = rim;
+      g.stroke();
+      // Cream badge with a gold ring holds the emblem.
+      g.beginPath();
+      g.arc(cx, cy, r * 0.78, 0, Math.PI * 2);
+      g.fillStyle = "#fcf8ef";
+      g.fill();
+      g.lineWidth = 6;
+      g.strokeStyle = rim;
+      g.stroke();
+      if (logo) {
+        g.save();
+        g.beginPath();
+        g.arc(cx, cy, r * 0.74, 0, Math.PI * 2);
+        g.clip();
+        const s = r * 1.48;
+        g.drawImage(logo, cx - s / 2, cy - s / 2, s, s);
+        g.restore();
+      }
+      // Soft gloss on the upper-left of the head.
+      const gloss = g.createRadialGradient(cx - r * 0.45, cy - r * 0.55, 4, cx - r * 0.45, cy - r * 0.55, r * 0.9);
+      gloss.addColorStop(0, "rgba(255,255,255,0.28)");
+      gloss.addColorStop(1, "rgba(255,255,255,0)");
+      g.beginPath();
+      g.arc(cx, cy, r, 0, Math.PI * 2);
+      g.fillStyle = gloss;
+      g.fill();
+      pinTexture.needsUpdate = true;
+    };
+    drawPin();
+    const logoImage = new Image();
+    logoImage.decoding = "async";
+    logoImage.onload = () => { if (!disposed) { drawPin(logoImage); if (ready) render(); } };
+    logoImage.src = "/globe-pin-logo.webp";
+
+    const pins = pinSpots.map((spot, index) => {
+      const sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: pinTexture, transparent: true, depthTest: false, depthWrite: false, opacity: 0 }));
+      sprite.center.set(0.5, 0);
+      sprite.renderOrder = 10;
+      sprite.position.copy(toSurface(spot.lat, spot.lon, radius * 1.004));
+      sprite.scale.set(spot.size * 0.8, spot.size, 1);
+      globe.add(sprite);
+      return { sprite, size: spot.size, delay: index * 110 };
+    });
+    const worldPosition = new THREE.Vector3();
+    const toCamera = new THREE.Vector3();
+    const smoothstep = (a: number, b: number, x: number) => {
+      const t = Math.min(1, Math.max(0, (x - a) / (b - a)));
+      return t * t * (3 - 2 * t);
+    };
+    let pinsStart = -1;
+    const updatePins = (time: number) => {
+      globe.updateMatrixWorld();
+      for (const pin of pins) {
+        // Pop in one after another once the globe is ready (instantly with reduced motion).
+        const progress = motion.matches || pinsStart < 0 ? (pinsStart < 0 ? 0 : 1) : Math.min(1, Math.max(0, (time - pinsStart - pin.delay) / 650));
+        const pop = progress === 0 ? 0 : 1 + 2.2 * Math.pow(progress - 1, 3) + 1.2 * Math.pow(progress - 1, 2);
+        pin.sprite.scale.set(pin.size * 0.8 * pop, pin.size * pop, 1);
+        // Fade out as the pin rotates round the edge, so pins behind the globe never show.
+        pin.sprite.getWorldPosition(worldPosition);
+        const facing = worldPosition.clone().normalize().dot(toCamera.copy(camera.position).sub(worldPosition).normalize());
+        pin.sprite.material.opacity = smoothstep(0.14, 0.4, facing) * Math.min(1, progress * 1.6);
+      }
+    };
+    const render = (time = performance.now()) => {
+      updatePins(time);
+      renderer.render(scene, camera);
+    };
     const tick = (time: number) => {
       frame = 0;
       if (disposed || !ready || !visible || document.hidden || motion.matches) return;
       const delta = previousTime ? Math.min((time - previousTime) / 1000, 0.05) : 0;
       previousTime = time;
       globe.rotation.y += delta * 0.36;
-      // One wordmark: it glides slowly across the front so it is easy to read, then speeds up
-      // while hidden behind the globe, so it returns quickly instead of leaving a long empty gap.
-      const facing = (1 - Math.cos(wordmark.rotation.y)) / 2; // 0 in front, 1 directly behind
-      wordmark.rotation.y = (wordmark.rotation.y + delta * (0.28 + 1.1 * facing)) % (Math.PI * 2);
-      render();
+      render(time);
       frame = requestAnimationFrame(tick);
     };
     const syncAnimation = () => {
@@ -151,6 +220,7 @@ export default function Globe() {
       material.map = loaded;
       material.needsUpdate = true;
       ready = true;
+      pinsStart = performance.now();
       renderer.domElement.style.opacity = "1";
       container.dataset.ready = "true";
       syncAnimation();
@@ -164,14 +234,17 @@ export default function Globe() {
       motion.removeEventListener("change", syncAnimation);
       document.removeEventListener("visibilitychange", syncAnimation);
       scene.traverse((object) => {
-        if (object instanceof THREE.Mesh || object instanceof THREE.LineSegments || object instanceof THREE.Points) {
+        if (object instanceof THREE.Sprite) {
+          object.material.dispose();
+        } else if (object instanceof THREE.Mesh || object instanceof THREE.LineSegments || object instanceof THREE.Points) {
           object.geometry.dispose();
           const materials = Array.isArray(object.material) ? object.material : [object.material];
           materials.forEach((entry) => entry.dispose());
         }
       });
       texture?.dispose();
-      wordmarkTexture?.dispose();
+      pinTexture.dispose();
+      logoImage.onload = null;
       renderer.dispose();
       renderer.domElement.remove();
       delete container.dataset.ready;
@@ -179,7 +252,6 @@ export default function Globe() {
   }, []);
 
   return <div ref={containerRef} aria-hidden="true" className="group absolute inset-0">
-    <div className="absolute inset-[13%] rounded-full bg-[#0B1D35] bg-[url('/earth-map.svg')] bg-cover bg-center shadow-[inset_-35px_-15px_55px_#030811,inset_8px_8px_28px_#d4a85722,0_8px_32px_#49677e15] group-data-[ready=true]:opacity-0 transition-opacity duration-700" />
-    <span className="absolute inset-0 flex items-center justify-center font-medium text-[clamp(11px,2.4vw,16px)] tracking-[0.2em] text-[#c49a50] group-data-[ready=true]:opacity-0 transition-opacity duration-700">SKANDIORA</span>
+    <div className="absolute inset-[13%] rounded-full bg-[#0C2244] bg-[url('/earth-map.svg')] bg-cover bg-center shadow-[inset_-35px_-15px_55px_#030811,inset_8px_8px_28px_#d4a85722,0_8px_32px_#49677e15] group-data-[ready=true]:opacity-0 transition-opacity duration-700" />
   </div>;
 }
