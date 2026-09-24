@@ -22,7 +22,7 @@ export default function Globe() {
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 30);
-    camera.position.z = 8.6;
+    camera.position.z = 7.8;
     const globe = new THREE.Group();
     globe.rotation.set(0.08, -1.3, -0.13);
     scene.add(globe);
@@ -111,7 +111,10 @@ export default function Globe() {
       const delta = previousTime ? Math.min((time - previousTime) / 1000, 0.05) : 0;
       previousTime = time;
       globe.rotation.y += delta * 0.36;
-      wordmark.rotation.y += delta * 0.42;
+      // One wordmark: it glides slowly across the front so it is easy to read, then speeds up
+      // while hidden behind the globe, so it returns quickly instead of leaving a long empty gap.
+      const facing = (1 - Math.cos(wordmark.rotation.y)) / 2; // 0 in front, 1 directly behind
+      wordmark.rotation.y = (wordmark.rotation.y + delta * (0.28 + 1.1 * facing)) % (Math.PI * 2);
       render();
       frame = requestAnimationFrame(tick);
     };
@@ -176,7 +179,7 @@ export default function Globe() {
   }, []);
 
   return <div ref={containerRef} aria-hidden="true" className="group absolute inset-0">
-    <div className="absolute inset-[16%] rounded-full bg-[#0B1D35] bg-[url('/earth-map.svg')] bg-cover bg-center shadow-[inset_-35px_-15px_55px_#030811,inset_8px_8px_28px_#d4a85722,0_8px_32px_#49677e15] group-data-[ready=true]:opacity-0 transition-opacity duration-700" />
+    <div className="absolute inset-[13%] rounded-full bg-[#0B1D35] bg-[url('/earth-map.svg')] bg-cover bg-center shadow-[inset_-35px_-15px_55px_#030811,inset_8px_8px_28px_#d4a85722,0_8px_32px_#49677e15] group-data-[ready=true]:opacity-0 transition-opacity duration-700" />
     <span className="absolute inset-0 flex items-center justify-center font-medium text-[clamp(11px,2.4vw,16px)] tracking-[0.2em] text-[#c49a50] group-data-[ready=true]:opacity-0 transition-opacity duration-700">SKANDIORA</span>
   </div>;
 }

@@ -9,7 +9,6 @@ export default function Gallery() {
           <div className="text-xs tracking-[0.24em] uppercase text-gold">
             Students &amp; campuses
           </div>
-          <div className="text-sm text-muted">Drop your own photos into these frames.</div>
         </div>
         <div className="grid grid-cols-2 min-[620px]:grid-cols-[repeat(auto-fit,minmax(230px,1fr))] gap-4">
           {galleryFrames.map((frame) => (
