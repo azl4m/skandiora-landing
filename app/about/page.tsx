@@ -42,11 +42,11 @@ const aboutPageSchema = {
 
 const delay = (ms: number) => ({ "--delay": `${ms}ms` }) as CSSProperties;
 
-function Photo({ src, alt, sizes, className, priority = false }: { src: string; alt: string; sizes: string; className: string; priority?: boolean }) {
+function Photo({ src, alt, sizes, className, preload = false }: { src: string; alt: string; sizes: string; className: string; preload?: boolean }) {
   return (
     <div className={`${styles.photo} ${className}`} data-reveal="image">
       <div className={styles.photoInner}>
-        <Image src={src} alt={alt} fill sizes={sizes} priority={priority} />
+        <Image src={src} alt={alt} fill sizes={sizes} preload={preload} />
       </div>
     </div>
   );
@@ -77,7 +77,7 @@ export default function AboutPage() {
             </p>
           </div>
           <div className={styles.heroMedia}>
-            <Photo {...aboutHero.image} className={`${styles.heroPhoto} ${styles.zoom}`} sizes="(min-width: 1240px) 580px, (min-width: 960px) 46vw, 92vw" priority />
+            <Photo {...aboutHero.image} className={`${styles.heroPhoto} ${styles.zoom}`} sizes="(min-width: 1240px) 580px, (min-width: 960px) 46vw, 92vw" preload />
             <span className={styles.caption} aria-hidden="true">{aboutHero.caption}</span>
           </div>
         </div>

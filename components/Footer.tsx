@@ -17,7 +17,7 @@ export default function Footer() {
         <div className="min-w-0">
           <Logo mark={44} nameSize="text-[20px]" taglineSize="text-[9px]" gap="gap-3" />
           <p className="text-sm leading-[1.7] mt-4.5 max-w-[34ch]">
-            {site.tagline} Admissions, credit transfer, visas and attestation under one roof.
+            {site.tagline} Credit Transfer, Visas and Attestation under one roof.
           </p>
         </div>
 

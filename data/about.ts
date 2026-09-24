@@ -52,14 +52,14 @@ export const paths = {
       body: "Courses, institutions and pathways within India.",
       href: "/services/study-in-india",
       linkLabel: "Study in India",
-      image: { src: photo("1524492412937-b28074a5d7da", 1300), alt: "The Taj Mahal reflected in its long garden pool in soft morning light" },
+      image: { src: photo("1524230507669-5ff97982bb5e", 1300), alt: "The pink sandstone facade of the Hawa Mahal in Jaipur against a clear sky" },
     },
     {
       label: "Abroad",
       body: "International education, country options and the practical requirements involved.",
       href: "/services/study-abroad",
       linkLabel: "Study abroad",
-      image: { src: photo("1436491865332-7a61a109cc05", 1300), alt: "An aircraft wing above the clouds at sunrise" },
+      image: { src: photo("1503917988258-f87a78e3c995", 1300), alt: "Paris rooftops along the Seine with the Eiffel Tower in the distance" },
     },
   ],
 };
