@@ -43,11 +43,13 @@
   opacity: calc(0.5 + 0.5 * var(--focus, 0));
   transform-origin: center;
   will-change: transform, opacity;
+  /* Grid makes any child (including inline links) fill the slide at equal height. */
+  display: grid;
 }
 
 .slide > * {
+  min-width: 0;
   box-shadow: none;
-  height: 100%;
 }
 
 .dots {

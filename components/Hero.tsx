@@ -62,7 +62,7 @@ export default function Hero() {
 
         <div className="min-w-0 relative flex justify-center">
           <div
-            className="relative w-full max-w-[500px] aspect-square grid place-items-center"
+            className="relative w-full max-w-[500px] min-[1024px]:max-w-[600px] aspect-square grid place-items-center"
             style={{
               background: "radial-gradient(ellipse at 48% 45%, rgba(216,210,196,0.09), transparent 67%)",
             }}
