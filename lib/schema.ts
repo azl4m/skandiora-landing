@@ -1,4 +1,5 @@
 import type { Faq, ServicePage } from "@/data/services";
+import type { Founder } from "@/data/founder";
 import { site } from "@/data/site";
 import { socialLinks } from "@/data/socials";
 
@@ -75,5 +76,20 @@ export function serviceSchema(service: ServicePage) {
     },
     areaServed: "IN",
     url: absoluteUrl(`/services/${service.slug}`),
+  };
+}
+
+export function founderSchema(founder: Founder) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: founder.name,
+    jobTitle: "Founder",
+    description: founder.bio[0],
+    url: absoluteUrl("/about"),
+    ...(founder.image.placeholder ? {} : { image: founder.image.src }),
+    worksFor: { "@type": "EducationalOrganization", name: "Skandiora Immigration", url: absoluteUrl("/") },
+    alumniOf: founder.education.map((school) => ({ "@type": "CollegeOrUniversity", name: school.name, address: school.location })),
+    knowsAbout: ["Education consultancy", "Study abroad", "University admissions", "MBBS abroad"],
   };
 }

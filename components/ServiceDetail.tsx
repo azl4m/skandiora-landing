@@ -80,7 +80,7 @@ export default function ServiceDetail({ service }: { service: ServicePage }) {
         className="px-4.5 pt-[clamp(32px,6vw,64px)] pb-[clamp(40px,6vw,72px)]"
         style={{
           background:
-            "radial-gradient(1000px 420px at 82% -10%, rgba(212,168,87,0.14), transparent 60%), #070D18",
+            "radial-gradient(1000px 420px at 82% -10%, rgba(212,168,87,0.14), transparent 60%), #ffffff",
         }}
       >
         <div className="max-w-[1240px] mx-auto">
@@ -154,7 +154,7 @@ export default function ServiceDetail({ service }: { service: ServicePage }) {
             <p className="text-xs uppercase tracking-[0.2em] text-gold mb-3">Explore medical study destinations</p>
             <h2 id="mbbs-destinations-heading" className="font-heading text-[clamp(30px,4vw,46px)] leading-[1.12] text-cream">Your medical dream. A world of possibilities.</h2>
             <p className="mt-4 mb-8 max-w-[65ch] text-base leading-relaxed text-body-text">Explore each destination and select a country to discuss your medical study options with our team.</p>
-            <CardCarousel singleRow label="Medical study destinations" itemLabel="destinations">
+            <CardCarousel label="Medical study destinations" itemLabel="destinations">
               {mbbsDestinations.map((destination) => <DestinationCard key={destination.name} {...destination} course="MBBS & Medicine" sizes="(max-width: 639px) 82vw, 300px" />)}
             </CardCarousel>
             <p className="mt-5 text-sm leading-relaxed text-muted">Programme names, entry requirements, language of instruction and licensing pathways vary by country and university. We help you understand what to check before applying.</p>

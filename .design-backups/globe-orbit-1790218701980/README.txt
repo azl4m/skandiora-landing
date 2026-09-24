@@ -1,0 +1,1 @@
+Before the clean globe preview. Restore the .bak files to the matching components paths to return to the orbiting SKANDIORA design. The earth-map.svg asset is unchanged.

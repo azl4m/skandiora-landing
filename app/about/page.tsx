@@ -1,145 +1,196 @@
+import type { CSSProperties } from "react";
 import type { Metadata } from "next";
-import PageHero from "@/components/PageHero";
+import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import CtaBanner from "@/components/CtaBanner";
+import Founder from "@/components/Founder";
 import JsonLd from "@/components/JsonLd";
-import { breadcrumbSchema } from "@/lib/schema";
-import { steps } from "@/data/process";
-import {
-  vision,
-  missionParagraphs,
-  missionClosing,
-  journeyProfiles,
-  bringWithYou,
-  officeLocations,
-} from "@/data/about";
+import RevealOnScroll from "@/components/about/RevealOnScroll";
+import { absoluteUrl, breadcrumbSchema, founderSchema } from "@/lib/schema";
+import { founder } from "@/data/founder";
+import { aboutHero, approach, closing, howWeHelp, officeLocations, paths, visionMission } from "@/data/about";
+import { services } from "@/data/services";
+import styles from "./about.module.css";
 
 const breadcrumbItems = [{ href: "/", label: "Home" }, { label: "About" }];
 
+const description =
+  "Skandiora Immigration offers student-first education guidance for study in India and abroad. Meet our founder and discover how we help families choose a course, institution and country — from Kochi, Trivandrum and Chennai.";
+
 export const metadata: Metadata = {
-  title: "About Us — Vision & Mission",
-  description:
-    "Before you choose: Skandiora Immigration's vision, mission and approach to education guidance from our Trivandrum, Kochi and Chennai offices — because an education decision deserves more than an application form.",
+  title: "About Us — Our Approach to Education Guidance",
+  description,
   alternates: { canonical: "/about" },
+  openGraph: {
+    title: "About Skandiora Immigration — Education decisions are personal",
+    description,
+    url: "/about",
+    type: "website",
+  },
 };
+
+const aboutPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  name: "About Skandiora Immigration",
+  url: absoluteUrl("/about"),
+  description,
+  about: { "@type": "EducationalOrganization", name: "Skandiora Immigration", url: absoluteUrl("/") },
+};
+
+const delay = (ms: number) => ({ "--delay": `${ms}ms` }) as CSSProperties;
+
+function Photo({ src, alt, sizes, className, priority = false }: { src: string; alt: string; sizes: string; className: string; priority?: boolean }) {
+  return (
+    <div className={`${styles.photo} ${className}`} data-reveal="image">
+      <div className={styles.photoInner}>
+        <Image src={src} alt={alt} fill sizes={sizes} priority={priority} />
+      </div>
+    </div>
+  );
+}
 
 export default function AboutPage() {
   return (
-    <>
+    <div id="about-page" className={styles.page}>
       <JsonLd data={breadcrumbSchema(breadcrumbItems)} />
-      <PageHero
-        breadcrumbs={breadcrumbItems}
-        eyebrow="Before you choose"
-        title="Because your child is not an application."
-      />
+      <JsonLd data={aboutPageSchema} />
+      <JsonLd data={founderSchema(founder)} />
+      <RevealOnScroll rootId="about-page" />
 
-      <section className="section-space px-4.5">
-        <div className="max-w-[1240px] mx-auto grid grid-cols-1 min-[760px]:grid-cols-2 gap-8">
-          <div>
-            <div className="text-xs tracking-[0.2em] uppercase text-gold mb-3">Vision</div>
-            <p className="text-[19px] leading-[1.6] text-cream m-0">{vision}</p>
+      {/* 1 — Hero */}
+      <section className={styles.hero} aria-labelledby="about-title">
+        <div className={`${styles.container} ${styles.grid} ${styles.heroGrid}`}>
+          <div className={styles.heroText}>
+            <Breadcrumbs items={breadcrumbItems} />
+            <div className={styles.heroCopy}>
+              <p className={styles.eyebrow} data-reveal>{aboutHero.eyebrow}</p>
+              <h1 id="about-title" className={`${styles.display} ${styles.heroTitle}`} data-reveal style={delay(80)}>{aboutHero.title}</h1>
+              <p className={styles.heroStatement} data-reveal style={delay(180)}>{aboutHero.statement}</p>
+              <p className={styles.heroBody} data-reveal style={delay(260)}>{aboutHero.body}</p>
+            </div>
+            <p className={styles.heroMeta} data-reveal style={delay(340)}>
+              <span>Education guidance</span>
+              <span>{officeLocations.join(" · ")}</span>
+            </p>
           </div>
-          <div>
-            <div className="text-xs tracking-[0.2em] uppercase text-gold mb-3">Mission</div>
-            <div className="flex flex-col gap-3.5">
-              {missionParagraphs.map((p) => (
-                <p key={p} className="text-[15px] leading-[1.7] text-body-text m-0">
-                  {p}
-                </p>
-              ))}
+          <div className={styles.heroMedia}>
+            <Photo {...aboutHero.image} className={`${styles.heroPhoto} ${styles.zoom}`} sizes="(min-width: 1240px) 580px, (min-width: 960px) 46vw, 92vw" priority />
+            <span className={styles.caption} aria-hidden="true">{aboutHero.caption}</span>
+          </div>
+        </div>
+      </section>
+
+      {/* 2 — Founder: the person behind a new company comes first */}
+      <div className={styles.band}>
+        <Founder />
+      </div>
+
+      {/* 3 — Vision & mission */}
+      <section className={styles.section} aria-labelledby="purpose-title">
+        <div className={styles.container}>
+          <p className={styles.eyebrow} data-reveal>{visionMission.label}</p>
+          <h2 id="purpose-title" className="sr-only">{visionMission.title}</h2>
+          <div className={styles.purpose}>
+            <div className={styles.purposeItem} data-reveal>
+              <h3 className={styles.purposeLabel}>Our vision</h3>
+              <p className={styles.purposeText}>{visionMission.vision}</p>
+            </div>
+            <div className={styles.purposeItem} data-reveal style={delay(140)}>
+              <h3 className={styles.purposeLabel}>Our mission</h3>
+              <p className={styles.purposeText}>{visionMission.mission}</p>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="px-4.5 pb-[clamp(40px,6vw,64px)]">
-        <div className="max-w-[840px] mx-auto text-center rounded-[22px] border border-gold/20 bg-[#101A2B] py-9 px-6">
-          <p className="text-[15px] leading-[1.7] text-body-text m-0">{missionClosing.question}</p>
-          <p className="text-lg text-cream font-heading font-medium mt-2">{missionClosing.answer}</p>
-          <div className="mt-5 pt-5 border-t border-gold/16 text-sm text-muted">
-            <p className="m-0">{missionClosing.line1}</p>
-            <p className="m-0 mt-1 text-cream">{missionClosing.line2}</p>
+      {/* 4 — Our approach */}
+      <section id="approach" className={`${styles.section} ${styles.band} ${styles.approach}`} aria-labelledby="approach-title">
+        <div className={styles.container}>
+          <div className={styles.grid}>
+            <div className={styles.approachHead}>
+              <p className={styles.eyebrow} data-reveal>{approach.label}</p>
+              <h2 id="approach-title" className={`${styles.display} ${styles.approachTitle}`} data-reveal style={delay(80)}>{approach.intro}</h2>
+            </div>
           </div>
+          <ol className={styles.steps}>
+            {approach.steps.map((step, index) => (
+              <li key={step.title} className={styles.step} data-reveal style={delay(index * 140)}>
+                <span className={styles.stepNumber} data-count={step.number} aria-hidden="true">{String(step.number).padStart(2, "0")}</span>
+                <h3 className={styles.stepTitle}><span className="sr-only">Step {step.number}: </span>{step.title}</h3>
+                <p className={styles.stepBody}>{step.body}</p>
+                {step.tags && (
+                  <ul className={styles.tags} aria-label="What we look at">
+                    {step.tags.map((tag) => <li key={tag}>{tag}</li>)}
+                  </ul>
+                )}
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 
-      <section className="section-space px-4.5">
-        <div className="max-w-[1240px] mx-auto">
-          <div className="text-xs tracking-[0.24em] uppercase text-gold mb-4">
-            Why Skandiora Immigration?
+      {/* 5 — How we help: every service, one click away */}
+      <section className={styles.section} aria-labelledby="help-title">
+        <div className={`${styles.container} ${styles.grid}`}>
+          <div className={styles.helpHead}>
+            <p className={styles.eyebrow} data-reveal>{howWeHelp.label}</p>
+            <h2 id="help-title" className={`${styles.display} ${styles.helpTitle}`} data-reveal style={delay(80)}>{howWeHelp.title}</h2>
+            <p className={styles.helpBody} data-reveal style={delay(160)}>{howWeHelp.body}</p>
           </div>
-          <h2 className="font-heading font-semibold text-[clamp(28px,3.6vw,44px)] text-cream leading-[1.15] mb-8 max-w-[20ch]">
-            Because your decision deserves more than a quick answer.
-          </h2>
-          <div className="grid grid-cols-1 min-[620px]:grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-5">
-            {steps.map((st) => (
-              <div key={st.no} className="rounded-[18px] bg-[#101A2B] border border-gold/16 py-6 px-5">
-                <div className="font-heading text-[38px] font-semibold text-gold/70 leading-none">
-                  {st.no}
+          <ul className={styles.services} data-reveal style={delay(120)}>
+            {services.map((service) => (
+              <li key={service.slug}>
+                <Link href={`/services/${service.slug}`} className={styles.serviceLink}>
+                  <span>{service.navTitle}</span>
+                  <ArrowUpRight size={18} strokeWidth={1.5} aria-hidden="true" />
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* 6 — India & abroad */}
+      <section className={`${styles.section} ${styles.band}`} aria-labelledby="paths-title">
+        <div className={styles.container}>
+          <div className={styles.grid}>
+            <div className={styles.pathsHead}>
+              <p className={styles.eyebrow} data-reveal>{paths.label}</p>
+              <h2 id="paths-title" className={`${styles.display} ${styles.pathsTitle}`} data-reveal style={delay(80)}>{paths.title}</h2>
+            </div>
+            <p className={styles.pathsBody} data-reveal style={delay(120)}>{paths.body}</p>
+          </div>
+          <div className={styles.panels}>
+            {paths.options.map((option, index) => (
+              <Link key={option.label} href={option.href} className={`${styles.panel} ${styles.zoom}`}>
+                <Photo {...option.image} className={styles.panelPhoto} sizes="(min-width: 760px) 46vw, 92vw" />
+                <div className={styles.panelBody} data-reveal style={delay(index * 120)}>
+                  <h3 className={styles.panelLabel}>{option.label}</h3>
+                  <span className={styles.panelMeta} aria-hidden="true">{index === 0 ? "20.59° N · 78.96° E" : "Worldwide"}</span>
+                  <p className={styles.panelText}>{option.body}</p>
+                  <span className={styles.panelLink}>{option.linkLabel} <ArrowRight size={15} aria-hidden="true" /></span>
                 </div>
-                <h3 className="text-base font-medium text-cream mt-3 mb-1.5">{st.title}</h3>
-                <p className="text-sm leading-[1.6] text-[#93A3B8] m-0">{st.body}</p>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
       </section>
 
-      <section
-        className="section-space section-band px-4.5 text-[#E8EDF5]"
-      >
-        <div className="max-w-[900px] mx-auto text-center">
-          <h2 className="font-heading font-semibold text-[clamp(26px,3.4vw,40px)] text-white leading-[1.2] mb-5">
-            Not just a destination. Not just a course. It&apos;s your future.
-          </h2>
-          <p className="text-base leading-[1.7] text-[rgba(232,237,245,0.8)] max-w-[58ch] mx-auto mb-6">
-            Every student has a different story.
-          </p>
-          <div className="flex flex-wrap justify-center gap-x-8 gap-y-2 text-[15px] text-[rgba(232,237,245,0.8)] mb-8">
-            {journeyProfiles.map((line) => (
-              <span key={line}>{line}</span>
-            ))}
-          </div>
-          <p className="text-base leading-[1.7] text-white mb-5">
-            Wherever you are in your journey, start with the right conversation.
-          </p>
-          <div className="flex flex-wrap justify-center gap-3">
-            {bringWithYou.map((item) => (
-              <span
-                key={item}
-                className="text-sm tracking-[0.02em] text-cream border border-gold/28 rounded-full py-2 px-4.5 bg-white/5"
-              >
-                {item}
-              </span>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section-space px-4.5">
-        <div className="max-w-[1240px] mx-auto flex flex-wrap items-center justify-between gap-6">
-          <div>
-            <div className="text-xs tracking-[0.2em] uppercase text-gold mb-3">Office locations</div>
-            <div className="flex flex-wrap gap-3">
-              {officeLocations.map((city) => (
-                <span
-                  key={city}
-                  className="text-sm text-cream border border-gold/24 rounded-full py-2 px-4.5 bg-surface-raised"
-                >
-                  📍 {city}
-                </span>
-              ))}
-            </div>
-          </div>
-          <p className="font-heading text-lg text-cream m-0">
-            Your future. Your choice. Your journey.
-          </p>
-        </div>
-      </section>
-
-      <CtaBanner
-        title="Start with your profile."
-        body="Talk to our education guidance team and explore your options — Skandiora doesn't simply sell destinations."
-      />
-    </>
+      {/* 7 — Closing */}
+      <div className={styles.ctaWrap}>
+        <CtaBanner
+          eyebrow={closing.eyebrow}
+          title={closing.title}
+          body={closing.body}
+          href={closing.primary.href}
+          buttonLabel={closing.primary.label}
+        >
+          Offices in {officeLocations.join(" · ")} · <a href={closing.secondary.href} className="text-gold hover:underline">{closing.secondary.label}</a>
+        </CtaBanner>
+      </div>
+    </div>
   );
 }

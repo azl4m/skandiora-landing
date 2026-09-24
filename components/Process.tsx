@@ -1,4 +1,4 @@
-import { steps } from "@/data/process";
+import ProcessJourney from "./ProcessJourney";
 
 export default function Process() {
   return (
@@ -10,20 +10,7 @@ export default function Process() {
             Because your decision deserves more than a quick answer.
           </h2>
         </div>
-        <div className="grid grid-cols-1 min-[620px]:grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-5">
-          {steps.map((st) => (
-            <div
-              key={st.no}
-              className="relative py-7 px-6 rounded-[18px] bg-[#101A2B] border border-gold/16"
-            >
-              <div className="font-heading text-[44px] font-semibold text-gold/70 leading-none">
-                {st.no}
-              </div>
-              <h3 className="text-lg font-medium text-cream mt-3.5 mb-2">{st.title}</h3>
-              <p className="text-sm leading-[1.65] text-[#93A3B8] m-0">{st.body}</p>
-            </div>
-          ))}
-        </div>
+        <ProcessJourney />
       </div>
     </section>
   );
