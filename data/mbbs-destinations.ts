@@ -1,8 +1,8 @@
 export const featuredMbbsDestinations = [
   {
-    name: "Germany",
-    image: "https://images.unsplash.com/photo-1622214366189-72b19cc61597?q=80&w=687&auto=format&fit=crop",
-    description: "Explore medical study pathways with guidance on the academic and language requirements.",
+    name: "Tajikistan",
+    image: "https://images.unsplash.com/photo-1690191984319-3b8f8ca0dec4?q=80&w=1332&auto=format&fit=crop",
+    description: "Explore medical study in Tajikistan and discuss entry requirements, course structure and your budget.",
   },
   {
     name: "Timor-Leste",
@@ -23,7 +23,6 @@ export const featuredMbbsDestinations = [
 
 export const mbbsDestinations = [
   ...featuredMbbsDestinations,
-  { name: "Tajikistan", image: "https://images.unsplash.com/photo-1690191984319-3b8f8ca0dec4?q=80&w=1332&auto=format&fit=crop", description: "Explore medical study in Tajikistan and discuss entry requirements, course structure and your budget." },
   { name: "Moldova", image: "https://images.unsplash.com/photo-1629045951387-6d86eb2aad3d?q=80&w=1170&auto=format&fit=crop", description: "Consider medical education in Moldova with guidance on university selection and application preparation." },
   { name: "Bulgaria", image: "https://images.unsplash.com/photo-1601152888642-f2f1b5ee0ca2?q=80&w=1074&auto=format&fit=crop", description: "Discuss medical programmes in Bulgaria, including language requirements and admission preparation." },
   { name: "Kazakhstan", image: "https://images.unsplash.com/photo-1659651117607-d2b397cf100f?q=80&w=1223&auto=format&fit=crop", description: "Explore universities in Kazakhstan and understand the course, costs and clinical training arrangements." },
