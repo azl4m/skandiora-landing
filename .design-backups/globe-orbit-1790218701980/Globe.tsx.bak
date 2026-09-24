@@ -45,7 +45,7 @@ export default function Globe() {
     const orbitRadius = 2.48;
     const orbitLine = new THREE.Mesh(
       new THREE.TorusGeometry(orbitRadius, 0.007, 8, 160),
-      new THREE.MeshBasicMaterial({ color: 0xd4a857, transparent: true, opacity: 0.24 }),
+      new THREE.MeshBasicMaterial({ color: 0xd4a857, transparent: true, opacity: 0.36 }),
     );
     orbitLine.rotation.x = Math.PI / 2;
     orbitLine.position.y = -0.3;
@@ -59,11 +59,11 @@ export default function Globe() {
     const wordmark = new THREE.Group();
     orbit.add(wordmark);
     if (context) {
-      context.font = "500 144px Arial, sans-serif";
+      context.font = "600 172px Georgia, serif";
       context.textBaseline = "middle";
-      context.fillStyle = "#c49a50";
+      context.fillStyle = "#d4a857";
       const letters = Array.from("SKANDIORA");
-      const spacing = 30;
+      const spacing = 22;
       const widths = letters.map((letter) => context.measureText(letter).width);
       const totalWidth = widths.reduce((sum, width) => sum + width, 0) + spacing * (letters.length - 1);
       let x = (wordmarkCanvas.width - totalWidth) / 2;
@@ -75,7 +75,7 @@ export default function Globe() {
       wordmarkTexture.colorSpace = THREE.SRGBColorSpace;
       wordmarkTexture.anisotropy = Math.min(renderer.capabilities.getMaxAnisotropy(), 4);
       wordmark.add(new THREE.Mesh(
-        new THREE.CylinderGeometry(orbitRadius, orbitRadius, 0.3, 64, 1, true, -0.75, 1.5),
+        new THREE.CylinderGeometry(orbitRadius, orbitRadius, 0.48, 96, 1, true, -1.15, 2.3),
         new THREE.MeshBasicMaterial({ map: wordmarkTexture, transparent: true, alphaTest: 0.03, depthWrite: false, toneMapped: false }),
       ));
     }
@@ -177,6 +177,6 @@ export default function Globe() {
 
   return <div ref={containerRef} aria-hidden="true" className="group absolute inset-0">
     <div className="absolute inset-[16%] rounded-full bg-[#0B1D35] bg-[url('/earth-map.svg')] bg-cover bg-center shadow-[inset_-35px_-15px_55px_#030811,inset_8px_8px_28px_#d4a85722,0_8px_32px_#49677e15] group-data-[ready=true]:opacity-0 transition-opacity duration-700" />
-    <span className="absolute inset-0 flex items-center justify-center font-medium text-[clamp(11px,2.4vw,16px)] tracking-[0.2em] text-[#c49a50] group-data-[ready=true]:opacity-0 transition-opacity duration-700">SKANDIORA</span>
+    <span className="absolute inset-0 flex items-center justify-center font-heading font-semibold text-[clamp(22px,5vw,40px)] tracking-[0.14em] text-[#d4a857] group-data-[ready=true]:opacity-0 transition-opacity duration-700">SKANDIORA</span>
   </div>;
 }

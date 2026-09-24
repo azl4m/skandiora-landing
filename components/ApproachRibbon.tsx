@@ -1,10 +1,11 @@
 type ApproachRibbonProps = {
   items: string[];
+  align?: "center" | "left";
 };
 
-export default function ApproachRibbon({ items }: ApproachRibbonProps) {
+export default function ApproachRibbon({ items, align = "center" }: ApproachRibbonProps) {
   return (
-    <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2.5">
+    <div className={`flex flex-wrap items-center gap-x-3 gap-y-2.5 ${align === "left" ? "justify-start" : "justify-center"}`}>
       {items.map((item, i) => (
         <span key={item} className="flex items-center gap-3">
           {i > 0 && (

@@ -1,16 +1,16 @@
 @import "tailwindcss";
 
 :root {
-  --ink: #04080f;
-  --surface: #0b1422;
-  --surface-raised: #131e30;
-  --section-secondary: #091321;
+  --ink: #ffffff;
+  --surface: #f5f3ef;
+  --surface-raised: #ffffff;
+  --section-secondary: #f5f3ef;
   --section-spacing: clamp(48px, 6vw, 80px);
-  --gold: #d4a857;
-  --gold-soft: #e7c27a;
-  --cream: #f5f1e8;
-  --body-text: #9fb0c6;
-  --muted: #8496ad;
+  --gold: #90651e;
+  --gold-soft: #805817;
+  --cream: #17283e;
+  --body-text: #4c5b6b;
+  --muted: #637080;
   --hairline: rgba(212, 168, 87, 0.2);
   --font-heading: var(--font-cormorant);
   --font-body: var(--font-jost);
@@ -40,7 +40,7 @@ html {
 body {
   margin: 0;
   background: var(--ink);
-  color: #eaf0fa;
+  color: var(--cream);
   font-family: var(--font-body), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
 }

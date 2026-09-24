@@ -10,14 +10,14 @@ import About from "@/components/About";
 import FaqSection from "@/components/Faq";
 import Contact from "@/components/Contact";
 import SocialConnect from "@/components/SocialConnect";
+import Testimonials from "@/components/Testimonials";
 import JsonLd from "@/components/JsonLd";
 import { faqSchema } from "@/lib/schema";
 import { homeFaqs } from "@/data/faq";
-import "./home-light.css";
 
 export default function Home() {
   return (
-    <div className="home-light">
+    <>
       <JsonLd data={faqSchema(homeFaqs)} />
       <Hero />
       <ValueStrip />
@@ -28,9 +28,10 @@ export default function Home() {
       <Process />
       <Gallery />
       <About />
+      <Testimonials />
       <SocialConnect />
       <FaqSection items={homeFaqs} title="Common questions about Skandiora Immigration" />
       <Contact />
-    </div>
+    </>
   );
 }

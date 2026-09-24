@@ -15,7 +15,7 @@ export default function PageHero({ breadcrumbs, eyebrow, title, intro }: PageHer
       className="px-4.5 pt-[clamp(32px,6vw,64px)] pb-[clamp(40px,6vw,72px)]"
       style={{
         background:
-          "radial-gradient(1000px 420px at 82% -10%, rgba(212,168,87,0.14), transparent 60%), #070D18",
+          "radial-gradient(1000px 420px at 82% -10%, rgba(212,168,87,0.14), transparent 60%), #ffffff",
       }}
     >
       <div className="max-w-[1240px] mx-auto">

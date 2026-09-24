@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Jost } from "next/font/google";
 import "./globals.css";
+import "./light-theme.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MobileCTABar from "@/components/MobileCTABar";
@@ -46,7 +47,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${cormorant.variable} ${jost.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col bg-ink text-[#EAF0FA]">
+      <body className="site-light min-h-full flex flex-col bg-ink text-cream">
         <div className="max-w-full overflow-x-clip flex flex-col min-h-full">
           <Header />
           <main className="flex-1">{children}</main>

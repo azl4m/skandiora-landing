@@ -1,0 +1,202 @@
+/* Shared light theme for every route, including portalled controls. */
+.site-light,
+body.site-light header,
+body.site-light [data-mobile-cta],
+body.site-light .custom-select-menu {
+  --ink: #ffffff;
+  --surface: #f5f3ef;
+  --surface-raised: #ffffff;
+  --section-secondary: #f5f3ef;
+  --cream: #17283e;
+  --body-text: #4c5b6b;
+  --muted: #637080;
+  --gold: #90651e;
+  --gold-soft: #805817;
+  --hairline: rgba(144, 101, 30, 0.22);
+  color: #17283e;
+  color-scheme: light;
+}
+
+.site-light {
+  background: #ffffff;
+}
+
+.site-light #top {
+  background: radial-gradient(ellipse at 80% 15%, #efe8dc 0%, transparent 58%), #fff !important;
+}
+
+/* Existing card layouts retain their dimensions and interactions. */
+.site-light .service-card,
+.site-light [class*="[background:linear-gradient"],
+.site-light [class*="bg-[linear-gradient"] {
+  background: linear-gradient(145deg, #ffffff, #faf8f4);
+  color: #17283e;
+  box-shadow: 0 12px 32px rgba(23, 40, 62, 0.055);
+}
+
+.site-light [class~="bg-[#101A2B]"],
+.site-light [class~="bg-[#0B1422]"],
+.site-light [class~="bg-[#0C1625]"] {
+  background-color: #ffffff;
+}
+
+.site-light [class~="bg-[#0D1728]"] {
+  background-color: #f5f3ef;
+}
+
+.site-light [class~="text-[#E8EDF5]"],
+.site-light [class~="text-[#EAF0FA]"],
+.site-light h2.text-white,
+.site-light #about a.text-white {
+  color: #17283e;
+}
+
+.site-light svg.text-white {
+  color: #90651e;
+}
+
+.site-light #contact a[href^="mailto:"] {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.site-light [class~="text-[#C3CFDE]"],
+.site-light [class~="text-[#93A3B8]"],
+.site-light [class~="text-[#B9C6D8]"],
+.site-light [class*="text-[rgba(232,237,245,"] {
+  color: #4c5b6b;
+}
+
+.site-light .bg-gold,
+body.site-light header .bg-gold,
+body.site-light [data-mobile-cta] .bg-gold {
+  background-color: #d4a857;
+  color: #17283e;
+}
+
+.site-light a.bg-gold:hover,
+.site-light button.bg-gold:hover,
+body.site-light header a.bg-gold:hover,
+body.site-light [data-mobile-cta] a.bg-gold:hover {
+  background-color: #e5bf77;
+  color: #17283e;
+}
+
+.site-light .service-card a:hover,
+.site-light #contact a:hover {
+  color: #805817;
+}
+
+.site-light form {
+  background: #ffffff;
+  box-shadow: 0 16px 44px rgba(23, 40, 62, 0.07);
+}
+
+.site-light form input:not([type="hidden"]),
+.site-light form textarea,
+.site-light form [role="combobox"] {
+  background-color: #faf9f6;
+  color: #17283e;
+}
+
+.site-light form input::placeholder,
+.site-light form textarea::placeholder {
+  color: #6b7481;
+  opacity: 1;
+}
+
+.site-light [class~="text-[#e3897f]"] {
+  color: #b33127;
+}
+
+.site-light [aria-invalid="true"] {
+  border-color: #b33127;
+}
+
+/* The select popover is portalled to body, so it needs the same route scope. */
+body.site-light .custom-select-menu {
+  background: #ffffff;
+  box-shadow: 0 16px 40px rgba(23, 40, 62, 0.14);
+}
+
+body.site-light .custom-select-menu [role="option"] {
+  color: #17283e;
+}
+
+body.site-light .custom-select-menu [role="option"]:hover,
+body.site-light .custom-select-menu [class~="bg-[#203047]"] {
+  background-color: #f1e9dc;
+}
+
+body.site-light header {
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 1px 14px rgba(23, 40, 62, 0.035);
+}
+
+body.site-light header [class~="text-[#B9C6D8]"] {
+  color: #4c5b6b;
+}
+
+body.site-light header nav[aria-label="Mobile navigation"] {
+  background: linear-gradient(145deg, #ffffff, #f8f5ef);
+  box-shadow: 0 20px 60px rgba(23, 40, 62, 0.18);
+}
+
+body.site-light header [class*="border-white/"] {
+  border-color: rgba(23, 40, 62, 0.1);
+}
+
+body.site-light header .bg-cream {
+  box-shadow: 0 0 0 1px rgba(144, 101, 30, 0.2), 0 4px 14px rgba(23, 40, 62, 0.1);
+}
+
+body.site-light [data-mobile-cta] {
+  background: rgba(255, 255, 255, 0.96);
+}
+
+.site-light [class~="bg-[#131E30]"] {
+  background-color: #f1e9dc;
+}
+
+.site-light :is(h1, h2, h3, p, a).text-white {
+  color: #17283e;
+}
+
+.site-light a:hover[class*="hover:text-white"] {
+  color: #805817;
+}
+
+.site-light footer {
+  background: #eeece6;
+  color: #4c5b6b;
+  border-top: 1px solid rgba(144, 101, 30, 0.18);
+}
+
+.site-light footer [class*="border-white/"],
+.site-light aside [class*="border-white/"] {
+  border-color: rgba(23, 40, 62, 0.12);
+}
+
+.site-light footer a[href^="mailto:"] {
+  overflow-wrap: anywhere;
+}
+
+.site-light footer .bg-cream {
+  box-shadow: 0 0 0 1px rgba(144, 101, 30, 0.2), 0 4px 14px rgba(23, 40, 62, 0.1);
+}
+
+/* Photographic cards keep a dark scrim and light text for image contrast. */
+.site-light .destination-card {
+  --cream: #f5f1e8;
+  --gold: #d4a857;
+  --gold-soft: #e7c27a;
+  background-color: #101a2b;
+}
+
+.site-light .destination-card [class~="text-[#EAF0FA]"] {
+  color: #eaf0fa;
+}
+
+.site-light [class*="hover:bg-[#131E30]"]:hover {
+  background-color: #f1e9dc;
+}

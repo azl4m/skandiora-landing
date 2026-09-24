@@ -1,0 +1,120 @@
+.root {
+  container-type: inline-size;
+  min-width: 0;
+  --slide-gap: 20px;
+}
+
+.viewport {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  gap: var(--slide-gap);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  padding: 4px calc(50% - var(--slide-w) / 2);
+  margin-block: -4px;
+  cursor: grab;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+}
+
+.viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.viewport:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: -2px;
+}
+
+.viewport[data-dragging="true"] {
+  scroll-snap-type: none;
+  cursor: grabbing;
+  user-select: none;
+}
+
+.slide {
+  flex: none;
+  width: var(--slide-w);
+  scroll-snap-align: center;
+  transform: scale(calc(0.84 + 0.16 * var(--focus, 0)));
+  opacity: calc(0.5 + 0.5 * var(--focus, 0));
+  transform-origin: center;
+  will-change: transform, opacity;
+}
+
+.slide > * {
+  box-shadow: none;
+  height: 100%;
+}
+
+.dots {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 28px;
+}
+
+.dot {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.dot::before {
+  content: "";
+  width: 22px;
+  height: 4px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--muted) 28%, transparent);
+  transition: width 450ms cubic-bezier(0.22, 1, 0.36, 1), background-color 300ms;
+}
+
+.dot:hover::before {
+  background: color-mix(in srgb, var(--muted) 50%, transparent);
+}
+
+.dot[aria-current="true"]::before {
+  width: 46px;
+  background: color-mix(in srgb, var(--gold) 25%, transparent);
+}
+
+.dot:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.progress {
+  position: absolute;
+  left: 0;
+  top: 10px;
+  height: 4px;
+  width: 46px;
+  border-radius: 999px;
+  background: var(--gold);
+  transform-origin: left;
+  animation: carousel-progress linear forwards;
+}
+
+.progress[data-static="true"] {
+  animation: none;
+}
+
+@keyframes carousel-progress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dot::before {
+    transition: none;
+  }
+}
