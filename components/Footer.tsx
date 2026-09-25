@@ -57,7 +57,7 @@ export default function Footer() {
 
       <div className="max-w-[1240px] mx-auto mt-[clamp(32px,4vw,48px)] pt-5 border-t border-white/12 flex flex-wrap gap-3 justify-between text-[13px] text-[rgba(232,237,245,0.5)]">
         <span>© {new Date().getFullYear()} Skandiora Immigration™. All rights reserved.</span>
-        <span>Privacy · Terms</span>
+        <Link href="/privacy" className="hover:text-white transition-colors">Privacy policy</Link>
       </div>
     </footer>
   );
