@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { shareMetadata } from "@/lib/share-image";
 import PageHero from "@/components/PageHero";
 import ServiceCard from "@/components/ServiceCard";
 import CtaBanner from "@/components/CtaBanner";
@@ -8,11 +9,14 @@ import { services, featuredServices } from "@/data/services";
 
 const breadcrumbItems = [{ href: "/", label: "Home" }, { label: "Services" }];
 
+const description =
+  "Explore Skandiora Immigration's services in Kochi, Trivandrum and Chennai: study abroad, MBBS, domestic admissions, credit transfer, attestation and visa guidance.";
+
 export const metadata: Metadata = {
   title: "Education Guidance Services",
-  description:
-    "Explore Skandiora Immigration's services in Kochi, Trivandrum and Chennai: study abroad, MBBS, domestic admissions, credit transfer, attestation and visa guidance.",
+  description,
   alternates: { canonical: "/services" },
+  ...shareMetadata("Education Guidance Services | Skandiora Immigration", description, "/services"),
 };
 
 export default function ServicesPage() {

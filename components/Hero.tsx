@@ -31,10 +31,9 @@ export default function Hero() {
             Your future deserves the right decision.
           </h1>
           <p className="text-[clamp(16px,1.6vw,19px)] leading-[1.65] text-body-text max-w-[52ch] mt-5">
-            Choosing where to study, what to study and how to build your career is a decision
-            that can shape your future. We start by understanding your academic background,
-            ambitions, budget and eligibility — then guide you toward the destination, course
-            and pathway that actually fits you.
+            We start by understanding your academic background, ambitions, budget and
+            eligibility — then guide you toward the destination, course and pathway that
+            truly fits you.
           </p>
           <div className="flex flex-wrap gap-3.5 mt-8.5">
             <Link

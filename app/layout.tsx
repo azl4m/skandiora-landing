@@ -23,7 +23,7 @@ const jost = Jost({
 const siteName = "Skandiora Immigration";
 const title = "Skandiora Immigration — Study Abroad, MBBS & Visa Consultants in Kochi, Trivandrum & Chennai";
 const description =
-  "Skandiora Immigration helps students and families in Kochi, Trivandrum and Chennai explore study-abroad, MBBS, domestic admission, credit transfer, loan, language and visa pathways with personalised, transparent guidance.";
+  "Study abroad, MBBS abroad, admissions, credit transfer and visa guidance from Skandiora Immigration in Kochi, Trivandrum and Chennai. Free assessment.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.skandiora.com"),

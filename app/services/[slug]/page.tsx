@@ -6,6 +6,7 @@ import DomesticAdmissionDetail from "@/components/DomesticAdmissionDetail";
 import CreditTransferDetail from "@/components/CreditTransferDetail";
 import SupportServiceDetail from "@/components/SupportServiceDetail";
 import { services, getService } from "@/data/services";
+import { shareMetadata } from "@/lib/share-image";
 
 export function generateStaticParams() {
   return services.map((s) => ({ slug: s.slug }));
@@ -23,7 +24,7 @@ export async function generateMetadata({
     title: service.metaTitle,
     description: service.metaDescription,
     alternates: { canonical: `/services/${service.slug}` },
-    openGraph: { title: service.metaTitle, description: service.metaDescription },
+    ...shareMetadata(service.metaTitle, service.metaDescription, `/services/${service.slug}`),
   };
 }
 

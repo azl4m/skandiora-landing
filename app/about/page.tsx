@@ -9,6 +9,7 @@ import Founder from "@/components/Founder";
 import JsonLd from "@/components/JsonLd";
 import RevealOnScroll from "@/components/about/RevealOnScroll";
 import { absoluteUrl, breadcrumbSchema, founderSchema } from "@/lib/schema";
+import { shareMetadata } from "@/lib/share-image";
 import { founder } from "@/data/founder";
 import { aboutHero, approach, closing, howWeHelp, officeLocations, paths, visionMission } from "@/data/about";
 import { services } from "@/data/services";
@@ -23,12 +24,7 @@ export const metadata: Metadata = {
   title: "About Us — Our Approach to Education Guidance",
   description,
   alternates: { canonical: "/about" },
-  openGraph: {
-    title: "About Skandiora Immigration — Education decisions are personal",
-    description,
-    url: "/about",
-    type: "website",
-  },
+  ...shareMetadata("About Skandiora Immigration — Education decisions are personal", description, "/about"),
 };
 
 const aboutPageSchema = {

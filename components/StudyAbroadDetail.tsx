@@ -41,7 +41,7 @@ export default function StudyAbroadDetail({ service }: { service: ServicePage })
             <div className="min-w-0 min-[1000px]:pt-5">
               <p className={labelClass}>Study abroad & student visa guidance</p>
               <h1 className="font-heading text-[clamp(42px,5.2vw,66px)] leading-[1.04] text-cream tracking-[-0.02em] max-w-[15ch] text-pretty">Your ambition. Your destination. <span className="text-gold-soft">Your future.</span></h1>
-              <p className="text-base leading-[1.8] text-body-text mt-5 max-w-[53ch]">At Skandiora Immigrations, we provide personalised guidance for students planning to study abroad. Based on your academic profile, interests, budget, and future goals, we help you choose the right course, university, and destination.</p>
+              <p className="text-base leading-[1.8] text-body-text mt-5 max-w-[53ch]">At Skandiora Immigration, we provide personalised guidance for students planning to study abroad. Based on your academic profile, interests, budget, and future goals, we help you choose the right course, university, and destination.</p>
               <div className="mt-5 max-w-[53ch]">
                 <p className="text-sm font-medium text-cream">Explore opportunities across:</p>
                 <p className="text-base leading-[1.8] text-body-text mt-2">USA, Canada, UK, Australia, New Zealand, Ireland, Europe, Singapore, Dubai, Malaysia, and more.</p>
@@ -57,7 +57,7 @@ export default function StudyAbroadDetail({ service }: { service: ServicePage })
                 <a href="#courses" className="inline-flex items-center gap-2 min-h-12 px-3 text-sm text-cream hover:text-gold focus-visible:outline-2 focus-visible:outline-gold">Find your course <ArrowDown size={15} aria-hidden="true" /></a>
               </div>
               <div className="mt-6 max-w-[53ch]">
-                <p className="text-xs font-medium uppercase tracking-[0.16em] text-cream">Skandiora Immigrations</p>
+                <p className="text-xs font-medium uppercase tracking-[0.16em] text-cream">Skandiora Immigration</p>
                 <p className="text-sm leading-relaxed text-muted mt-2">International Education. Thoughtfully Guided. Globally Connected.</p>
               </div>
               <ul className="mt-7 grid grid-cols-1 min-[440px]:grid-cols-2 gap-3">

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { shareMetadata } from "@/lib/share-image";
 import PageHero from "@/components/PageHero";
 import CtaBanner from "@/components/CtaBanner";
 import FaqSection from "@/components/Faq";
@@ -28,11 +29,14 @@ const destinationFaqs = [
   },
 ];
 
+const description =
+  "Explore study-abroad destinations with Skandiora Immigration's counsellors in Kochi, Trivandrum and Chennai — options matched to your profile, interests and budget.";
+
 export const metadata: Metadata = {
   title: "Study Destinations Worldwide",
-  description:
-    "Explore study-abroad destinations with Skandiora Immigration's counsellors in Kochi, Trivandrum and Chennai — options matched to your profile, interests and budget.",
+  description,
   alternates: { canonical: "/destinations" },
+  ...shareMetadata("Study Destinations Worldwide | Skandiora Immigration", description, "/destinations"),
 };
 
 function DestinationGroup({ heading, items }: { heading: string; items: DestinationEntry[] }) {
