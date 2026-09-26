@@ -28,9 +28,13 @@ export default async function Contact() {
               <span className="text-xs tracking-[0.16em] uppercase text-muted min-w-[74px]">
                 Email
               </span>
-              <a href={`mailto:${site.email}`} className="text-[17px] text-cream hover:text-gold transition-colors">
-                {site.email}
-              </a>
+              <div className="flex min-w-0 flex-col gap-1">
+                {site.emails.map((email) => (
+                  <a key={email} href={`mailto:${email}`} className="text-[17px] text-cream hover:text-gold transition-colors">
+                    {email}
+                  </a>
+                ))}
+              </div>
             </div>
             <div className="flex gap-3 items-baseline">
               <span className="text-xs tracking-[0.16em] uppercase text-muted min-w-[74px]">

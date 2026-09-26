@@ -46,7 +46,7 @@ const PLATFORM_NAMES: Record<string, string> = { instagram: "Instagram", faceboo
 type SanitySettings = {
   phones?: string[];
   whatsapp?: string;
-  email?: string;
+  emails?: string[];
   tagline?: string;
   offices?: { city?: string; state?: string }[];
   openingHours?: string;
@@ -55,7 +55,7 @@ type SanitySettings = {
 };
 
 export const getSettings = cache(async (): Promise<{ site: SiteSettings; socials: SocialLink[] }> => {
-  const data = await cmsFetch<SanitySettings>(`*[_id == "siteSettings"][0]{phones, whatsapp, email, tagline, offices, openingHours, socialLinks, logo}`);
+  const data = await cmsFetch<SanitySettings>(`*[_id == "siteSettings"][0]{phones, whatsapp, emails, tagline, offices, openingHours, socialLinks, logo}`);
   const phones = list(
     data?.phones?.filter(Boolean).map((label) => ({ label, href: toHref(label) })),
     localSite.phones,
@@ -71,7 +71,8 @@ export const getSettings = cache(async (): Promise<{ site: SiteSettings; socials
     ...whatsapp,
     phones,
     offices,
-    email: text(data?.email, localSite.email),
+    emails: list(data?.emails?.filter(Boolean), localSite.emails),
+    email: list(data?.emails?.filter(Boolean), localSite.emails)[0],
     tagline: text(data?.tagline, localSite.tagline),
     office: `${offices.map((office) => office.city).join(" · ")} · ${hours}`,
     // Built with the image URL builder so a crop set in the Studio is applied.

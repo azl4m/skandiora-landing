@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import MobileCTABar from "@/components/MobileCTABar";
 import JsonLd from "@/components/JsonLd";
 import { organizationSchema } from "@/lib/schema";
+import { SITE_URL } from "@/lib/site-url";
 import { SiteDataProvider } from "@/components/SiteDataProvider";
 import { getMbbsDestinations, getServices, getSettings } from "@/lib/cms/content";
 
@@ -28,7 +29,7 @@ const description =
   "Study abroad, MBBS abroad, admissions, credit transfer and visa guidance from Skandiora Immigration in Kochi, Trivandrum and Chennai. Free assessment.";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.skandiora.com"),
+  metadataBase: new URL(SITE_URL),
   title: { default: title, template: `%s | ${siteName}` },
   description,
   alternates: { canonical: "/" },

@@ -3,7 +3,7 @@ import type { SiteSettings, SocialLink } from "@/lib/cms/content";
 
 type Founder = { name: string; bio: string[]; image: { src: string; placeholder: boolean }; education: { name: string; location: string }[] };
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.skandiora.com";
+import { SITE_URL } from "@/lib/site-url";
 
 export function absoluteUrl(path: string) {
   return `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`;
