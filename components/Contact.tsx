@@ -1,7 +1,8 @@
-import { site } from "@/data/site";
+import { getSettings } from "@/lib/cms/content";
 import ContactForm from "./ContactForm";
 
-export default function Contact() {
+export default async function Contact() {
+  const { site } = await getSettings();
   return (
     <section id="contact" className="section-space section-band px-4.5">
       <div className="max-w-[1240px] mx-auto grid grid-cols-1 min-[620px]:grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-[clamp(32px,5vw,56px)]">

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getService, relatedServices, services, type ServiceListBlock, type ServicePage } from "@/data/services";
+import { relatedServices, type ServiceListBlock, type ServicePage } from "@/data/services";
 import { flagLoopA, flagLoopB } from "@/data/destinations";
 import { breadcrumbSchema, faqSchema, serviceSchema } from "@/lib/schema";
 import Breadcrumbs from "./Breadcrumbs";
@@ -12,7 +12,7 @@ import RelatedServices from "./RelatedServices";
 import ContactForm from "./ContactForm";
 import DestinationCard from "./DestinationCard";
 import CardCarousel from "./CardCarousel";
-import { mbbsDestinations } from "@/data/mbbs-destinations";
+import { getMbbsDestinations, getServices } from "@/lib/cms/content";
 
 function Checklist({ heading, items }: { heading: string; items: string[] }) {
   return (
@@ -58,7 +58,8 @@ function TagBlock({ heading, items, linkToContact }: ServiceListBlock) {
   );
 }
 
-export default function ServiceDetail({ service }: { service: ServicePage }) {
+export default async function ServiceDetail({ service }: { service: ServicePage }) {
+  const mbbsDestinations = service.slug === "mbbs-abroad" ? await getMbbsDestinations() : [];
   const isCreditTransfer = service.slug === "credit-transfer";
   const isMbbs = service.slug === "mbbs-abroad";
   const enquiryHref = isCreditTransfer || isMbbs ? "#contact" : "/#contact";
@@ -67,8 +68,9 @@ export default function ServiceDetail({ service }: { service: ServicePage }) {
     { href: "/services", label: "Services" },
     { label: service.navTitle },
   ];
+  const services = await getServices();
   const related = relatedServices(services, service.relatedSlugs);
-  const seeAlsoService = service.seeAlso ? getService(service.seeAlso.slug) : undefined;
+  const seeAlsoService = service.seeAlso ? services.find((item) => item.slug === service.seeAlso?.slug) : undefined;
 
   return (
     <>
@@ -155,7 +157,7 @@ export default function ServiceDetail({ service }: { service: ServicePage }) {
             <h2 id="mbbs-destinations-heading" className="font-heading text-[clamp(30px,4vw,46px)] leading-[1.12] text-cream">Your medical dream. A world of possibilities.</h2>
             <p className="mt-4 mb-8 max-w-[65ch] text-base leading-relaxed text-body-text">Explore each destination and select a country to discuss your medical study options with our team.</p>
             <CardCarousel label="Medical study destinations" itemLabel="destinations">
-              {mbbsDestinations.map((destination) => <DestinationCard key={destination.name} {...destination} course="MBBS & Medicine" sizes="(max-width: 639px) 82vw, 300px" />)}
+              {mbbsDestinations.map((destination) => <DestinationCard key={destination.name} name={destination.name} image={destination.image} description={destination.description} course="MBBS & Medicine" sizes="(max-width: 639px) 82vw, 300px" />)}
             </CardCarousel>
             <p className="mt-5 text-sm leading-relaxed text-muted">Programme names, entry requirements, language of instruction and licensing pathways vary by country and university. We help you understand what to check before applying.</p>
           </div>

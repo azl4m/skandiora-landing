@@ -1,7 +1,6 @@
 import Link from "next/link";
 import Logo from "./Logo";
-import { site } from "@/data/site";
-import { services } from "@/data/services";
+import { getServices, getSettings } from "@/lib/cms/content";
 
 const companyLinks = [
   { href: "/about", label: "About us" },
@@ -10,12 +9,13 @@ const companyLinks = [
   { href: "/#contact", label: "Contact" },
 ];
 
-export default function Footer() {
+export default async function Footer() {
+  const [{ site }, services] = await Promise.all([getSettings(), getServices()]);
   return (
     <footer className="bg-[#050A12] text-[rgba(232,237,245,0.72)] px-5 pt-[clamp(44px,5vw,64px)] pb-28 min-[620px]:pb-7">
       <div className="max-w-[1240px] mx-auto grid grid-cols-1 min-[620px]:grid-cols-[repeat(auto-fit,minmax(230px,1fr))] gap-8">
         <div className="min-w-0">
-          <Logo mark={44} nameSize="text-[20px]" taglineSize="text-[9px]" gap="gap-3" />
+          <Logo src={site.logoUrl} mark={44} nameSize="text-[20px]" taglineSize="text-[9px]" gap="gap-3" />
           <p className="text-sm leading-[1.7] mt-4.5 max-w-[34ch]">
             {site.tagline} Credit Transfer, Visas and Attestation under one roof.
           </p>
@@ -57,7 +57,7 @@ export default function Footer() {
 
       <div className="max-w-[1240px] mx-auto mt-[clamp(32px,4vw,48px)] pt-5 border-t border-white/12 flex flex-wrap gap-3 justify-between text-[13px] text-[rgba(232,237,245,0.5)]">
         <span>© {new Date().getFullYear()} Skandiora Immigration™. All rights reserved.</span>
-        <span>Privacy · Terms</span>
+        <Link href="/privacy" className="hover:text-white transition-colors">Privacy policy</Link>
       </div>
     </footer>
   );

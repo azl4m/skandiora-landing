@@ -197,7 +197,7 @@ export const services: ServicePage[] = [
       "Eligibility and regulatory guidance",
       "Pre-departure assistance",
     ],
-    metaTitle: "MBBS Abroad Consultants — Skandiora Immigration",
+    metaTitle: "MBBS Abroad Consultants in Kerala",
     metaDescription:
       "MBBS abroad guidance from Skandiora Immigration in Kochi, Trivandrum and Chennai. Explore universities, eligibility, clinical training and application requirements.",
     summary:
@@ -275,7 +275,7 @@ export const services: ServicePage[] = [
     headlineLines: ["Domestic admissions, elevated."],
     intro: [
       "Choosing the right institution can mean comparing courses, eligibility, fees, location, academic environment and future opportunities. We help parents navigate these choices in one place — saving time, reducing uncertainty and avoiding unsuitable admission decisions.",
-      "At Skandiora Immigrations, we provide personalised course and college admission guidance for students and parents exploring Kerala, Tamil Nadu, Karnataka and Andhra Pradesh.",
+      "At Skandiora Immigration, we provide personalised course and college admission guidance for students and parents exploring Kerala, Tamil Nadu, Karnataka and Andhra Pradesh.",
     ],
     tagSections: [
       {
@@ -296,7 +296,7 @@ export const services: ServicePage[] = [
       ],
     },
     closingHeadline: "Let’s find the right path.",
-    closingBody: "Speak with Skandiora Immigrations today. Enquire now for personalised course & college guidance.",
+    closingBody: "Speak with Skandiora Immigration today. Enquire now for personalised course & college guidance.",
     faqs: [
       {
         q: "Which states does Skandiora Immigration provide domestic admission assistance in?",
@@ -443,7 +443,7 @@ export const services: ServicePage[] = [
     navTitle: "Language Training",
     cardBody: "Structured IELTS, TOEFL, OET and German preparation to build confidence for your next step.",
     cardPoints: ["Exam-focused preparation", "Practice sessions and mock tests", "Personalised coaching"],
-    metaTitle: "IELTS, TOEFL, OET & German Language Training — Skandiora Immigration",
+    metaTitle: "IELTS, OET & German Coaching",
     metaDescription:
       "Structured, exam-focused IELTS, TOEFL, OET and German language training with practice sessions, mock tests and personalised support at Skandiora Immigration's Trivandrum, Kochi and Chennai centres.",
     summary:
@@ -508,10 +508,10 @@ export const services: ServicePage[] = [
       "Our Responsibility."
     ],
     "intro": [
-      "At Skandiora Immigrations, we provide professional, transparent, and end-to-end document attestation assistance to help you complete your documentation requirements with confidence."
+      "At Skandiora Immigration, we provide professional, transparent, and end-to-end document attestation assistance to help you complete your documentation requirements with confidence."
     ],
     "checklist": {
-      "heading": "Why Choose Skandiora Immigrations?",
+      "heading": "Why Choose Skandiora Immigration?",
       "items": [
         "Professional & Transparent Process: Clear guidance at every stage, with no unnecessary complications.",
         "Genuine Documentation Support: We focus on proper documentation and process coordination to help you proceed with confidence.",
@@ -520,7 +520,7 @@ export const services: ServicePage[] = [
       ]
     },
     "closingHeadline": "Ready to Get Your Documents Attested?",
-    "closingBody": "Leave the documentation process to a team that values accuracy, transparency, and your peace of mind. Contact Skandiora Immigrations today for professional attestation assistance.",
+    "closingBody": "Leave the documentation process to a team that values accuracy, transparency, and your peace of mind. Contact Skandiora Immigration today for professional attestation assistance.",
     "faqs": [
       {
         "q": "Which documents can I enquire about?",
@@ -569,7 +569,7 @@ export const services: ServicePage[] = [
     navTitle: "Accommodation Assistance",
     cardBody: "Explore accommodation options suited to your destination before you travel.",
     cardPoints: ["Destination-specific options", "Guidance before you arrive", "Smoother transition abroad"],
-    metaTitle: "Student Accommodation Assistance — Skandiora Immigration",
+    metaTitle: "Student Accommodation Assistance",
     metaDescription:
       "Explore student accommodation options before you travel, with guidance from Skandiora Immigration's counsellors in Kochi, Trivandrum and Chennai.",
     summary:

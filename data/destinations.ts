@@ -1,3 +1,5 @@
+import type { Faq } from "./services";
+
 export type Country = {
   code: string;
   name: string;
@@ -83,4 +85,19 @@ export const europeDestinations: DestinationEntry[] = [
 export const alsoExploreDestinations: DestinationEntry[] = [
   { name: "Singapore", code: "sg" },
   { name: "Mauritius", code: "mu" },
+];
+
+export const destinationFaqs: Faq[] = [
+  {
+    q: "Which study-abroad destinations does Skandiora Immigration cover?",
+    a: "Popular destinations including the UK, USA, Canada, Australia, New Zealand and Dubai; across Europe including Ireland, Germany, France, Italy, Spain, Poland, Malta and more; plus Singapore, Mauritius and other suitable destinations.",
+  },
+  {
+    q: "How do I choose the right country to study in?",
+    a: "Your destination should match your goals — not simply be a popular choice. We help you explore options based on your academic profile, course preference, eligibility, budget and career goals.",
+  },
+  {
+    q: "Can Skandiora Immigration help with both study-abroad and domestic admissions?",
+    a: "Yes. Alongside international destinations, we provide domestic admission assistance across Kerala, Tamil Nadu, Karnataka and Andhra Pradesh for students who prefer to study closer to home.",
+  },
 ];

@@ -1,9 +1,11 @@
 import Link from "next/link";
-import { featuredServices, services } from "@/data/services";
+import { featuredServices } from "@/data/services";
+import { getServices } from "@/lib/cms/content";
 import ServiceCard from "./ServiceCard";
 import CtaBanner from "./CtaBanner";
 
-export default function ServiceStack() {
+export default async function ServiceStack() {
+  const services = await getServices();
   const primary = featuredServices(services);
 
   return (

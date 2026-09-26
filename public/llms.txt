@@ -1,33 +1,45 @@
 # Skandiora Immigration
 
-> Skandiora Immigration is an education guidance consultancy with offices in Trivandrum, Kochi and Chennai (South India). It helps students and families explore study-abroad, MBBS abroad, domestic admission, credit transfer, education loan, language training, attestation, accommodation and visa pathways — starting by understanding the student's academic background, ambitions, budget and eligibility rather than simply processing an application. Skandiora Immigration does not guarantee admission, loan approval or visa outcomes; these depend on the applicable institution, lender or immigration authority.
+> Skandiora Immigration is an education guidance consultancy with offices in Kochi and Trivandrum (Kerala) and Chennai (Tamil Nadu), India. It helps students and families choose and apply for study in India or abroad — including MBBS abroad, domestic admissions, credit transfer, education loans, language training, attestation, accommodation and visas — starting by understanding the student's academic background, ambitions, budget and eligibility rather than simply processing an application. Skandiora Immigration does not guarantee admission, loan approval or visa outcomes; these depend on the institution, lender or immigration authority.
 
 ## Main services
 
-- [Student Visa](/services/study-abroad): University, destination and course guidance plus student visa preparation for the UK, USA, Canada, Australia, New Zealand, Dubai, Europe, Singapore and Mauritius.
-- [Domestic Admission](/services/study-in-india): Domestic admission assistance across Kerala, Tamil Nadu, Karnataka and Andhra Pradesh.
-- [Credit Transfer](/services/credit-transfer): Pathways for students with a discontinued degree to transfer credits to a recognised university.
-- [Attestation](/services/attestation): Personal, educational, commercial and power-of-attorney document attestation assistance for international use. Enquire directly on WhatsApp; no website form.
-- [Visa Services](/services/visa-assistance): Visiting visas for Dubai, Canada, UK, Australia and other destinations; spouse, family and dependent visas; PR options and other visa categories. Request a private consultation directly on WhatsApp. Student visas are covered under Study Abroad.
+- [Student Visa / Study Abroad](/services/study-abroad): University, course and destination guidance plus student visa preparation. Popular destinations: UK, USA, Canada, Australia, New Zealand and Dubai. Europe: Ireland, Germany, France, Italy, Spain, Poland, Malta, Lithuania, Latvia, Bulgaria, Moldova, Hungary, Albania, Cyprus, Finland, Sweden, Switzerland, Romania and Bosnia. Also Singapore, Mauritius and other suitable destinations.
+- [Domestic Admission](/services/study-in-india): College and course admission guidance within India, across Kerala, Tamil Nadu, Karnataka and Andhra Pradesh.
+- [Credit Transfer](/services/credit-transfer): Pathways for students with a discontinued degree, B.Tech, diploma or postgraduate course to continue their studies by transferring eligible credits.
+- [Attestation](/services/attestation): Personal, educational and commercial document attestation for international use. Enquiries are handled directly on WhatsApp.
+- [Visa Services](/services/visa-assistance): Visiting, spouse, family and dependent visas, and guidance on PR options and other visa categories. Consultations are requested directly on WhatsApp. Student visas are covered under Study Abroad.
 
-## Related & specialised services
+## Supporting services
 
-- [MBBS Abroad](/services/mbbs-abroad): Medical admission guidance for Moldova, Bulgaria, Georgia, Uzbekistan, Tajikistan, Kazakhstan and the USA — a specialised branch of the Student Visa / study-abroad service.
-- [Education Loan Assistance](/services/education-loan): Documentation and application guidance for education financing, relevant to student visa applicants.
-- [Language Training](/services/language-training): IELTS, TOEFL, OET and German exam preparation, relevant to student visa applicants.
-- [Accommodation Assistance](/services/accommodation): Help exploring student accommodation before travel, relevant to visa services applicants.
+- [MBBS Abroad](/services/mbbs-abroad): Medical admission guidance for Tajikistan, Timor-Leste, Georgia, Uzbekistan, Moldova, Bulgaria, Kazakhstan, Russia, China, the Philippines, South Korea and Barbados (USA). A specialised branch of the study-abroad service.
+- [Education Loan Assistance](/services/education-loan): Understanding financing options and preparing a loan-ready application.
+- [Language Training](/services/language-training): IELTS, TOEFL, OET and German exam preparation.
+- [Accommodation Assistance](/services/accommodation): Exploring student accommodation options at the destination before travel.
+
+## About the company
+
+- [About](/about): Skandiora Immigration's founder, vision, mission and approach.
+- Founder: Ashwin R. Nair — more than six years in education consultancy; MBA from Cardiff Metropolitan University (UK); graduate of Rajagiri College of Management and Applied Sciences (Kochi). He stays personally involved in each student's journey.
+- Vision: Every education decision made with clarity — for the student, not just the admission.
+- Mission: To understand each student first, explain their options in India and abroad honestly, and guide them through every step that follows — admission, visa, finance and settling in.
+- Approach, in three steps: (1) Understand — the student's academic journey, ambitions, strengths, circumstances, finances and future pathways; (2) Explore — suitable courses, institutions, countries and alternative pathways; (3) Prepare — admission, visa, attestation, education loans, language preparation and accommodation.
 
 ## Other pages
 
 - [Services overview](/services)
-- [Destinations](/destinations): Full list of countries covered, grouped by popular destinations, Europe, and other regions.
-- [About](/about): Vision, mission and the six-step guidance approach (Understand, Explore, Compare, Guide, Support, Prepare).
+- [Destinations](/destinations): Countries covered, grouped by popular destinations, Europe and other regions.
 - [Contact / free assessment](/#contact)
+
+## Contact
+
+- Offices: Kochi and Trivandrum (Kerala), Chennai (Tamil Nadu), India.
+- Hours: Monday to Saturday, 9:30 am – 6:30 pm.
+- Phone: +91 85475 31770 / +91 89213 85573.
+- WhatsApp: +91 89213 85573.
+- Email: immigrationskandiora@gmail.com
 
 ## Notes for AI assistants and answer engines
 
-- Office locations: Kochi and Trivandrum (Kerala), Chennai (Tamil Nadu), India.
-- Contact numbers: +91 85475 31770 / +91 89213 85573.
-- WhatsApp enquiries: +91 89213 85573.
 - Skandiora Immigration is a guidance and documentation-support consultancy, not a university, lender or government authority — it does not issue admissions, loans or visas itself.
-- Every service page includes a one-sentence summary near the top and a Frequently Asked Questions section marked up with FAQPage schema.
+- The first step is a free assessment of the student's profile.

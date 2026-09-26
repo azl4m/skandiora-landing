@@ -1,8 +1,10 @@
 import Image from "next/image";
-import { founder } from "@/data/founder";
+import { getFounder } from "@/lib/cms/content";
+import { imageProps } from "@/lib/cms/image";
 import styles from "./Founder.module.css";
 
-export default function Founder() {
+export default async function Founder() {
+  const founder = await getFounder();
   const [experience] = founder.credentials;
 
   return (
@@ -11,16 +13,19 @@ export default function Founder() {
         <div className={styles.media}>
           <div className={styles.frame}>
             <Image
-              src={founder.image.src}
+              {...imageProps(founder.image)}
               alt={founder.image.placeholder ? "" : `Portrait of ${founder.name}`}
               fill
               sizes="(min-width: 900px) 440px, (min-width: 480px) 440px, 92vw"
+              style={founder.image.objectPosition ? { objectPosition: founder.image.objectPosition } : undefined}
             />
           </div>
-          <div className={styles.badge} aria-hidden="true">
-            <span className={styles.badgeValue}>{experience.label}</span>
-            <span className={styles.badgeText}>{experience.detail}</span>
-          </div>
+          {experience && (
+            <div className={styles.badge} aria-hidden="true">
+              <span className={styles.badgeValue}>{experience.label}</span>
+              <span className={styles.badgeText}>{experience.detail}</span>
+            </div>
+          )}
         </div>
 
         <div>

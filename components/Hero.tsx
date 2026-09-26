@@ -1,13 +1,9 @@
 import Link from "next/link";
 import GlobeLoader from "./GlobeLoader";
 
-const stats = [
-  { value: "20+", label: "Destinations explored" },
-  { value: "4", label: "South Indian states" },
-  { value: "100%", label: "Recognised institutions" },
-];
+type HeroProps = { title: string; text: string; stats: { value: string; label: string }[] };
 
-export default function Hero() {
+export default function Hero({ title, text, stats }: HeroProps) {
   return (
     <section
       id="top"
@@ -28,13 +24,10 @@ export default function Hero() {
             ))}
           </ul>
           <h1 className="font-heading font-semibold text-[clamp(40px,6.4vw,72px)] leading-[1.04] tracking-[-0.01em] text-cream mt-5.5 text-pretty">
-            Your future deserves the right decision.
+            {title}
           </h1>
           <p className="text-[clamp(16px,1.6vw,19px)] leading-[1.65] text-body-text max-w-[52ch] mt-5">
-            Choosing where to study, what to study and how to build your career is a decision
-            that can shape your future. We start by understanding your academic background,
-            ambitions, budget and eligibility — then guide you toward the destination, course
-            and pathway that actually fits you.
+            {text}
           </p>
           <div className="flex flex-wrap gap-3.5 mt-8.5">
             <Link
@@ -50,14 +43,16 @@ export default function Hero() {
               Explore our services
             </Link>
           </div>
-          <div className="flex flex-wrap gap-x-[clamp(20px,4vw,48px)] gap-y-5 mt-[clamp(36px,5vw,54px)] pt-6.5 border-t border-gold/16">
-            {stats.map((s) => (
-              <div key={s.label}>
-                <div className="font-heading text-[34px] font-semibold text-cream">{s.value}</div>
-                <div className="text-xs tracking-[0.14em] uppercase text-muted mt-1">{s.label}</div>
-              </div>
-            ))}
-          </div>
+          {stats.length > 0 && (
+            <div className="flex flex-wrap gap-x-[clamp(20px,4vw,48px)] gap-y-5 mt-[clamp(36px,5vw,54px)] pt-6.5 border-t border-gold/16">
+              {stats.map((s) => (
+                <div key={s.label}>
+                  <div className="font-heading text-[34px] font-semibold text-cream">{s.value}</div>
+                  <div className="text-xs tracking-[0.14em] uppercase text-muted mt-1">{s.label}</div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
         <div className="min-w-0 relative flex justify-center">

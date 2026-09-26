@@ -1,13 +1,13 @@
 import Link from "next/link";
 import { ArrowDown, ArrowRight, BriefcaseBusiness, Check, GraduationCap, HeartPulse, Hotel, Monitor, Plane, Settings2, Stethoscope } from "lucide-react";
 import type { ServicePage } from "@/data/services";
-import { studyCourses, studyFaqs } from "@/data/study-abroad";
+import { studyCourses } from "@/data/study-abroad";
 import { breadcrumbSchema, faqSchema, serviceSchema } from "@/lib/schema";
 import Breadcrumbs from "./Breadcrumbs";
 import ContactForm from "./ContactForm";
 import CardCarousel from "./CardCarousel";
 import DestinationCard from "./DestinationCard";
-import { featuredMbbsDestinations } from "@/data/mbbs-destinations";
+import { getFeaturedMbbsDestinations, getStudyFaqs } from "@/lib/cms/content";
 import FaqSection from "./Faq";
 import JsonLd from "./JsonLd";
 import StudyEnquiryLink from "./StudyEnquiryLink";
@@ -26,7 +26,8 @@ const support = [
   ["04", "Prepare for life abroad", "Plan your departure with accommodation assistance and practical guidance before you travel."],
 ];
 
-export default function StudyAbroadDetail({ service }: { service: ServicePage }) {
+export default async function StudyAbroadDetail({ service }: { service: ServicePage }) {
+  const [studyFaqs, featuredMbbsDestinations] = await Promise.all([getStudyFaqs(), getFeaturedMbbsDestinations()]);
   const breadcrumbs = [{ href: "/", label: "Home" }, { href: "/services", label: "Services" }, { label: "Student visa & study abroad" }];
   return (
     <>
@@ -41,7 +42,7 @@ export default function StudyAbroadDetail({ service }: { service: ServicePage })
             <div className="min-w-0 min-[1000px]:pt-5">
               <p className={labelClass}>Study abroad & student visa guidance</p>
               <h1 className="font-heading text-[clamp(42px,5.2vw,66px)] leading-[1.04] text-cream tracking-[-0.02em] max-w-[15ch] text-pretty">Your ambition. Your destination. <span className="text-gold-soft">Your future.</span></h1>
-              <p className="text-base leading-[1.8] text-body-text mt-5 max-w-[53ch]">At Skandiora Immigrations, we provide personalised guidance for students planning to study abroad. Based on your academic profile, interests, budget, and future goals, we help you choose the right course, university, and destination.</p>
+              <p className="text-base leading-[1.8] text-body-text mt-5 max-w-[53ch]">At Skandiora Immigration, we provide personalised guidance for students planning to study abroad. Based on your academic profile, interests, budget, and future goals, we help you choose the right course, university, and destination.</p>
               <div className="mt-5 max-w-[53ch]">
                 <p className="text-sm font-medium text-cream">Explore opportunities across:</p>
                 <p className="text-base leading-[1.8] text-body-text mt-2">USA, Canada, UK, Australia, New Zealand, Ireland, Europe, Singapore, Dubai, Malaysia, and more.</p>
@@ -57,7 +58,7 @@ export default function StudyAbroadDetail({ service }: { service: ServicePage })
                 <a href="#courses" className="inline-flex items-center gap-2 min-h-12 px-3 text-sm text-cream hover:text-gold focus-visible:outline-2 focus-visible:outline-gold">Find your course <ArrowDown size={15} aria-hidden="true" /></a>
               </div>
               <div className="mt-6 max-w-[53ch]">
-                <p className="text-xs font-medium uppercase tracking-[0.16em] text-cream">Skandiora Immigrations</p>
+                <p className="text-xs font-medium uppercase tracking-[0.16em] text-cream">Skandiora Immigration</p>
                 <p className="text-sm leading-relaxed text-muted mt-2">International Education. Thoughtfully Guided. Globally Connected.</p>
               </div>
               <ul className="mt-7 grid grid-cols-1 min-[440px]:grid-cols-2 gap-3">
@@ -110,7 +111,7 @@ export default function StudyAbroadDetail({ service }: { service: ServicePage })
           <Link href="/services/mbbs-abroad" className="inline-flex items-center gap-2 py-2 text-sm text-gold hover:text-gold-soft">Explore MBBS guidance <ArrowRight size={16} aria-hidden="true" /></Link>
         </div>
         <CardCarousel label="Featured medical study destinations" itemLabel="destinations">
-          {featuredMbbsDestinations.map((destination) => <DestinationCard key={destination.name} {...destination} course="MBBS & Medicine" />)}
+          {featuredMbbsDestinations.map((destination) => <DestinationCard key={destination.name} name={destination.name} image={destination.image} description={destination.description} course="MBBS & Medicine" />)}
         </CardCarousel>
         <p className="mt-5 text-sm leading-relaxed text-muted">The right university, pathway and guidance matter. Programme names, language requirements and eligibility vary by country. Select a destination to discuss your options.</p>
       </section>

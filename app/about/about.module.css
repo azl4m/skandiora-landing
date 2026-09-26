@@ -167,35 +167,124 @@
   white-space: nowrap;
 }
 
+/* Guiding-principle card beside the hero text (replaces a stock photo). */
 .heroMedia {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 14px;
-}
-
-.heroPhoto {
-  aspect-ratio: 4 / 5;
-  max-height: 72svh;
-}
-
-.caption {
   display: flex;
-  align-items: center;
-  gap: 16px;
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-  font-size: 10px;
-  letter-spacing: 0.34em;
-  text-transform: uppercase;
-  color: var(--muted);
-  white-space: nowrap;
 }
 
-.caption::after {
-  content: "";
-  width: 1px;
-  height: 64px;
-  background: var(--accent);
+.principle {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  overflow: hidden;
+  padding: clamp(32px, 5vw, 64px) clamp(26px, 4.5vw, 60px);
+  border-radius: 4px;
+  background:
+    radial-gradient(circle at 88% 8%, rgba(212, 168, 87, 0.16), transparent 42%),
+    linear-gradient(160deg, #1b2f49 0%, #111f33 100%);
+  color: #fff;
+}
+
+.principleMark {
+  position: absolute;
+  top: clamp(4px, 1vw, 16px);
+  right: clamp(18px, 3vw, 40px);
+  font-family: var(--font-heading), Georgia, serif;
+  font-size: clamp(120px, 14vw, 200px);
+  line-height: 1;
+  color: rgba(212, 168, 87, 0.22);
+  pointer-events: none;
+  user-select: none;
+}
+
+.principleLabel {
+  position: relative;
+  margin: 0;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.58);
+}
+
+.principleQuestion {
+  position: relative;
+  margin: 12px 0 30px;
+  font-family: var(--font-heading), Georgia, serif;
+  font-size: clamp(26px, 2.8vw, 38px);
+  font-weight: 500;
+  line-height: 1.18;
+  color: rgba(255, 255, 255, 0.62);
+  text-wrap: balance;
+}
+
+.principleAnswer {
+  margin-bottom: 0;
+  font-style: italic;
+  color: #e8c98b;
+}
+
+.principleSteps {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin: clamp(32px, 4vw, 48px) 0 0;
+  padding: 22px 0 0;
+  list-style: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.principleSteps li {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.principleStepNumber {
+  font-family: var(--font-heading), Georgia, serif;
+  font-size: 22px;
+  line-height: 1;
+  color: #d4a857;
+  font-variant-numeric: lining-nums;
+}
+
+.principleStepTitle {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.principleLink {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-start;
+  min-height: 44px;
+  margin-top: 18px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: #e8c98b;
+  text-decoration: none;
+}
+
+.principleLink svg {
+  transition: transform 400ms var(--ease);
+}
+
+.principleLink:hover svg {
+  transform: translateY(3px);
+}
+
+.principleLink:focus-visible {
+  outline: 2px solid #e8c98b;
+  outline-offset: 4px;
 }
 
 /* ─── Vision & mission ────────────────────────────────────────── */
@@ -491,9 +580,11 @@
     padding-inline: 32px;
   }
 
-  .heroPhoto {
-    aspect-ratio: 5 / 4;
+  .principleStepTitle {
+    font-size: 11px;
+    letter-spacing: 0.2em;
   }
+
 }
 
 @media (min-width: 760px) {
@@ -529,7 +620,7 @@
     grid-template-columns: repeat(12, minmax(0, 1fr));
   }
 
-  /* Hero: text on 6 columns, photograph + caption on the other 6. */
+  /* Hero: text on 6 columns, the principle card on the other 6. */
   .heroGrid {
     min-height: min(calc(88svh - 80px), 860px);
   }
@@ -548,10 +639,7 @@
     grid-column: 7 / span 6;
   }
 
-  .heroPhoto {
-    aspect-ratio: auto;
-    height: 100%;
-    max-height: none;
+  .principle {
     min-height: 520px;
   }
 

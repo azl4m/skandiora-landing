@@ -8,32 +8,22 @@ import {
   popularDestinations,
   europeDestinations,
   alsoExploreDestinations,
+  destinationFaqs,
   type DestinationEntry,
 } from "@/data/destinations";
+import { getDestinationsPage } from "@/lib/cms/content";
+import { pageMetadata } from "@/lib/cms/metadata";
 
 const breadcrumbItems = [{ href: "/", label: "Home" }, { label: "Destinations" }];
 
-const destinationFaqs = [
-  {
-    q: "Which study-abroad destinations does Skandiora Immigration cover?",
-    a: "Popular destinations including the UK, USA, Canada, Australia, New Zealand and Dubai; across Europe including Ireland, Germany, France, Italy, Spain, Poland, Malta and more; plus Singapore, Mauritius and other suitable destinations.",
-  },
-  {
-    q: "How do I choose the right country to study in?",
-    a: "Your destination should match your goals — not simply be a popular choice. We help you explore options based on your academic profile, course preference, eligibility, budget and career goals.",
-  },
-  {
-    q: "Can Skandiora Immigration help with both study-abroad and domestic admissions?",
-    a: "Yes. Alongside international destinations, we provide domestic admission assistance across Kerala, Tamil Nadu, Karnataka and Andhra Pradesh for students who prefer to study closer to home.",
-  },
-];
 
-export const metadata: Metadata = {
-  title: "Study Destinations Worldwide",
-  description:
-    "Explore study-abroad destinations with Skandiora Immigration's counsellors in Kochi, Trivandrum and Chennai — options matched to your profile, interests and budget.",
-  alternates: { canonical: "/destinations" },
-};
+const description =
+  "Explore study-abroad destinations with Skandiora Immigration's counsellors in Kochi, Trivandrum and Chennai — options matched to your profile, interests and budget.";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const { seo } = await getDestinationsPage(destinationFaqs);
+  return pageMetadata(seo, { title: "Study Destinations Worldwide", description, path: "/destinations" });
+}
 
 function DestinationGroup({ heading, items }: { heading: string; items: DestinationEntry[] }) {
   return (
@@ -57,18 +47,17 @@ function DestinationGroup({ heading, items }: { heading: string; items: Destinat
   );
 }
 
-export default function DestinationsPage() {
+export default async function DestinationsPage() {
+  const page = await getDestinationsPage(destinationFaqs);
   return (
     <>
       <JsonLd data={breadcrumbSchema(breadcrumbItems)} />
-      <JsonLd data={faqSchema(destinationFaqs)} />
+      <JsonLd data={faqSchema(page.faqs)} />
       <PageHero
         breadcrumbs={breadcrumbItems}
-        eyebrow="Your global education journey starts here"
-        title="Dream big. Explore more. Choose wisely."
-        intro={[
-          "Your destination should match your goals — not simply be a popular choice. Explore education opportunities across leading international destinations and discover pathways that may suit your academic profile and career aspirations.",
-        ]}
+        eyebrow={page.eyebrow}
+        title={page.title}
+        intro={page.text ? [page.text] : undefined}
       />
 
       <section className="section-space section-band px-4.5">
@@ -95,7 +84,7 @@ export default function DestinationsPage() {
         </div>
       </section>
 
-      <FaqSection items={destinationFaqs} />
+      <FaqSection items={page.faqs} />
 
       <CtaBanner
         title="Not sure which destination fits you?"
