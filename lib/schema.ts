@@ -1,7 +1,7 @@
 import type { Faq, ServicePage } from "@/data/services";
-import type { Founder } from "@/data/founder";
-import { site } from "@/data/site";
-import { socialLinks } from "@/data/socials";
+import type { SiteSettings, SocialLink } from "@/lib/cms/content";
+
+type Founder = { name: string; bio: string[]; image: { src: string; placeholder: boolean }; education: { name: string; location: string }[] };
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.skandiora.com";
 
@@ -9,7 +9,7 @@ export function absoluteUrl(path: string) {
   return `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`;
 }
 
-export function organizationSchema() {
+export function organizationSchema(site: SiteSettings, socialLinks: SocialLink[]) {
   return {
     "@context": "https://schema.org",
     "@type": "EducationalOrganization",

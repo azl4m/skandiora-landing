@@ -9,10 +9,9 @@ import Founder from "@/components/Founder";
 import JsonLd from "@/components/JsonLd";
 import RevealOnScroll from "@/components/about/RevealOnScroll";
 import { absoluteUrl, breadcrumbSchema, founderSchema } from "@/lib/schema";
-import { shareMetadata } from "@/lib/share-image";
-import { founder } from "@/data/founder";
+import { getAboutPage, getFounder, getServices } from "@/lib/cms/content";
+import { pageMetadata } from "@/lib/cms/metadata";
 import { aboutHero, approach, closing, howWeHelp, officeLocations, paths, visionMission } from "@/data/about";
-import { services } from "@/data/services";
 import styles from "./about.module.css";
 
 const breadcrumbItems = [{ href: "/", label: "Home" }, { label: "About" }];
@@ -20,12 +19,10 @@ const breadcrumbItems = [{ href: "/", label: "Home" }, { label: "About" }];
 const description =
   "Skandiora Immigration offers student-first education guidance for study in India and abroad. Meet our founder and discover how we help families choose a course, institution and country — from Kochi, Trivandrum and Chennai.";
 
-export const metadata: Metadata = {
-  title: "About Us — Our Approach to Education Guidance",
-  description,
-  alternates: { canonical: "/about" },
-  ...shareMetadata("About Skandiora Immigration — Education decisions are personal", description, "/about"),
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const { seo } = await getAboutPage();
+  return pageMetadata(seo, { title: "About Us — Our Approach to Education Guidance", description, path: "/about" });
+}
 
 const aboutPageSchema = {
   "@context": "https://schema.org",
@@ -48,7 +45,8 @@ function Photo({ src, alt, sizes, className, preload = false }: { src: string; a
   );
 }
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const [about, founder, services] = await Promise.all([getAboutPage(), getFounder(), getServices()]);
   return (
     <div id="about-page" className={styles.page}>
       <JsonLd data={breadcrumbSchema(breadcrumbItems)} />
@@ -63,9 +61,9 @@ export default function AboutPage() {
             <Breadcrumbs items={breadcrumbItems} />
             <div className={styles.heroCopy}>
               <p className={styles.eyebrow} data-reveal>{aboutHero.eyebrow}</p>
-              <h1 id="about-title" className={`${styles.display} ${styles.heroTitle}`} data-reveal style={delay(80)}>{aboutHero.title}</h1>
-              <p className={styles.heroStatement} data-reveal style={delay(180)}>{aboutHero.statement}</p>
-              <p className={styles.heroBody} data-reveal style={delay(260)}>{aboutHero.body}</p>
+              <h1 id="about-title" className={`${styles.display} ${styles.heroTitle}`} data-reveal style={delay(80)}>{about.title}</h1>
+              <p className={styles.heroStatement} data-reveal style={delay(180)}>{about.statement}</p>
+              <p className={styles.heroBody} data-reveal style={delay(260)}>{about.text}</p>
             </div>
             <p className={styles.heroMeta} data-reveal style={delay(340)}>
               <span>Education guidance</span>
@@ -73,8 +71,24 @@ export default function AboutPage() {
             </p>
           </div>
           <div className={styles.heroMedia}>
-            <Photo {...aboutHero.image} className={`${styles.heroPhoto} ${styles.zoom}`} sizes="(min-width: 1240px) 580px, (min-width: 960px) 46vw, 92vw" preload />
-            <span className={styles.caption} aria-hidden="true">{aboutHero.caption}</span>
+            <aside className={styles.principle} aria-label="Our guiding principle" data-reveal style={delay(200)}>
+              <span className={styles.principleMark} aria-hidden="true">“</span>
+              <p className={styles.principleLabel}>{aboutHero.principle.notLabel}</p>
+              <p className={styles.principleQuestion}>{aboutHero.principle.notQuestion}</p>
+              <p className={styles.principleLabel}>{aboutHero.principle.label}</p>
+              <p className={`${styles.principleQuestion} ${styles.principleAnswer}`}>{aboutHero.principle.question}</p>
+              <ol className={styles.principleSteps}>
+                {approach.steps.map((step) => (
+                  <li key={step.title}>
+                    <span className={styles.principleStepNumber} aria-hidden="true">{String(step.number).padStart(2, "0")}</span>
+                    <span className={styles.principleStepTitle}>{step.title}</span>
+                  </li>
+                ))}
+              </ol>
+              <a href="#approach" className={styles.principleLink}>
+                {aboutHero.principle.link} <ArrowRight size={15} aria-hidden="true" />
+              </a>
+            </aside>
           </div>
         </div>
       </section>

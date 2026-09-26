@@ -1,25 +1,25 @@
 import type { Metadata } from "next";
-import { shareMetadata } from "@/lib/share-image";
 import PageHero from "@/components/PageHero";
 import ServiceCard from "@/components/ServiceCard";
 import CtaBanner from "@/components/CtaBanner";
 import JsonLd from "@/components/JsonLd";
 import { breadcrumbSchema } from "@/lib/schema";
-import { services, featuredServices } from "@/data/services";
+import { featuredServices } from "@/data/services";
+import { getServices, getServicesPage } from "@/lib/cms/content";
+import { pageMetadata } from "@/lib/cms/metadata";
 
 const breadcrumbItems = [{ href: "/", label: "Home" }, { label: "Services" }];
 
 const description =
   "Explore Skandiora Immigration's services in Kochi, Trivandrum and Chennai: study abroad, MBBS, domestic admissions, credit transfer, attestation and visa guidance.";
 
-export const metadata: Metadata = {
-  title: "Education Guidance Services",
-  description,
-  alternates: { canonical: "/services" },
-  ...shareMetadata("Education Guidance Services | Skandiora Immigration", description, "/services"),
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const { seo } = await getServicesPage();
+  return pageMetadata(seo, { title: "Education Guidance Services", description, path: "/services" });
+}
 
-export default function ServicesPage() {
+export default async function ServicesPage() {
+  const [page, services] = await Promise.all([getServicesPage(), getServices()]);
   const primary = featuredServices(services);
   const related = services.filter((s) => !s.featured);
 
@@ -28,11 +28,9 @@ export default function ServicesPage() {
       <JsonLd data={breadcrumbSchema(breadcrumbItems)} />
       <PageHero
         breadcrumbs={breadcrumbItems}
-        eyebrow="What we do"
-        title="Five services, one accountable team"
-        intro={[
-          "Every case is handled by a named counsellor who owns your file from first call to final approval — no handoffs, no surprise fees.",
-        ]}
+        eyebrow={page.eyebrow}
+        title={page.title}
+        intro={page.text ? [page.text] : undefined}
       />
       <section className="section-space px-4.5">
         <div className="max-w-[1240px] mx-auto grid grid-cols-1 min-[620px]:grid-cols-2 min-[980px]:grid-cols-3 gap-5">

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowUpRight, Check, FileCheck2, Globe2, MessageCircle } from "lucide-react";
 import type { ServicePage } from "@/data/services";
-import { site } from "@/data/site";
+import { getSettings } from "@/lib/cms/content";
 import { serviceWhatsappHref } from "@/lib/service-contact";
 import { breadcrumbSchema, faqSchema, serviceSchema } from "@/lib/schema";
 import Breadcrumbs from "./Breadcrumbs";
@@ -9,9 +9,10 @@ import CtaBanner from "./CtaBanner";
 import FaqSection from "./Faq";
 import JsonLd from "./JsonLd";
 
-export default function SupportServiceDetail({ service }: { service: ServicePage }) {
+export default async function SupportServiceDetail({ service }: { service: ServicePage }) {
+  const { site } = await getSettings();
   const visa = service.slug === "visa-assistance";
-  const href = serviceWhatsappHref(service.slug)!;
+  const href = serviceWhatsappHref(service.slug, site.phoneHref)!;
   const Icon = visa ? Globe2 : FileCheck2;
   const breadcrumbs = [{ href: "/", label: "Home" }, { href: "/services", label: "Services" }, { label: service.navTitle }];
   const buttonLabel = visa ? "Request your private visa consultation" : "Discuss your attestation needs";

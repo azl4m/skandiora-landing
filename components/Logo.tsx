@@ -1,7 +1,9 @@
 import Image from "next/image";
 
 type LogoProps = {
-  /** Height of the emblem in pixels. */
+  /** The emblem uploaded in Sanity (Company details → Logo); the built-in emblem is used when empty. */
+  src?: string | null;
+  /** Size of the square logo tile in pixels. */
   mark?: number;
   nameSize?: string;
   taglineSize?: string;
@@ -10,26 +12,34 @@ type LogoProps = {
   preload?: boolean;
 };
 
-// Transparent emblem cut from the brand logo; its natural aspect ratio is 164 × 192.
-const EMBLEM_RATIO = 164 / 192;
+const BUILT_IN_EMBLEM = "/logo-mark.webp";
 
 export default function Logo({
+  src,
   mark = 46,
   nameSize = "text-[22px]",
   taglineSize = "text-[9px]",
   gap = "gap-3",
   preload = false,
 }: LogoProps) {
+  // The emblem sits on a small ivory tile with a thin gold border, fitted whatever its shape.
+  const emblemBox = Math.round(mark * 0.78);
   return (
     <span className={`flex items-center ${gap}`}>
-      <Image
-        src="/logo-mark.webp"
-        alt=""
-        width={Math.round(mark * EMBLEM_RATIO)}
-        height={mark}
-        preload={preload}
-        className="shrink-0"
-      />
+      <span
+        className="grid shrink-0 place-items-center"
+        style={{
+          width: mark,
+          height: mark,
+          borderRadius: Math.round(mark * 0.24),
+          background: "linear-gradient(145deg, #fffdf8, #f4ecdc)",
+          boxShadow: "inset 0 0 0 1px rgba(144, 101, 30, 0.28)",
+        }}
+      >
+        <span className="relative block" style={{ width: emblemBox, height: emblemBox }}>
+          <Image src={src || BUILT_IN_EMBLEM} alt="" fill sizes={`${emblemBox}px`} preload={preload} className="object-contain" />
+        </span>
+      </span>
       <span className="flex flex-col leading-none">
         <span className={`font-heading font-semibold tracking-[0.16em] text-cream ${nameSize}`}>
           SKANDIORA

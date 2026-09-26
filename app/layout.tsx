@@ -7,6 +7,8 @@ import Footer from "@/components/Footer";
 import MobileCTABar from "@/components/MobileCTABar";
 import JsonLd from "@/components/JsonLd";
 import { organizationSchema } from "@/lib/schema";
+import { SiteDataProvider } from "@/components/SiteDataProvider";
+import { getMbbsDestinations, getServices, getSettings } from "@/lib/cms/content";
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
@@ -44,17 +46,26 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  const [{ site, socials }, services, mbbs] = await Promise.all([getSettings(), getServices(), getMbbsDestinations()]);
+  const siteData = {
+    phoneHref: site.phoneHref,
+    logoUrl: site.logoUrl,
+    services: services.map(({ slug, navTitle }) => ({ slug, navTitle })),
+    mbbsCountries: mbbs.map((destination) => destination.name),
+  };
   return (
     <html lang="en" className={`${cormorant.variable} ${jost.variable} h-full antialiased`}>
       <body className="site-light min-h-full flex flex-col bg-ink text-cream">
-        <div className="max-w-full overflow-x-clip flex flex-col min-h-full">
-          <Header />
-          <main className="flex-1">{children}</main>
-          <Footer />
-          <MobileCTABar />
-        </div>
-        <JsonLd data={organizationSchema()} />
+        <SiteDataProvider value={siteData}>
+          <div className="max-w-full overflow-x-clip flex flex-col min-h-full">
+            <Header />
+            <main className="flex-1">{children}</main>
+            <Footer />
+            <MobileCTABar />
+          </div>
+        </SiteDataProvider>
+        <JsonLd data={organizationSchema(site, socials)} />
       </body>
     </html>
   );

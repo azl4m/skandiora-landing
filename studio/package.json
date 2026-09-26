@@ -1,0 +1,24 @@
+{
+  "name": "skandiora-studio",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Content editing dashboard (Sanity Studio) for the Skandiora Immigration website",
+  "scripts": {
+    "dev": "sanity dev",
+    "build": "sanity build",
+    "deploy": "sanity deploy",
+    "import-content": "sanity exec scripts/import-content.ts --with-user-token"
+  },
+  "dependencies": {
+    "@sanity/icons": "^5.2.2",
+    "@sanity/orderable-document-list": "^2.0.24",
+    "@sanity/vision": "^6.16.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "sanity": "^6.16.0",
+    "styled-components": "^6.5.3"
+  },
+  "devDependencies": {
+    "typescript": "^7.0.2"
+  }
+}

@@ -1,6 +1,6 @@
 import { ArrowRight, BookOpen, Check, FileCheck2, Files, GraduationCap, Landmark, MapPin, Route, Settings2 } from "lucide-react";
 import type { ServicePage } from "@/data/services";
-import { site } from "@/data/site";
+import { getSettings } from "@/lib/cms/content";
 import { breadcrumbSchema, faqSchema, serviceSchema } from "@/lib/schema";
 import Breadcrumbs from "./Breadcrumbs";
 import ContactForm from "./ContactForm";
@@ -17,7 +17,8 @@ const steps = [
   { title: "Prepare your next step", body: "Get documentation and application support, with clarity on the university’s decision and the requirements that remain.", icon: FileCheck2 },
 ];
 
-export default function CreditTransferDetail({ service }: { service: ServicePage }) {
+export default async function CreditTransferDetail({ service }: { service: ServicePage }) {
+  const { site } = await getSettings();
   const breadcrumbs = [{ href: "/", label: "Home" }, { href: "/services", label: "Services" }, { label: "Credit transfer" }];
   return (
     <>

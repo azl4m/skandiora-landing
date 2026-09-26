@@ -1,13 +1,13 @@
 import Link from "next/link";
 import { ArrowDown, ArrowRight, BriefcaseBusiness, Check, GraduationCap, HeartPulse, Hotel, Monitor, Plane, Settings2, Stethoscope } from "lucide-react";
 import type { ServicePage } from "@/data/services";
-import { studyCourses, studyFaqs } from "@/data/study-abroad";
+import { studyCourses } from "@/data/study-abroad";
 import { breadcrumbSchema, faqSchema, serviceSchema } from "@/lib/schema";
 import Breadcrumbs from "./Breadcrumbs";
 import ContactForm from "./ContactForm";
 import CardCarousel from "./CardCarousel";
 import DestinationCard from "./DestinationCard";
-import { featuredMbbsDestinations } from "@/data/mbbs-destinations";
+import { getFeaturedMbbsDestinations, getStudyFaqs } from "@/lib/cms/content";
 import FaqSection from "./Faq";
 import JsonLd from "./JsonLd";
 import StudyEnquiryLink from "./StudyEnquiryLink";
@@ -26,7 +26,8 @@ const support = [
   ["04", "Prepare for life abroad", "Plan your departure with accommodation assistance and practical guidance before you travel."],
 ];
 
-export default function StudyAbroadDetail({ service }: { service: ServicePage }) {
+export default async function StudyAbroadDetail({ service }: { service: ServicePage }) {
+  const [studyFaqs, featuredMbbsDestinations] = await Promise.all([getStudyFaqs(), getFeaturedMbbsDestinations()]);
   const breadcrumbs = [{ href: "/", label: "Home" }, { href: "/services", label: "Services" }, { label: "Student visa & study abroad" }];
   return (
     <>
@@ -110,7 +111,7 @@ export default function StudyAbroadDetail({ service }: { service: ServicePage })
           <Link href="/services/mbbs-abroad" className="inline-flex items-center gap-2 py-2 text-sm text-gold hover:text-gold-soft">Explore MBBS guidance <ArrowRight size={16} aria-hidden="true" /></Link>
         </div>
         <CardCarousel label="Featured medical study destinations" itemLabel="destinations">
-          {featuredMbbsDestinations.map((destination) => <DestinationCard key={destination.name} {...destination} course="MBBS & Medicine" />)}
+          {featuredMbbsDestinations.map((destination) => <DestinationCard key={destination.name} name={destination.name} image={destination.image} description={destination.description} course="MBBS & Medicine" />)}
         </CardCarousel>
         <p className="mt-5 text-sm leading-relaxed text-muted">The right university, pathway and guidance matter. Programme names, language requirements and eligibility vary by country. Select a destination to discuss your options.</p>
       </section>

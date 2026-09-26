@@ -12,14 +12,23 @@ import Contact from "@/components/Contact";
 import SocialConnect from "@/components/SocialConnect";
 import Testimonials from "@/components/Testimonials";
 import JsonLd from "@/components/JsonLd";
+import type { Metadata } from "next";
 import { faqSchema } from "@/lib/schema";
-import { homeFaqs } from "@/data/faq";
+import { getHomePage } from "@/lib/cms/content";
+import { pageMetadata } from "@/lib/cms/metadata";
 
-export default function Home() {
+export async function generateMetadata(): Promise<Metadata> {
+  // Without a Google title set in Sanity, the home page keeps the site-wide default from the layout.
+  const { seo } = await getHomePage();
+  return seo.title ? pageMetadata(seo, { title: seo.title, description: seo.description ?? "", path: "/", absoluteTitle: true, brandFirst: true }) : {};
+}
+
+export default async function Home() {
+  const home = await getHomePage();
   return (
     <>
-      <JsonLd data={faqSchema(homeFaqs)} />
-      <Hero />
+      <JsonLd data={faqSchema(home.faqs)} />
+      <Hero title={home.title} text={home.text} stats={home.showStats ? home.stats : []} />
       <ValueStrip />
       <Intro />
       <ServiceStack />
@@ -28,9 +37,9 @@ export default function Home() {
       <Process />
       <Gallery />
       <About />
-      <Testimonials />
+      <Testimonials note={home.testimonialsNote} />
       <SocialConnect />
-      <FaqSection items={homeFaqs} title="Common questions about Skandiora Immigration" />
+      <FaqSection items={home.faqs} title="Common questions about Skandiora Immigration" />
       <Contact />
     </>
   );

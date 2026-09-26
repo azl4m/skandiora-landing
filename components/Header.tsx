@@ -7,6 +7,7 @@ import { ArrowUpRight, ChevronRight } from "lucide-react";
 import Logo from "./Logo";
 import { navLinks } from "@/data/site";
 import { pageEnquiryHref } from "@/lib/service-contact";
+import { useSiteData } from "./SiteDataProvider";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -14,7 +15,8 @@ export default function Header() {
   const menuRef = useRef<HTMLDivElement>(null);
   const menuId = useId();
   const pathname = usePathname();
-  const enquiryHref = pageEnquiryHref(pathname);
+  const { phoneHref, logoUrl } = useSiteData();
+  const enquiryHref = pageEnquiryHref(pathname, phoneHref);
 
   function closeMenu() {
     setMenuOpen(false);
@@ -61,7 +63,7 @@ export default function Header() {
     <header className="sticky top-0 z-50 bg-[#070D18]/86 backdrop-blur-md border-b border-gold/16">
       <div className="max-w-[1240px] mx-auto px-4 py-3 flex items-center gap-3.5">
         <Link href="/" onClick={() => setMenuOpen(false)} className="flex items-center flex-none">
-          <Logo preload />
+          <Logo src={logoUrl} preload />
         </Link>
 
         <nav aria-label="Main navigation" className="ml-auto flex items-center gap-5">

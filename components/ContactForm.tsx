@@ -1,32 +1,43 @@
 "use client";
 
-import { useEffect, useId, useState } from "react";
+import { useEffect, useId, useMemo, useState } from "react";
 import { Controller, useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { cleanPhoneInput, enquiryLimits, enquirySchema, type EnquiryInput } from "@/lib/enquiry-schema";
-import { services, destinationOptions } from "@/data/services";
+import { destinationOptions } from "@/data/services";
 import { studyCourses } from "@/data/study-abroad";
 import { domesticCourses, domesticStates } from "@/data/domestic-admissions";
-import { mbbsDestinations } from "@/data/mbbs-destinations";
-import { site } from "@/data/site";
 import { whatsappEnquiryUrl } from "@/lib/whatsapp-enquiry";
 import SelectField, { type SelectOption } from "./SelectField";
+import { useSiteData, type SiteData } from "./SiteDataProvider";
 
 type FormVariant = "general" | "study-abroad" | "mbbs" | "credit-transfer" | "domestic";
 type FieldName = "name" | "phone" | "qualification" | "destination" | "course" | "intake" | "service" | "message";
 type FormField = { name: FieldName; label: string; placeholder?: string; optional?: boolean; wide?: boolean; options?: SelectOption[] };
 
-const serviceOptions = services.map((service) => service.navTitle);
-const enquiryDestinations = [...new Set([...destinationOptions, ...mbbsDestinations.map((destination) => destination.name)])];
 const toOptions = (values: readonly string[]) => values.map((value) => ({ value, label: value }));
 const unsureOption = { value: "", label: "Not sure yet" };
-const fixedServices = {
-  "study-abroad": services.find((service) => service.slug === "study-abroad")?.navTitle ?? serviceOptions[0],
-  mbbs: "MBBS Abroad", "credit-transfer": "Credit Transfer", domestic: "Domestic Admission",
-};
+
+type FormLists = ReturnType<typeof formLists>;
+
+/** Dropdown lists built from editable content (service names, MBBS countries). */
+function formLists({ services, mbbsCountries }: SiteData) {
+  const serviceOptions = services.map((service) => service.navTitle);
+  return {
+    serviceOptions,
+    mbbsCountries,
+    enquiryDestinations: [...new Set([...destinationOptions, ...mbbsCountries])],
+    fixedServices: {
+      "study-abroad": services.find((service) => service.slug === "study-abroad")?.navTitle ?? serviceOptions[0],
+      mbbs: services.find((service) => service.slug === "mbbs-abroad")?.navTitle ?? "MBBS Abroad",
+      "credit-transfer": services.find((service) => service.slug === "credit-transfer")?.navTitle ?? "Credit Transfer",
+      domestic: services.find((service) => service.slug === "study-in-india")?.navTitle ?? "Domestic Admission",
+    },
+  };
+}
 const fieldClass = "w-full min-w-0 min-h-[54px] border border-gold/26 rounded-[10px] py-3.5 px-3.5 text-base text-[#EAF0FA] bg-[#0C1524] tracking-normal normal-case focus:outline-none focus:ring-2 focus:ring-gold/40 focus:border-gold aria-invalid:border-[#e3897f]";
 
-function fieldsFor(variant: FormVariant): FormField[] {
+function fieldsFor(variant: FormVariant, { serviceOptions, mbbsCountries, enquiryDestinations }: FormLists): FormField[] {
   const fields: FormField[] = [
     { name: "name", label: "Full name", placeholder: "Your name" },
     { name: "phone", label: "Phone / WhatsApp", placeholder: "Your phone number" },
@@ -35,7 +46,7 @@ function fieldsFor(variant: FormVariant): FormField[] {
   const course: FormField = { name: "course", label: "Course you’re looking for", options: [unsureOption, ...toOptions((variant === "domestic" ? domesticCourses : studyCourses).map((item) => item.name))] };
   const destination: FormField = {
     name: "destination", label: variant === "domestic" ? "Preferred state" : "Preferred destination",
-    options: [unsureOption, ...toOptions(variant === "domestic" ? domesticStates : variant === "mbbs" ? mbbsDestinations.map((item) => item.name) : enquiryDestinations)],
+    options: [unsureOption, ...toOptions(variant === "domestic" ? domesticStates : variant === "mbbs" ? mbbsCountries : enquiryDestinations)],
   };
   if (variant === "domestic") return [...fields, qualification, destination, { ...course, wide: true }];
   if (variant === "credit-transfer") return [...fields, { name: "course", label: "Previous course", placeholder: "e.g. B.Tech, B.Com or Diploma", optional: true, wide: true }];
@@ -53,7 +64,10 @@ function fieldsFor(variant: FormVariant): FormField[] {
 export default function ContactForm({ variant = "general" }: { variant?: FormVariant }) {
   const [status, setStatus] = useState<"idle" | "opening" | "error">("idle");
   const formId = useId();
-  const fields = fieldsFor(variant);
+  const siteData = useSiteData();
+  const lists = useMemo(() => formLists(siteData), [siteData]);
+  const { serviceOptions, fixedServices } = lists;
+  const fields = fieldsFor(variant, lists);
   const { register, control, handleSubmit, setValue, setFocus, formState: { errors } } = useForm<EnquiryInput>({
     resolver: zodResolver(enquirySchema), mode: "onTouched", reValidateMode: "onChange", shouldFocusError: false,
     defaultValues: { name: "", phone: "", qualification: "", service: variant === "general" ? serviceOptions[0] : fixedServices[variant], destination: "", course: variant === "mbbs" ? "MBBS & Medicine" : "", intake: "", message: "", company: "" },
@@ -62,11 +76,11 @@ export default function ContactForm({ variant = "general" }: { variant?: FormVar
 
   useEffect(() => {
     const destination = new URLSearchParams(window.location.search).get("destination");
-    const options = fieldsFor(variant).find((field) => field.name === "destination")?.options;
+    const options = fieldsFor(variant, lists).find((field) => field.name === "destination")?.options;
     if (!destination || !options?.some((option) => option.value === destination)) return;
     setValue("destination", destination);
     if (variant === "general") setValue("service", fixedServices["study-abroad"]);
-  }, [setValue, variant]);
+  }, [setValue, variant, lists, fixedServices]);
 
   useEffect(() => {
     if (variant === "general" || variant === "credit-transfer") return;
@@ -75,19 +89,19 @@ export default function ContactForm({ variant = "general" }: { variant?: FormVar
       if (!detail) return;
       for (const name of ["course", "destination"] as const) {
         const value = detail[name];
-        const options = fieldsFor(variant).find((field) => field.name === name)?.options;
+        const options = fieldsFor(variant, lists).find((field) => field.name === name)?.options;
         if (value && options?.some((option) => option.value === value)) setValue(name, value, { shouldDirty: true, shouldValidate: true });
       }
       setStatus("idle");
     };
     window.addEventListener("study-enquiry", selectInterest);
     return () => window.removeEventListener("study-enquiry", selectInterest);
-  }, [setValue, variant]);
+  }, [setValue, variant, lists]);
 
   const onSubmit = (data: EnquiryInput) => {
     try {
       setStatus("opening");
-      window.location.assign(whatsappEnquiryUrl(site.phoneHref, data));
+      window.location.assign(whatsappEnquiryUrl(siteData.phoneHref, data));
     } catch { setStatus("error"); }
   };
 
@@ -138,7 +152,7 @@ export default function ContactForm({ variant = "general" }: { variant?: FormVar
         {status === "opening" ? "Open WhatsApp again" : "Continue to WhatsApp"}
       </button>
       <div aria-live="polite" role="status" className="text-xs text-muted text-center leading-relaxed">
-        {status === "error" ? <span className="text-[#e3897f]">Could not open WhatsApp. Please try again or <a className="underline" href={`tel:${site.phoneHref}`}>call us directly</a>.</span>
+        {status === "error" ? <span className="text-[#e3897f]">Could not open WhatsApp. Please try again or <a className="underline" href={`tel:${siteData.phoneHref}`}>call us directly</a>.</span>
           : status === "opening" ? "Tap Send in WhatsApp to complete your enquiry. Your message has not been sent automatically."
           : "Opens WhatsApp with your details. Tap Send to enquire."}
       </div>

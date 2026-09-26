@@ -5,8 +5,9 @@ import StudyAbroadDetail from "@/components/StudyAbroadDetail";
 import DomesticAdmissionDetail from "@/components/DomesticAdmissionDetail";
 import CreditTransferDetail from "@/components/CreditTransferDetail";
 import SupportServiceDetail from "@/components/SupportServiceDetail";
-import { services, getService } from "@/data/services";
-import { shareMetadata } from "@/lib/share-image";
+import { services } from "@/data/services";
+import { getService } from "@/lib/cms/content";
+import { pageMetadata } from "@/lib/cms/metadata";
 
 export function generateStaticParams() {
   return services.map((s) => ({ slug: s.slug }));
@@ -18,14 +19,12 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const service = getService(slug);
+  const service = await getService(slug);
   if (!service) return {};
-  return {
-    title: service.metaTitle,
-    description: service.metaDescription,
-    alternates: { canonical: `/services/${service.slug}` },
-    ...shareMetadata(service.metaTitle, service.metaDescription, `/services/${service.slug}`),
-  };
+  return pageMetadata(
+    { shareImage: service.shareImage },
+    { title: service.metaTitle, description: service.metaDescription, path: `/services/${service.slug}` },
+  );
 }
 
 export default async function ServiceSlugPage({
@@ -34,7 +33,7 @@ export default async function ServiceSlugPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const service = getService(slug);
+  const service = await getService(slug);
   if (!service) notFound();
   if (slug === "study-abroad") return <StudyAbroadDetail service={service} />;
   if (slug === "study-in-india") return <DomesticAdmissionDetail service={service} />;

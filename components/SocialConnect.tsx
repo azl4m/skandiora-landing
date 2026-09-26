@@ -1,7 +1,7 @@
 import { AtSign } from "lucide-react";
-import { socialLinks } from "@/data/socials";
+import { getSettings } from "@/lib/cms/content";
 
-function SocialIcon({ id }: { id: typeof socialLinks[number]["id"] }) {
+function SocialIcon({ id }: { id: string }) {
   if (id === "threads") return <AtSign size={23} strokeWidth={1.5} aria-hidden="true" />;
   return <svg width="23" height="23" viewBox="0 0 24 24" fill="none" aria-hidden="true">
     {id === "x" && <path fill="currentColor" d="M18.9 2H22l-6.8 7.8L23.2 22h-6.3L12 14.5 5.4 22H2.2l8.3-9.5L2.8 2h6.5l4.5 6.9L18.9 2ZM17.4 20h2.1L8.2 4H6z" />}
@@ -11,7 +11,8 @@ function SocialIcon({ id }: { id: typeof socialLinks[number]["id"] }) {
   </svg>;
 }
 
-export default function SocialConnect() {
+export default async function SocialConnect() {
+  const { socials: socialLinks } = await getSettings();
   return (
     <section aria-labelledby="social-heading" className="px-5 min-[640px]:px-8 py-6">
       <div className="max-w-[1240px] mx-auto flex items-center justify-center min-[640px]:justify-between gap-4 border-y border-gold/15 py-4">

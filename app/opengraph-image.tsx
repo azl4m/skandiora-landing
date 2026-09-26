@@ -1,6 +1,7 @@
 import { ImageResponse } from "next/og";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
+import { getLogoDataUrl } from "@/lib/cms/logo";
 
 // Link-preview image (WhatsApp, LinkedIn, Facebook, X). Built once at build time;
 // it is never shown on the website itself. Applies to every page.
@@ -15,9 +16,8 @@ export default async function OpengraphImage() {
     asset("cormorant-garamond-latin-600-normal.ttf"),
     asset("jost-latin-400-normal.ttf"),
     asset("jost-latin-500-normal.ttf"),
-    asset("logo-mark.png"),
+    getLogoDataUrl(),
   ]);
-  const logoSrc = `data:image/png;base64,${logo.toString("base64")}`;
 
   return new ImageResponse(
     (
@@ -39,7 +39,7 @@ export default async function OpengraphImage() {
         <div style={{ position: "absolute", top: 28, left: 28, right: 28, bottom: 28, border: "1px solid rgba(212,168,87,0.45)", display: "flex" }} />
 
         {/* eslint-disable-next-line @next/next/no-img-element -- ImageResponse only renders plain <img> */}
-        <img src={logoSrc} width={188} height={220} alt="" style={{ marginRight: 64 }} />
+        <img src={logo} width={200} height={220} alt="" style={{ marginRight: 64, objectFit: "contain" }} />
 
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div style={{ fontFamily: "Cormorant", fontSize: 84, letterSpacing: 10, lineHeight: 1 }}>SKANDIORA</div>

@@ -10,8 +10,14 @@ export const aboutHero = {
   title: "Education decisions are personal.",
   statement: "We look beyond the application to understand the person behind it.",
   body: "Every student arrives with a different story, ambition, circumstance, and definition of success. Our approach begins there.",
-  caption: "Look beyond the application",
-  image: { src: photo("1427504494785-3a9ca7044f45"), alt: "A student with a backpack walking between tall library shelves" },
+  // The guiding principle shown in the card beside the hero text.
+  principle: {
+    notLabel: "We don’t begin with",
+    notQuestion: "“Where can we get admission?”",
+    label: "We begin with",
+    question: "“What makes sense for this student?”",
+    link: "See how we work",
+  },
 };
 
 export const visionMission = {

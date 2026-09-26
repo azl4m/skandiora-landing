@@ -1,7 +1,10 @@
 import Image from "next/image";
-import { galleryFrames } from "@/data/gallery";
+import { getGallery } from "@/lib/cms/content";
+import { imageProps } from "@/lib/cms/image";
 
-export default function Gallery() {
+export default async function Gallery() {
+  const photos = await getGallery();
+  if (!photos.length) return null;
   return (
     <section className="section-space px-4.5">
       <div className="max-w-[1240px] mx-auto">
@@ -11,23 +14,24 @@ export default function Gallery() {
           </div>
         </div>
         <div className="grid grid-cols-2 min-[620px]:grid-cols-[repeat(auto-fit,minmax(230px,1fr))] gap-4">
-          {galleryFrames.map((frame) => (
+          {photos.map((photo) => (
             <div
-              key={frame.id}
+              key={photo.id}
               className="relative aspect-[3/4] border border-gold/20 rounded-[18px] overflow-hidden"
             >
-              {frame.src ? (
+              {photo.image ? (
                 <Image
-                  src={frame.src}
-                  alt={frame.label}
+                  {...imageProps(photo.image)}
+                  alt={photo.caption}
                   fill
                   sizes="(min-width: 860px) 25vw, (min-width: 620px) 33vw, 50vw"
                   className="object-cover"
+                  style={photo.image.objectPosition ? { objectPosition: photo.image.objectPosition } : undefined}
                 />
               ) : (
                 <div className="absolute inset-0 grid place-items-center text-center p-4 bg-[linear-gradient(150deg,#121E31,#0B1422)]">
                   <span className="text-xs tracking-[0.12em] uppercase text-muted">
-                    {frame.label}
+                    {photo.caption}
                   </span>
                 </div>
               )}
