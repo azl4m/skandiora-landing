@@ -1,8 +1,9 @@
 import type { MetadataRoute } from "next";
+import { SITE_URL } from "@/lib/site-url";
 import { services } from "@/data/services";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.skandiora.com";
+  const base = SITE_URL;
   const now = new Date();
 
   const staticRoutes: MetadataRoute.Sitemap = [

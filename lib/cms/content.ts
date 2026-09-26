@@ -7,7 +7,6 @@ import { services as localServices, type Faq, type ServicePage } from "@/data/se
 import { homeFaqs as localHomeFaqs } from "@/data/faq";
 import { studyFaqs as localStudyFaqs } from "@/data/study-abroad";
 import { founder as localFounder } from "@/data/founder";
-import { galleryFrames as localGallery } from "@/data/gallery";
 import { mbbsDestinations as localMbbs } from "@/data/mbbs-destinations";
 import { aboutHero as localAboutHero } from "@/data/about";
 
@@ -46,7 +45,7 @@ const PLATFORM_NAMES: Record<string, string> = { instagram: "Instagram", faceboo
 type SanitySettings = {
   phones?: string[];
   whatsapp?: string;
-  email?: string;
+  emails?: string[];
   tagline?: string;
   offices?: { city?: string; state?: string }[];
   openingHours?: string;
@@ -55,7 +54,7 @@ type SanitySettings = {
 };
 
 export const getSettings = cache(async (): Promise<{ site: SiteSettings; socials: SocialLink[] }> => {
-  const data = await cmsFetch<SanitySettings>(`*[_id == "siteSettings"][0]{phones, whatsapp, email, tagline, offices, openingHours, socialLinks, logo}`);
+  const data = await cmsFetch<SanitySettings>(`*[_id == "siteSettings"][0]{phones, whatsapp, emails, tagline, offices, openingHours, socialLinks, logo}`);
   const phones = list(
     data?.phones?.filter(Boolean).map((label) => ({ label, href: toHref(label) })),
     localSite.phones,
@@ -71,7 +70,8 @@ export const getSettings = cache(async (): Promise<{ site: SiteSettings; socials
     ...whatsapp,
     phones,
     offices,
-    email: text(data?.email, localSite.email),
+    emails: list(data?.emails?.filter(Boolean), localSite.emails),
+    email: list(data?.emails?.filter(Boolean), localSite.emails)[0],
     tagline: text(data?.tagline, localSite.tagline),
     office: `${offices.map((office) => office.city).join(" · ")} · ${hours}`,
     // Built with the image URL builder so a crop set in the Studio is applied.
@@ -180,7 +180,7 @@ export const getHomePage = cache(async () => {
     }),
     showStats: data?.showStats ?? true,
     // Once the Home page exists in Sanity, an empty note means "no note".
-    testimonialsNote: data ? data.testimonialsNote || undefined : "Design preview — the names and feedback below are placeholders, not real testimonials.",
+    testimonialsNote: data?.testimonialsNote || undefined,
     stats: list(
       data?.stats?.filter((stat) => stat.value && stat.label).map((stat) => ({ value: stat.value as string, label: stat.label as string })),
       DEFAULT_STATS,
@@ -274,24 +274,28 @@ export const getFounder = cache(async (): Promise<FounderContent> => {
 
 export type Testimonial = { name: string; service: string; quote: string };
 
-export const getTestimonials = cache(async (fallback: Testimonial[]): Promise<Testimonial[]> => {
+/**
+ * Testimonials shown on the website. Genuine ones only: there is no built-in fallback,
+ * so the section hides when none in Sanity is switched on (or Sanity is unreachable).
+ */
+export const getTestimonials = cache(async (): Promise<Testimonial[]> => {
   const data = await cmsFetch<{ name?: string; service?: string; quote?: string }[]>(
     `*[_type == "testimonial" && show != false] | order(orderRank){name, service, quote}`,
   );
-  if (!data) return fallback;
-  // An empty published list in Sanity means "no testimonials yet" — the section hides.
-  return data.filter((item) => item.name && item.quote).map((item) => ({ name: item.name as string, service: item.service ?? "", quote: item.quote as string }));
+  return (data ?? []).filter((item) => item.name && item.quote).map((item) => ({ name: item.name as string, service: item.service ?? "", quote: item.quote as string }));
 });
 
 export type GalleryPhoto = { id: string; caption: string; image: CmsImage | null };
 
+/**
+ * Gallery photos shown on the website. Real photos only: there is no built-in fallback,
+ * so the section hides when no photo in Sanity is switched on (or Sanity is unreachable).
+ */
 export const getGallery = cache(async (): Promise<GalleryPhoto[]> => {
   const data = await cmsFetch<{ _id: string; caption?: string; photo?: SanityImageSource }[]>(
-    `*[_type == "galleryImage"] | order(orderRank){_id, caption, photo}`,
+    `*[_type == "galleryImage" && show != false] | order(orderRank){_id, caption, photo}`,
   );
-  const cms = (data ?? []).map((item) => ({ id: item._id, caption: item.caption ?? "", image: cmsImage(item.photo) })).filter((item) => item.image);
-  if (cms.length) return cms;
-  return localGallery.map((frame) => ({ id: frame.id, caption: frame.label, image: frame.src ? externalImage(frame.src) : null }));
+  return (data ?? []).map((item) => ({ id: item._id, caption: item.caption ?? "", image: cmsImage(item.photo) })).filter((item) => item.image);
 });
 
 export type MbbsDestination = { name: string; description: string; image: CmsImage; featured: boolean };

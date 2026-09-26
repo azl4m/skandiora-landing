@@ -84,7 +84,7 @@ export const homePage = defineType({
       title: 'Note under the testimonials heading',
       type: 'string',
       group: 'page',
-      description: 'Optional. While the testimonials are samples, this explains that. Clear it once real testimonials are added.',
+      description: 'Optional short line under the testimonials heading.',
     }),
     pageFaqs,
     seoField,

@@ -113,7 +113,7 @@ async function run() {
     _type: 'siteSettings',
     phones: site.phones.map((phone) => phone.label),
     whatsapp: site.phone,
-    email: site.email,
+    emails: site.emails,
     tagline: site.tagline,
     offices: withKeys(site.offices.map((office) => ({_type: 'office', city: office.city, state: office.region}))),
     openingHours: 'Mon–Sat, 9:30–6:30',

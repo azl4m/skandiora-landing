@@ -33,11 +33,13 @@ export const siteSettings = defineType({
       validation: (rule) => rule.required().regex(/^\+?[\d\s-]{8,}$/, {name: 'phone number'}).error(PHONE_HINT),
     }),
     defineField({
-      name: 'email',
-      title: 'Email address',
-      type: 'string',
+      name: 'emails',
+      title: 'Email addresses',
+      type: 'array',
       group: 'contact',
-      validation: (rule) => rule.required().email(),
+      description: 'Shown in the footer, contact section and privacy policy. The first one is the main address (also given to Google).',
+      of: [defineArrayMember({type: 'string', validation: (rule) => rule.email().error('Enter a valid email address, e.g. info@skandiora.in')})],
+      validation: (rule) => rule.min(1).error('Add at least one email address.'),
     }),
     defineField({
       name: 'tagline',

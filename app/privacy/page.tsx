@@ -46,7 +46,13 @@ export default async function PrivacyPage() {
               <p className="text-base leading-[1.8] text-body-text mt-3 mb-0">Contact Skandiora Immigration — offices in {site.offices.map((office) => office.city).join(", ")}.</p>
               <ul className="list-none p-0 m-0 mt-4 flex flex-col gap-2 text-base">
                 <li>
-                  Email: <a href={`mailto:${site.email}`} className="break-all underline underline-offset-4" style={{ color: "var(--gold)" }}>{site.email}</a>
+                  Email:{" "}
+                  {site.emails.map((email, index) => (
+                    <span key={email}>
+                      {index > 0 && " / "}
+                      <a href={`mailto:${email}`} className="break-all underline underline-offset-4" style={{ color: "var(--gold)" }}>{email}</a>
+                    </span>
+                  ))}
                 </li>
                 <li>
                   Phone:{" "}

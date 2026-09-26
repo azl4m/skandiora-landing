@@ -1,20 +1,13 @@
 import CardCarousel from "./CardCarousel";
 import styles from "./Testimonials.module.css";
-import { getTestimonials, type Testimonial } from "@/lib/cms/content";
-
-// Built-in design placeholders, used only until testimonials are added in Sanity.
-const samples: Testimonial[] = [
-  { name: "Sample profile 01", service: "Study abroad guidance", quote: "Having someone explain the course and destination options clearly made the next step feel easier to understand." },
-  { name: "Sample profile 02", service: "Domestic admissions", quote: "We appreciated a conversation that considered the course, location and budget together, with room to ask our questions." },
-  { name: "Sample profile 03", service: "MBBS abroad guidance", quote: "It helped to discuss the different study pathways and understand what we should check before choosing a university." },
-  { name: "Sample profile 04", service: "Credit transfer guidance", quote: "Discussing my previous studies helped me understand which questions to ask and what documents to prepare next." },
-];
+import { getTestimonials } from "@/lib/cms/content";
 
 const initials = (name: string) =>
   name.split(/\s+/).filter((word) => /^\p{L}/u.test(word)).map((word) => word[0].toUpperCase()).slice(0, 2).join("");
 
 export default async function Testimonials({ note }: { note?: string }) {
-  const testimonials = await getTestimonials(samples);
+  // Genuine testimonials only; the section hides until at least one is published and shown.
+  const testimonials = await getTestimonials();
   if (!testimonials.length) return null;
   return (
     <section aria-labelledby="testimonials-heading" className="section-space px-4.5">
