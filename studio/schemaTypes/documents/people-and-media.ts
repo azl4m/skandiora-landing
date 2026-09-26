@@ -89,7 +89,7 @@ export const testimonial = defineType({
       initialValue: true,
       description: 'Turn off to hide this testimonial without deleting it.',
     }),
-    defineField({name: 'name', title: 'Name', type: 'string', description: 'The student’s or parent’s name. Only publish with their permission.', validation: (rule) => rule.required()}),
+    defineField({name: 'name', title: 'Name', type: 'string', description: 'The real student’s or parent’s name. Genuine testimonials only, and only with their permission — the section appears on the website once at least one is shown.', validation: (rule) => rule.required()}),
     defineField({name: 'service', title: 'What they came to us for', type: 'string', description: 'e.g. MBBS abroad guidance', validation: (rule) => rule.required()}),
     defineField({
       name: 'quote',
@@ -114,7 +114,14 @@ export const galleryImage = defineType({
   orderings: [orderRankOrdering],
   fields: [
     orderRankField({type: 'galleryImage'}),
-    photo('Tall (portrait) photos fit the gallery frames best.'),
+    defineField({
+      name: 'show',
+      title: 'Show on website',
+      type: 'boolean',
+      initialValue: true,
+      description: 'Turn off to hide this photo without deleting it. The gallery section only appears when at least one photo is shown.',
+    }),
+    photo('Use real photos only — your offices, team and students (with their permission). Tall (portrait) photos fit the gallery frames best.'),
     defineField({
       name: 'caption',
       title: 'What the photo shows',
@@ -123,7 +130,10 @@ export const galleryImage = defineType({
       validation: (rule) => rule.required(),
     }),
   ],
-  preview: {select: {title: 'caption', media: 'photo'}},
+  preview: {
+    select: {title: 'caption', media: 'photo', show: 'show'},
+    prepare: ({title, media, show}) => ({title: show === false ? `${title} (hidden)` : title, media}),
+  },
 })
 
 export const mbbsDestination = defineType({
